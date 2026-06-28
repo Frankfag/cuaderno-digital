@@ -19,11 +19,11 @@ const STORAGE_PASSWORD = "password";
 // ajusta automáticamente login e index
 // =========================================================
 function getLoginUrl() {
-  return "/cuaderno-olivar/html/login.html";
+  return "/cuaderno-digital/cuaderno-olivar/html/login.html";
 }
 
 function getIndexUrl() {
-  return "/cuaderno-olivar/html/index.html";
+  return "/cuaderno-digital/cuaderno-olivar/html/index.html";
 }
 
 

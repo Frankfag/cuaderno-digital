@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Fitosanitario Olivar | Masía Centenaria</title>
+
+  <link rel="stylesheet" href="../css/fitosanitario.css" />
+
+</head>
+
+<body data-page="FITOSANITARIOS">
+
+  <!-- ========================================= -->
+  <!-- MENÚ HAMBURGUESA -->
+  <!-- ========================================= -->
+
+  <button
+    id="btnMenu"
+    class="boton-menu"
+    type="button">
+
+    ☰
+
+  </button>
+
+  <nav id="menuLateral" class="menu-lateral">
+
+    <a href="index.html">Inicio</a>
+
+    <a href="registro.html">Paradas</a>
+
+    <a href="totales.html">Totales</a>
+
+    <a href="control-olivas.html">Control Olivas</a>
+
+    <a href="fitosanitario.html" class="activo">
+      Fitosanitario Olivar
+    </a>
+
+    <a href="../cuaderno-huerta/cuaderno-huerta.html">
+      Cuaderno Huerta
+    </a>
+
+    <a href="mi-cuenta.html">
+      👤 Mi cuenta
+    </a>
+
+    <a href="#" onclick="logout()">
+      🚪 Salir
+    </a>
+
+  </nav>
+
+  <!-- ========================================= -->
+  <!-- CABECERA -->
+  <!-- ========================================= -->
+
+  <header class="header">
+
+    <div class="header__marca">
+
+      <img
+        src="../img/logo1.png"
+        alt="Logo"
+        class="header__logo">
+
+      <h1 class="header__titulo">
+        MASÍA CENTENARIA
+      </h1>
+
+    </div>
+
+    <nav class="nav">
+
+      <a href="index.html">Inicio</a>
+
+      <a href="registro.html">Registro</a>
+
+      <a href="totales.html">Totales</a>
+
+      <a href="control-olivas.html">
+        Control Olivas
+      </a>
+
+      <a href="fitosanitario.html" class="activo">
+        Fitosanitario Olivar
+      </a>
+
+    </nav>
+
+    <div class="contenedor-salir-global">
+
+      <button
+        onclick="logout()"
+        class="boton-salir-rojo">
+
+        Cerrar sesión
+
+      </button>
+
+    </div>
+
+  </header>
+
+  <!-- ========================================= -->
+  <!-- CONTENIDO -->
+  <!-- ========================================= -->
+
+  <main class="main-container">
+
+    <!-- ===================================== -->
+    <!-- CABECERA CAMPAÑA -->
+    <!-- ===================================== -->
+
+    <section class="cabecera">
+
+      <div class="cabecera__texto">
+
+        <h2 id="tituloCampaña">
+          Registro Fitosanitario
+        </h2>
+
+        <p class="cabecera__subtexto">
+          Registro oficial de tratamientos y aplicaciones
+        </p>
+
+      </div>
+
+      <div class="cabecera__derecha-grupo">
+
+        <div class="cabecera__control">
+
+          <span class="label-top">
+
+            CAMPAÑA ACTIVA
+
+          </span>
+
+          <select id="selectorCampaña">
+
+          </select>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ===================================== -->
+    <!-- FORMULARIO -->
+    <!-- ===================================== -->
+
+    <section class="tarjeta-panel">
+
+      <h3>Registro fitosanitario</h3>
+
+      <form id="formFitosanitario" class="form-grid">
+
+        <div class="campo">
+          <label for="fitoFecha">Fecha</label>
+          <input type="date" id="fitoFecha" required>
+        </div>
+
+        <div class="campo">
+          <label for="fitoParcela">Parada / Parcela</label>
+
+          <select id="fitoParcela" required>
+
+            <option value="" selected disabled>
+              Selecciona una parada
+            </option>
+
+            <option>JOVE</option>
+            <option>VIÑETA</option>
+            <option>TIRAS</option>
+            <option>GRANJA</option>
+            <option>HUERTA</option>
+            <option>CAMINO</option>
+            <option>PEREMATA</option>
+            <option>TIRAS MASIA</option>
+
+          </select>
+
+        </div>
+
+        <div class="campo">
+          <label for="fitoSuperficie">Superficie (Ha)</label>
+          <input type="number" step="0.01" min="0" id="fitoSuperficie" required>
+        </div>
+
+        <div class="campo">
+          <label for="fitoProducto">Producto comercial</label>
+          <input type="text" id="fitoProducto" required>
+        </div>
+
+        <div class="campo">
+          <label for="fitoRegistro">Nº Registro</label>
+          <input type="text" id="fitoRegistro" required>
+        </div>
+
+        <div class="campo">
+          <label for="fitoDosis">Dosis</label>
+          <input type="text" id="fitoDosis" required>
+        </div>
+
+        <div class="campo">
+          <label for="fitoLitros">Volumen caldo (L)</label>
+          <input type="number" step="0.01" min="0" id="fitoLitros" required>
+        </div>
+
+        <div class="campo">
+          <label for="fitoPlaga">Plaga / Motivo</label>
+          <input type="text" id="fitoPlaga" required>
+        </div>
+
+        <div class="campo">
+          <label for="fitoOperario">Operario</label>
+          <input type="text" id="fitoOperario" required>
+        </div>
+
+        <div class="campo">
+          <label for="fitoCarnet">Carnet aplicador</label>
+          <input type="text" id="fitoCarnet" required>
+        </div>
+
+        <div class="campo">
+          <label for="fitoMaquinaria">Equipo / Maquinaria</label>
+          <input type="text" id="fitoMaquinaria" required>
+        </div>
+
+        <div class="campo">
+          <label for="fitoRoma">ROMA</label>
+          <input type="text" id="fitoRoma">
+        </div>
+
+        <div class="campo">
+          <label for="fitoPlazo">Plazo seguridad (días)</label>
+          <input type="number" min="0" id="fitoPlazo" required>
+        </div>
+
+        <div class="acciones-formulario">
+
+          <button
+            type="submit"
+            class="boton">
+
+            Guardar tratamiento
+
+          </button>
+
+          <button
+            id="btnImprimirFito"
+            type="button"
+            class="boton boton-imprimir">
+
+            🖨️ Imprimir
+
+          </button>
+
+          <button
+            id="btnExcelFito"
+            type="button"
+            class="boton boton-excel">
+
+            📊 Descargar Excel
+
+          </button>
+
+        </div>
+
+      </form>
+
+    </section>
+
+    <!-- ===================================== -->
+    <!-- HISTÓRICO -->
+    <!-- ===================================== -->
+
+    <section class="tarjeta-panel">
+
+      <h3>Histórico de tratamientos</h3>
+
+      <div class="tabla-contenedor">
+
+        <table
+          id="tablaFitosanitario"
+          class="tabla-maestra">
+
+          <thead>
+
+            <tr>
+
+              <th>Fecha</th>
+              <th>Parada</th>
+              <th>Superficie</th>
+              <th>Producto</th>
+              <th>Registro</th>
+              <th>Dosis</th>
+              <th>Caldo</th>
+              <th>Plaga</th>
+              <th>Operario</th>
+              <th>Carnet</th>
+              <th>Equipo</th>
+              <th>ROMA</th>
+              <th>Plazo</th>
+              <th>Acción</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody id="tablaFitosanitarioBody">
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ========================================= -->
+  <!-- SCRIPTS -->
+  <!-- ========================================= -->
+
+  <script src="../js/fitosanitario.js"></script>
+  <script src="../js/acceso.js"></script>
+
+</body>
+
+</html>

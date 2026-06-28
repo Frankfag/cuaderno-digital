@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuaderno Huerta | Panel Huerta</title>
+  <link rel="stylesheet" href="/cuaderno-huerta/css/huerta-riegos.css">
+
+   <!-- ✅ CSS UNIFICADOS TARJETAS, FORMULARIOS, TABLAS --> 
+  <link rel="stylesheet" href="../../css-global/tarjetas-global.css">
+  <link rel="stylesheet" href="../../css-global/formularios-global.css">
+  <link rel="stylesheet" href="../../css-global/tablas-global.css">
+
+</head>
+
+<body>
+
+
+<div class="contenedor-salir-global">
+
+  <button
+    onclick="logout()"
+    class="boton-salir-rojo">
+
+    Cerrar sesión
+
+  </button>
+
+</div>
+
+
+<header class="header">
+    <div class="header__marca">
+      <img src="/cuaderno-huerta/img/logo1.png" alt="Logo" class="header__logo">
+      <h1 class="header__titulo">MASIA CENTENARIA</h1>
+    </div>
+
+    <nav class="nav-huerta">
+  <a href="/cuaderno-olivar/html/index.html">Inicio Principal</a>    
+  <a href="/cuaderno-huerta/html/huerta-dashboard.html">📊Panel Huerta</a>
+  <a href="/cuaderno-huerta/html/huerta-riegos.html" class="activo">🚿Regar</a>
+  <a href="/cuaderno-huerta/html/cuaderno-huerta.html">🌿 Huerta</a>
+  <a href="/cuaderno-huerta/html/huerta-labores.html">📋Labores</a>
+  <a href="/cuaderno-huerta/html/huerta-abonos.html">🌿Abonado</a>
+  <a href="/cuaderno-huerta/html/huerta-calendario.html">📋Calendario</a>
+</nav>  
+</header>
+
+  <!-- Menú hamburguesa -->
+  <button class="boton-menu" onclick="toggleMenu()">☰</button>
+
+  <div id="menuLateral" class="menu-lateral">
+  <a href="/cuaderno-olivar/html/index.html">Inicio Principal</a>    
+  <a href="/cuaderno-huerta/html/huerta-dashboard.html">📊Panel Huerta</a>
+  <a href="/cuaderno-huerta/html/huerta-riegos.html" class="activo">🚿Regar</a>
+  <a href="/cuaderno-huerta/html/cuaderno-huerta.html" >🌿 Huerta</a>
+  <a href="cuaderno-huerta/html/huerta-labores.html">📋Labores</a>
+  <a href="cuaderno-huerta/html/huerta-abonos.html">🌿Abonado</a>
+  <a href="cuaderno-huerta/html/huerta-calendario.html">📋Calendario</a>
+  <a href="#" onclick="logout()">🚪 Salir</a>
+  </div>
+
+  <main class="main">
+
+<!-- ALERTA METEO -->
+    <section class="tarjeta">
+      <h3>Alerta agrícola</h3>
+      <div id="alertaHuerta" class="alerta-box">
+        <p id="textoAlerta">Sin alertas</p>
+      </div>
+    </section>
+
+
+    <!-- ALERTA GENERAL -->
+    <section class="tarjeta">
+      <h3>Estado general</h3>
+      <div id="alertaRiegoGeneral" class="alerta-box alerta-verde">
+        <p id="textoAlertaRiegoGeneral">✅ Sin alertas de riego.</p>
+      </div>
+    </section>
+
+    <!-- FORMULARIO -->
+    <section class="tarjeta">
+      <h3>Nuevo riego</h3>
+      <form id="formRiego" class="formulario-grid">
+        <div class="campo">
+          <label for="fechaRiego">Fecha</label>
+          <input type="date" id="fechaRiego" required>
+        </div>
+
+        <div class="campo">
+          <label for="horaRiego">Hora prevista</label>
+          <input type="time" id="horaRiego">
+        </div>
+
+        <div class="campo">
+          <select id="parcelaRiego" required>
+            <option value="">-- Selecciona parcela --</option>
+
+            <option value="Parcela 1">Parcela 1</option>
+            <option value="Parcela 2">Parcela 2</option>
+            <option value="Parcela 3">Parcela 3</option>
+            <option value="Parcela 4">Parcela 4</option>
+            <option value="Parcela 5">Parcela 5</option>
+            <option value="Parcela 6">Parcela 6</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label for="minutosRiego">Minutos de riego</label>
+          <input type="number" id="minutosRiego" min="1" step="1" inputmode="numeric" placeholder="Ej. 45" required>
+        </div>
+
+        <div class="campo">
+          <label for="sistemaRiego">Sistema</label>
+          <select id="sistemaRiego">
+            <option value="Goteo">Goteo</option>
+            <option value="Manual">Manual</option>
+            <option value="Aspersión">Aspersión</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </div>
+
+        <div class="campo campo--doble">
+          <label for="notasRiego">Observaciones</label>
+          <textarea id="notasRiego" rows="3" placeholder="Observaciones del riego"></textarea>
+        </div>
+
+        <div class="acciones-formulario">
+          <button type="submit" class="boton">Guardar riego</button>
+        </div>
+      </form>
+    </section>
+    <!-- HISTÓRICO -->
+    <section class="tarjeta">
+      <h3>Plan Histórico de Riegos</h3>
+      <div class="tabla-contenedor">
+        <table class="tabla">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Hora</th>
+              <th>Parcela</th>
+              <th>Min</th>
+              <th>Sistema</th>
+              <th>Estado</th>
+              <th>Restante</th>
+              <th>Notas</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody id="tablaRiegos"></tbody>
+        </table>
+      </div>
+    </section>
+    <!-- RIEGO EN CURSO -->
+    <section class="tarjeta">
+      <h3>Riego en curso</h3>
+
+      <div class="formulario-grid">
+        <div class="campo">
+          <label for="parcelaActualRiego">Parcela actual</label>
+          <input type="text" id="parcelaActualRiego" readonly>
+        </div>
+
+        <div class="campo">
+          <label for="inicioActualRiego">Inicio real</label>
+          <input type="text" id="inicioActualRiego" readonly>
+        </div>
+
+        <div class="campo">
+          <label for="finPrevistoRiego">Fin previsto</label>
+          <input type="text" id="finPrevistoRiego" readonly>
+        </div>
+
+        <div class="campo">
+          <label for="contadorRiego">Tiempo restante</label>
+          <input type="text" id="contadorRiego" readonly>
+        </div>
+
+        <div class="campo">
+          <label for="siguienteRiego">Siguiente pendiente</label>
+          <input type="text" id="siguienteRiego" readonly>
+        </div>
+
+        <div class="campo">
+          <label for="estadoActualRiego">Estado</label>
+          <input type="text" id="estadoActualRiego" readonly>
+        </div>
+      </div>
+
+      <div id="mensajeEstadoRiego" class="alerta-box alerta-amarilla">
+        <p>Ahora mismo no hay ningún riego en marcha.</p>
+      </div>
+    </section>
+
+    <!-- CONTROL SEMANAL -->
+    <section class="tarjeta">
+      <h3>Control semanal de parcelas</h3>
+
+      <div class="formulario-grid">
+        <div class="campo campo--doble">
+          <label for="parcelasControlSemanal">Parcelas a controlar cada semana</label>
+          <textarea id="parcelasControlSemanal" rows="3" placeholder="Ej. Parcela 1, Parcela 2, Invernadero, Bancal Tomates"></textarea>
+        </div>
+
+        <div class="acciones-formulario">
+          <button type="button" id="btnGuardarParcelasControl" class="boton">Guardar listado semanal</button>
+        </div>
+      </div>
+
+      <div id="informeSemanalRiego" class="alerta-box"></div>
+        <p>Cargando informe semanal...</p>
+      </div>
+    </section>
+    <div style="text-align:right; margin-bottom:10px;">
+  <button id="btnResetRiegos" class="boton boton-eliminar">
+    🗑️ Resetear riegos
+  </button>
+</div>
+    
+
+    <!-- TIEMPO LOCAL -->
+    <section class="tarjeta">
+      <h3>Tiempo local en Reus</h3>
+      <div class="mini-pronostico">
+        <div>
+          <h4>Hora actual</h4>
+          <p id="horaReus">--:--:--</p>
+        </div>
+        <div>
+          <h4>Temperatura</h4>
+          <p id="tempReus">-- °C</p>
+        </div>
+        <div>
+          <h4>Estado</h4>
+          <p id="estadoReus">--</p>
+        </div>
+        <div>
+          <h4>Lluvia</h4>
+          <p id="lluviaReus">-- %</p>
+        </div>
+        <div>
+          <h4>Riego</h4>
+          <p id="riegoReus">--</p>
+        </div>
+        <div>
+          <h4>Consejo</h4>
+          <p id="consejoReus">--</p>
+        </div>
+      </div>
+    </section>
+
+    
+
+    
+  </main>
+  <script src="/cuaderno-olivar/js/acceso.js"></script>
+<script src="../js/huerta-riegos.js"></script>
+  <script src="../js/cuaderno-huerta.js"></script>
+  
+
+
+
+
+</body>
+</html>

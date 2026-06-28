@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+  
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Cuaderno Huerta | HUERTA</title>
+ <!-- ✅ Leaflet CSS -->
+ <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+ <link rel="stylesheet" href="../css/cuaderno-huerta.css">
+  <!-- ✅ CSS UNIFICADOS --> 
+  <link rel="stylesheet" href="../../css-global/tarjetas-global.css">
+  <link rel="stylesheet" href="../../css-global/formularios-global.css">
+  <link rel="stylesheet" href="../../css-global/tablas-global.css">
+
+</head>
+
+<div class="contenedor-salir-global">
+
+  <button
+    onclick="logout()"
+    class="boton-salir-rojo">
+
+    Cerrar sesión
+
+  </button>
+
+<body>
+
+<header class="header">
+    <div class="header__marca">
+      <img src="/cuaderno-huerta/img/logo1.png" alt="Logo" class="header__logo">
+      <h1 class="header__titulo">MASIA CENTENARIA</h1>
+    </div>
+
+    <nav class="nav-huerta">
+  <a href="/cuaderno-olivar/html/index.html">Inicio Principal</a>    
+  <a href="/cuaderno-huerta/html/huerta-dashboard.html">📊Panel Huerta</a>
+  <a href="/cuaderno-huerta/html/huerta-riegos.html">🚿Regar</a>
+  <a href="/cuaderno-huerta/html/cuaderno-huerta.html" class="activo">🌿 Huerta</a>
+  <a href="/cuaderno-huerta/html/huerta-labores.html">📋Labores</a>
+  <a href="/cuaderno-huerta/html/huerta-abonos.html">🌿Abonado</a>
+  <a href="/cuaderno-huerta/html/huerta-calendario.html">📋Calendario</a>
+</nav>  
+</header>
+
+  <!-- Menú hamburguesa -->
+  <button class="boton-menu" onclick="toggleMenu()">☰</button>
+
+  <div id="menuLateral" class="menu-lateral">
+  <a href="/cuaderno-olivar/html/index.html">Inicio Principal</a>    
+  <a href="/cuaderno-huerta/html/huerta-dashboard.html">📊Panel Huerta</a>
+  <a href="/cuaderno-huerta/html/huerta-riegos.html">🚿Regar</a>
+  <a href="/cuaderno-huerta/html/cuaderno-huerta.html" class="activo" >🌿 Huerta</a>
+  <a href="cuaderno-huerta/html/huerta-labores.html">📋Labores</a>
+  <a href="cuaderno-huerta/html/huerta-abonos.html">🌿Abonado</a>
+  <a href="cuaderno-huerta/html/huerta-calendario.html">📋Calendario</a>
+  <a href="#" onclick="logout()">🚪 Salir</a>
+  </div>
+
+
+  
+  <main class="main">
+    <div id="linea-campana-control">
+    <!-- CABECERA -->
+    <section class="cabecera">
+      <div class="cabecera__texto">
+        <h2 id="tituloHuerta"></h2>
+        
+      </div>
+
+      <div class="cabecera__control">
+        <span class="label-top">CAMPAÑA HUERTA</span>
+        <select id="selectorAñoHuerta"></select>      
+      </div>
+    </section>
+    </div>
+
+<!--BOTONES CUADERNO DE HUERTA-->
+
+<!--<button id="btnExportHuerta" type="button" class="boton-accion">📄</button>-->
+        <button id="btnExportHuerta" type="button" class="boton-accion">Descargar</button>
+
+        <!--<button id="btnPrintHuerta" type="button" class="boton-accion">🖨️</button>-->
+        <button type="button" class="boton-accion" id="btnPrintHuerta" onclick="window.print()">🖨️ Imprimir</button>
+
+        <button id="btnResetHuerta" class="boton boton-eliminar">🗑️ Resetear</button>
+
+        
+
+        
+
+        
+<!--BOTONES CUADERNO DE HUERTA-->
+
+</section>
+<div id="alertaHuerta" class="alerta-box">
+  <p id="textoAlerta">Sin alertas</p>
+</div>
+
+    <section class="tarjeta">
+  <h3>Control de Rutinas</h3>
+
+  <div id="alertaPlagas" class="alerta-box alerta-verde">
+    <p id="textoAlertaPlagas">✅ Todos los cultivos tienen plaga revisada</p>
+  </div>
+</section>
+
+    <!-- FORMULARIO -->
+<section class="tarjeta">
+  <h3>Alta de cultivo / plantación</h3>
+
+  <form id="formHuerta" class="formulario-grid">
+
+    <!-- ✅ FECHA -->
+    <div class="campo">
+      <label for="hFechaPlantacion">Fecha de plantación</label>
+      <input type="date" id="hFechaPlantacion"
+             onchange="actualizarAutoCosecha()"
+             required>
+    </div>
+
+    <!-- ✅ PARCELA (CAMBIO) -->
+    <div class="campo">
+      <label for="hParcela">Parcela</label>
+
+      <select id="hParcela" required>
+        <option value="">-- Selecciona parcela --</option>
+        <option value="Parcela 1">Parcela 1</option>
+        <option value="Parcela 2">Parcela 2</option>
+        <option value="Parcela 3">Parcela 3</option>
+        <option value="Parcela 4">Parcela 4</option>
+        <option value="Parcela 5">Parcela 5</option>
+        <option value="Parcela 6">Parcela 6</option>
+      </select>
+    </div>
+
+    <!-- ✅ CULTIVO (CAMBIO IMPORTANTE) -->
+    <div class="campo">
+      <label for="hCultivo">Cultivo</label>
+
+      <select id="hCultivo"
+              onchange="actualizarAutoCosecha()"
+              required>
+
+        <option value="">-- Selecciona cultivo --</option>
+
+        <optgroup label="☀️ Primavera - Verano">
+          <option value="tomate_montserrat">🍅 Tomate Montserrat</option>
+          <option value="tomate_cordebou">🍅 Tomate Cor de Bou</option>
+          <option value="tomate_penjar">🍅 Tomate de Penjar</option>
+          <option value="tomate_cherry">🍅 Tomate Cherry</option>
+          <option value="pimientos">🫑 Pimiento</option>
+          <option value="calabacin">🥒 Calabacín</option>
+          <option value="pepino">🥒 Pepino</option>
+        </optgroup>
+
+        <optgroup label="🥔 Final invierno">
+          <option value="patatas">🥔 Patatas</option>
+        </optgroup>
+
+        <optgroup label="🍂 Otoño - Invierno">
+          <option value="alcachofas">🍏 Alcachofas</option>
+          <option value="col">🥦 Col</option>
+          <option value="coliflor">🥦 Coliflor</option>
+          <option value="cebolla">🧅 Cebolla</option>
+          <option value="puerro">🥬 Puerro</option>
+          <option value="habas">🌱 Habas</option>
+          <option value="guisantes">🫛 Guisantes</option>
+        </optgroup>
+
+        <optgroup label="🥬 Todo el año">
+          <option value="lechuga_romana">🥬 Lechuga Romana</option>
+          <option value="lechuga_maravilla">🥬 Lechuga Maravilla</option>
+          <option value="lechuga_trocadero">🥬 Lechuga Trocadero</option>
+          <option value="acelga">🥬 Acelga</option>
+          <option value="rabano">🥕 Rábano</option>
+        </optgroup>
+
+      </select>
+    </div>
+
+    <!-- ✅ VARIEDAD (SIN CAMBIOS) 
+    <div class="campo">
+      <label for="hVariedad">Variedad</label>
+      <input type="text" id="hVariedad" placeholder="Ej. Rama">
+    </div>-->
+
+    <!-- ✅ RIEGO 
+    <div class="campo">
+      <label for="hRiego">Sistema de riego</label>
+      <select id="hRiego">
+        <option value="Goteo">Goteo</option>
+        <option value="Manual">Manual</option>
+        <option value="Aspersión">Aspersión</option>
+        <option value="Otro">Otro</option>
+      </select>-->
+
+
+    
+
+<!--
+        <div class="campo">
+          <label for="hVariedad">Variedad</label>
+          <input type="text" id="hVariedad" placeholder="Ej. Rama">
+        </div>
+
+         <div class="campo">
+          <label for="hSuperficie">Superficie</label>
+          <input type="number" step="0.01" id="hSuperficie" placeholder="m² o ha">
+        </div>-->
+
+        <div class="campo">
+          <label for="hRiego">Sistema de riego</label>
+          <select id="hRiego">
+            <option value="Goteo">Goteo</option>
+            <option value="Manual">Manual</option>
+            <option value="Aspersión">Aspersión</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </div>
+
+        
+
+        <div class="campo">
+          <label for="hFechaCosecha">Fecha prevista de cosecha</label>
+          <input type="date" id="hFechaCosecha" readonly>
+        </div>
+        
+
+        <div class="campo campo--doble">
+          <label for="hNotas">Notas</label>
+          <textarea id="hNotas" rows="3" placeholder="Observaciones"></textarea>
+        </div>
+        
+ 
+ <!-- BOTÓN -->
+    <div class="acciones-formulario">
+      <button type="submit" class="botoncultivo">
+        Guardar cultivo
+      </button>
+    </div>
+
+
+
+        
+      </form>
+    </section>
+
+    <!-- FILTROS -->
+    <section class="tarjeta">
+      <h3>Filtros</h3>
+
+      <div class="formulario-grid filtros-grid">
+        <div class="campo">
+          <label for="filtroParcelaHuerta">Parcela</label>
+          <input type="text" id="filtroParcelaHuerta" placeholder="Filtrar parcela">
+        </div>
+
+        <div class="campo">
+          <label for="filtroCultivoHuerta">Cultivo</label>
+          <input type="text" id="filtroCultivoHuerta" placeholder="Filtrar cultivo">
+        </div>
+
+        <div class="campo">
+          <label for="filtroEstadoHuerta">Estado</label>
+          <select id="filtroEstadoHuerta">
+            <option value="TODOS">Todos</option>
+            <option value="EN_CURSO">En curso</option>
+            <option value="PROXIMO">Próxima cosecha</option>
+            <option value="LISTO">Listo para cosechar</option>
+            <option value="COSECHADO">Cosechado</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+   <!-- HISTÓRICO -->
+<section id="seccion-historico-completo" class="tarjeta">
+  <h3>Histórico de cultivos</h3>
+
+  <div id="tabla-historico-cultivos" class="tabla-contenedor">
+    <table class="tabla">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Parcela</th>
+          <th>Cultivo</th>
+          <th>Días</th>
+          <th>Cosecha prevista</th>
+          <th>Estado</th>
+          <th>Notas</th>
+          <th>Checklist</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody id="tablaHuertaBody"></tbody>
+    </table>
+  </div>
+</section>
+
+    <!-- RADAR/HORA -->
+<section class="tarjeta">
+
+  <h3>Tiempo local en Reus</h3>
+
+  <div class="mini-pronostico">
+    <div>
+      <h4>Hora actual</h4>
+      <p id="horaReus">--:--:--</p>
+    </div>
+
+    <div>
+      <h4>Temperatura</h4>
+      <p id="tempReus">-- °C</p>
+    </div>
+
+    <div>
+      <h4>Estado</h4>
+      <p id="estadoReus">--</p>
+    </div>
+
+    <div>
+      <h4>Lluvia</h4>
+      <p id="lluviaReus">-- %</p>
+    </div>
+
+    <div>
+      <h4>Riego</h4>
+      <p id="riegoReus">--</p>
+    </div>
+
+    <div>
+      <h4>Consejo</h4>
+      <p id="consejoReus">--</p>
+    </div>
+  </div>
+
+
+  </main>
+
+<script src="/cuaderno-olivar/js/acceso.js"></script>
+<script src="../js/cuaderno-huerta.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+
+
+</body>
+</html>  

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendario de Cultivos | Masía Centenaria</title>
+  <link rel="stylesheet" href="/cuaderno-huerta/css/huerta-calendario.css">
+
+   <!-- ✅ CSS UNIFICADOS --> 
+  <link rel="stylesheet" href="../../css-global/tarjetas-global.css">
+  <link rel="stylesheet" href="../../css-global/formularios-global.css">
+  <link rel="stylesheet" href="../../css-global/tablas-global.css">
+
+</head>
+
+<body>
+
+<div class="contenedor-salir-global">
+
+  <button
+    onclick="logout()"
+    class="boton-salir-rojo">
+
+    Cerrar sesión
+
+  </button>
+
+</div>
+
+<header class="header">
+    <div class="header__marca">
+      <img src="/cuaderno-huerta/img/logo1.png" alt="Logo" class="header__logo">
+      <h1 class="header__titulo">MASIA CENTENARIA</h1>
+    </div>
+
+    <nav class="nav-huerta">
+  <a href="/cuaderno-olivar/html/index.html">Inicio Principal</a>    
+  <a href="/cuaderno-huerta/html/huerta-dashboard.html">📊Panel Huerta</a>
+  <a href="/cuaderno-huerta/html/huerta-riegos.html">🚿Regar</a>
+  <a href="/cuaderno-huerta/html/cuaderno-huerta.html" >🌿 Huerta</a>
+  <a href="/cuaderno-huerta/html/huerta-labores.html">📋Labores</a>
+  <a href="/cuaderno-huerta/html/huerta-abonos.html">🌿Abonado</a>
+  <a href="/cuaderno-huerta/html/huerta-calendario.html" class="activo">📋Calendario</a>
+</nav>  
+</header>
+
+  <!-- Menú hamburguesa -->
+  <button class="boton-menu" onclick="toggleMenu()">☰</button>
+
+  <div id="menuLateral" class="menu-lateral">
+  <a href="/cuaderno-olivar/html/index.html">Inicio Principal</a>    
+  <a href="/cuaderno-huerta/html/huerta-dashboard.html">📊Panel Huerta</a>
+  <a href="/cuaderno-huerta/html/huerta-riegos.html">🚿Regar</a>
+  <a href="/cuaderno-huerta/html/cuaderno-huerta.html" >🌿 Huerta</a>
+  <a href="cuaderno-huerta/html/huerta-labores.html">📋Labores</a>
+  <a href="cuaderno-huerta/html/huerta-abonos.html">🌿Abonado</a>
+  <a href="cuaderno-huerta/html/huerta-calendario.html" class="activo">📋Calendario</a>
+  <a href="#" onclick="logout()">🚪 Salir</a>
+  </div>
+
+
+<!-- MENÚ MÓVIL -->
+
+<button
+  id="btnMenu"
+  class="boton-menu"
+  type="button">
+
+  ☰
+
+</button>
+
+<nav id="menuLateral" class="menu-lateral">
+
+  <a href="../index.html">Inicio Principal</a>
+
+  <a href="huerta-dashboard.html">📊 Panel Huerta</a>
+
+  <a href="huerta-riegos.html">🚿 Regar</a>
+
+  <a href="cuaderno-huerta.html">🌿 Huerta</a>
+
+  <a href="huerta-labores.html">📋 Labores</a>
+
+  <a href="huerta-abonos.html">🌿 Abonado</a>
+
+  <a href="huerta-calendario.html" class="activo">
+    📅 Calendario
+  </a>
+
+</nav>
+
+<main class="main-container">
+
+  <!-- ======================================= -->
+  <!-- SELECTOR AGRUPADO -->
+  <!-- ======================================= -->
+
+  <section class="tarjeta">
+
+    <h2>Selector de cultivos</h2>
+
+    <div class="campo">
+
+      <label for="selectorCultivo">
+
+        Cultivo
+
+      </label>
+
+      <select id="selectorCultivo">
+
+      </select>
+
+    </div>
+
+  </section>
+
+  <!-- ======================================= -->
+  <!-- RESUMEN -->
+  <!-- ======================================= -->
+
+  <section class="tarjeta">
+
+    <h2>Resumen de compra / siembra</h2>
+
+    <div id="resumenChecklistCultivos">
+
+    </div>
+
+  </section>
+
+  <!-- ======================================= -->
+  <!-- SELECCIÓN DE MES -->
+  <!-- ======================================= -->
+
+  <section class="tarjeta">
+
+    <h2>Calendario de cultivos</h2>
+
+    <div class="campo">
+
+      <label for="selectorMesCalendario">
+
+        Mes
+
+      </label>
+
+      <select id="selectorMesCalendario">
+        <option value="todos">📋 Todos los cultivos</option>
+        <option value="enero">Enero</option>
+        <option value="febrero">Febrero</option>
+        <option value="marzo">Marzo</option>
+        <option value="abril">Abril</option>
+        <option value="mayo">Mayo</option>
+        <option value="junio">Junio</option>
+        <option value="julio">Julio</option>
+        <option value="agosto">Agosto</option>
+        <option value="septiembre" selected>Septiembre</option>
+        <option value="octubre">Octubre</option>
+        <option value="noviembre">Noviembre</option>
+        <option value="diciembre">Diciembre</option>
+
+      </select>
+
+    </div>
+
+  </section>
+
+  <!-- ======================================= -->
+  <!-- CALENDARIO -->
+  <!-- ======================================= -->
+
+  <section class="tarjeta">
+
+    <div
+      id="gridCalendarioCultivo"
+      class="calendario-grid">
+
+    </div>
+
+    <div
+      id="detalleCultivo"
+      class="detalle-cultivo oculto">
+
+    </div>
+
+  </section>
+
+  
+
+</main>
+<script src="/cuaderno-olivar/js/acceso.js"></script>
+<script src="../js/huerta-calendario.js"></script>
+
+</body>
+</html>

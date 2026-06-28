@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Cuenta | Masía Centenaria</title>
+  <link rel="stylesheet" href="../css/mi-cuenta.css">
+
+   <!-- ✅ CSS UNIFICADOS TARJETAS, FORMULARIOS, TABLAS --> 
+  <link rel="stylesheet" href="../../css-global/tarjetas-global.css">
+  <link rel="stylesheet" href="../../css-global/formularios-global.css">
+  <link rel="stylesheet" href="../../css-global/tablas-global.css">
+
+</head>
+
+<body data-page="MI_CUENTA">
+
+  <!-- ========================================= -->
+  <!-- MENÚ HAMBURGUESA -->
+  <!-- ========================================= -->
+
+  <button
+    id="btnMenu"
+    class="boton-menu"
+    type="button">
+
+    ☰
+
+  </button>
+
+  <nav id="menuLateral" class="menu-lateral">
+
+    <a href="index.html">Inicio</a>
+
+    <a href="registro.html">Registro</a>
+
+    <a href="totales.html">Totales</a>
+
+    <a href="control-olivas.html">Control Olivas</a>
+
+    <a href="fitosanitario.html">Fitosanitario</a>
+
+    <a href="../cuaderno-huerta/cuaderno-huerta.html">
+      Cuaderno Huerta
+    </a>
+
+    <a href="mi-cuenta.html" class="activo">
+      👤 Mi cuenta
+    </a>
+
+    <a href="#" onclick="logout()">
+      🚪 Salir
+    </a>
+
+  </nav>
+
+  <!-- ========================================= -->
+  <!-- CABECERA -->
+  <!-- ========================================= -->
+
+  <header class="header">
+
+    <div class="header__marca">
+
+      <img
+        src="../img/logo1.png"
+        alt="Logo"
+        class="header__logo">
+
+      <h1 class="header__titulo">
+
+        MASÍA CENTENARIA
+
+      </h1>
+
+    </div>
+
+    <div class="cuenta-acciones-finales">
+
+      <a
+        href="index.html"
+        class="boton boton-retorno">
+
+        ⬅ Volver al inicio
+
+      </a>
+
+      <button
+        onclick="logout()"
+        class="boton-salir-rojo">
+
+        Cerrar sesión
+
+      </button>
+
+    </div>
+
+  </header>
+
+  <!-- ========================================= -->
+  <!-- CONTENIDO -->
+  <!-- ========================================= -->
+
+  <main class="main-container">
+
+    <!-- ===================================== -->
+    <!-- USUARIO ACTUAL -->
+    <!-- ===================================== -->
+
+    <section class="tarjeta-panel cuenta-box">
+
+      <h3>Usuario actual</h3>
+
+      <p
+        id="usuarioActual"
+        class="usuario-actual-texto">
+
+        --
+
+      </p>
+
+    </section>
+
+    <!-- ===================================== -->
+    <!-- CAMBIO DE CONTRASEÑA -->
+    <!-- ===================================== -->
+
+    <section class="tarjeta-panel cuenta-box">
+
+      <h3>Cambiar contraseña</h3>
+
+      <form
+        id="formCuenta"
+        class="form-grid">
+
+        <div class="campo">
+
+          <label for="passActual">
+
+            Contraseña actual
+
+          </label>
+
+          <input
+            type="password"
+            id="passActual"
+            required>
+
+        </div>
+
+        <div class="campo">
+
+          <label for="passNueva">
+
+            Nueva contraseña
+
+          </label>
+
+          <input
+            type="password"
+            id="passNueva"
+            minlength="6"
+            required>
+
+        </div>
+
+        <div class="campo">
+
+          <label for="passRepetir">
+
+            Repetir contraseña
+
+          </label>
+
+          <input
+            type="password"
+            id="passRepetir"
+            minlength="6"
+            required>
+
+        </div>
+
+        <div class="acciones-formulario">
+
+          <button
+            type="submit"
+            class="boton">
+
+            Guardar cambio
+
+          </button>
+
+        </div>
+
+      </form>
+
+      <p
+        id="msgCuenta"
+        class="cuenta-error-alerta">
+
+      </p>
+
+    </section>
+
+  </main>
+
+  <!-- ========================================= -->
+  <!-- SCRIPTS -->
+  <!-- ========================================= -->
+
+  <script src="../js/mi-cuenta.js"></script>
+  <script src="../js/acceso.js"></script>
+
+</body>
+
+</html>

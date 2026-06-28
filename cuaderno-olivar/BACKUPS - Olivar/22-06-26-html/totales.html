@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Totales | Masía Centenaria</title>
+
+  <link rel="stylesheet" href="../css/totales.css">
+
+</head>
+
+<body data-page="TOTALES">
+
+  <!-- ========================================= -->
+  <!-- MENÚ HAMBURGUESA -->
+  <!-- ========================================= -->
+
+  <button
+    id="btnMenu"
+    class="boton-menu"
+    type="button">
+
+    ☰
+
+  </button>
+
+  <nav id="menuLateral" class="menu-lateral">
+
+    <a href="index.html">Inicio</a>
+
+    <a href="registro.html">Registro</a>
+
+    <a href="totales.html" class="activo">
+      Totales
+    </a>
+
+    <a href="control-olivas.html">
+      Control Olivas
+    </a>
+
+    <a href="fitosanitario.html">
+      Fitosanitario Olivar
+    </a>
+
+    <a href="../cuaderno-huerta/cuaderno-huerta.html">
+      Cuaderno Huerta
+    </a>
+
+    <a href="mi-cuenta.html">
+      👤 Mi cuenta
+    </a>
+
+    <a href="#" onclick="logout()">
+      🚪 Salir
+    </a>
+
+  </nav>
+
+  <!-- ========================================= -->
+  <!-- CABECERA -->
+  <!-- ========================================= -->
+
+  <header class="header">
+
+    <div class="header__marca">
+
+      <img
+        src="../img/logo1.png"
+        alt="Logo"
+        class="header__logo">
+
+      <h1 class="header__titulo">
+
+        MASÍA CENTENARIA
+
+      </h1>
+
+    </div>
+
+    <nav class="nav">
+
+      <a href="index.html">Inicio</a>
+
+      <a href="registro.html">Registro</a>
+
+      <a href="totales.html" class="activo">
+        Totales
+      </a>
+
+      <a href="control-olivas.html">
+        Control Olivas
+      </a>
+
+      <a href="fitosanitario.html">
+        Fitosanitario Olivar
+      </a>
+
+    </nav>
+
+    <div class="contenedor-salir-global">
+
+      <button
+        onclick="logout()"
+        class="boton-salir-rojo">
+
+        Cerrar sesión
+
+      </button>
+
+    </div>
+
+  </header>
+
+  <!-- ========================================= -->
+  <!-- CONTENIDO -->
+  <!-- ========================================= -->
+
+  <main class="main-container">
+
+    <!-- ===================================== -->
+    <!-- CABECERA CAMPAÑA -->
+    <!-- ===================================== -->
+
+    <section class="cabecera">
+
+      <div class="cabecera__texto">
+
+        <h2 id="tituloCampaña">
+
+          Totales de Producción
+
+        </h2>
+
+      </div>
+
+      <div class="cabecera__control">
+
+        <span class="label-top">
+
+          CAMPAÑA ACTIVA
+
+        </span>
+
+        <select id="selectorCampaña">
+
+        </select>
+
+      </div>
+
+    </section>
+
+    <!-- ===================================== -->
+    <!-- KPIs -->
+    <!-- ===================================== -->
+
+    <section class="tarjetas-resumen-grid">
+
+      <div class="tarjeta-mini-panel">
+
+        <span class="tarjeta-mini-label">
+
+          TOTAL KILOS
+
+        </span>
+
+        <div
+          class="tarjeta-mini-valor"
+          id="totalKilosGlobal">
+
+          0 kg
+
+        </div>
+
+      </div>
+
+      <div class="tarjeta-mini-panel">
+
+        <span class="tarjeta-mini-label">
+
+          MÁXIMO PESAJE
+
+        </span>
+
+        <div
+          class="tarjeta-mini-valor"
+          id="maximoPesajeGlobal">
+
+          0 kg
+
+        </div>
+
+      </div>
+
+      <div class="tarjeta-mini-panel">
+
+        <span class="tarjeta-mini-label">
+
+          TOTAL APARTADOS
+
+        </span>
+
+        <div
+          class="tarjeta-mini-valor"
+          id="totalApartadosGlobal">
+
+          0
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ===================================== -->
+    <!-- FILTROS -->
+    <!-- ===================================== -->
+
+    <section class="tarjeta-panel">
+
+      <h3>Filtrar por parada</h3>
+
+      <div class="form-grid">
+
+        <div class="campo">
+
+          <label for="buscarParada">
+
+            Parada
+
+          </label>
+
+          <select id="buscarParada">
+
+            <option value="TODAS">Todas</option>
+
+            <option value="JOVE">JOVE</option>
+            <option value="VIÑETA">VIÑETA</option>
+            <option value="TIRAS">TIRAS</option>
+            <option value="GRANJA">GRANJA</option>
+            <option value="HUERTA">HUERTA</option>
+            <option value="CAMINO">CAMINO</option>
+            <option value="PEREMATA">PEREMATA</option>
+            <option value="TIRAS MASIA">TIRAS MASIA</option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+      <div class="acciones-formulario">
+
+        <button
+          type="button"
+          id="btnImprimirTotales"
+          class="boton boton-imprimir">
+
+          🖨️ Imprimir
+
+        </button>
+
+        <button
+          type="button"
+          id="btnExcelTotales"
+          class="boton boton-excel">
+
+          📊 Descargar Excel
+
+        </button>
+
+      </div>
+
+    </section>
+
+    <!-- ===================================== -->
+    <!-- HISTÓRICO -->
+    <!-- ===================================== -->
+
+    <section class="tarjeta-panel">
+
+      <h3>Listado detallado de producción</h3>
+
+      <div class="tabla-contenedor">
+
+        <table
+          id="tablaTotalesProduccion"
+          class="tabla-control">
+
+          <thead>
+
+            <tr>
+
+              <th>Fecha</th>
+              <th>Parada</th>
+              <th>Kilos</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody id="tablaTotales">
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ========================================= -->
+  <!-- SCRIPTS -->
+  <!-- ========================================= -->
+
+  <script src="../js/totales.js"></script>
+  <script src="../js/acceso.js"></script>
+
+</body>
+
+</html>

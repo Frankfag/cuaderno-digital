@@ -1,0 +1,220 @@
+/* TODAS LAS TARJETAS DE LA WEB
+.tarjeta
+.tarjeta-panel
+.tarjeta-mini
+.tarjeta-mini-panel
+.login-card
+.acceso-card
+.camino-enlace-caja
+.card-cultivo
+.detalle-cultivo
+.checklist-huerta
+.check-resumen
+*/
+
+/* =========================================================
+   MASÍA CENTENARIA
+   TARJETAS GLOBALES
+   ========================================================= */
+
+
+:root{
+
+  --dorado:#ffd700;
+
+  --panel:rgba(0,0,0,.18);
+
+  --borde-dorado:rgba(255,215,0,.25);
+
+  --borde-dorado-hover:rgba(255,215,0,.50);
+
+}
+
+
+/* =========================================================
+   TARJETAS GENERALES
+   ========================================================= */
+
+.tarjeta,
+.tarjeta-panel,
+.tarjeta-mini,
+.tarjeta-mini-panel,
+.tarjeta-panel-totales-box,
+.acceso-card,
+.card-cultivo,
+.camino-enlace-caja,
+.checklist-huerta,
+.check-resumen,
+.detalle-cultivo,
+.login-card,
+.cuenta-box{
+
+  background:var(--panel);
+
+  border:1px solid var(--borde-dorado);
+
+  border-radius:16px;
+
+  transition:
+    border-color .25s ease,
+    transform .25s ease,
+    box-shadow .25s ease;
+
+}
+
+/* =========================================================
+   HOVER
+   ========================================================= */
+
+.tarjeta:hover,
+.tarjeta-panel:hover,
+.tarjeta-mini:hover,
+.tarjeta-mini-panel:hover,
+.tarjeta-panel-totales-box:hover,
+.acceso-card:hover,
+.card-cultivo:hover,
+.camino-enlace-caja:hover{
+
+  border-color:var(--borde-dorado-hover);
+
+}
+
+/* =========================================================
+   TÍTULOS DE TARJETAS
+   ========================================================= */
+
+.tarjeta h2,
+.tarjeta h3,
+.tarjeta-panel h2,
+.tarjeta-panel h3,
+.tarjeta-mini h3,
+.tarjeta-mini h4,
+.tarjeta-mini-panel h3,
+.detalle-cultivo h2{
+
+  color:var(--dorado);
+
+}
+
+/* =========================================================
+   TARJETAS MINI
+   ========================================================= */
+
+.tarjeta-mini,
+.tarjeta-mini-panel{
+
+  text-align:center;
+
+}
+
+/* =========================================================
+   TARJETAS CULTIVOS
+   ========================================================= */
+
+.card-cultivo{
+
+  overflow:hidden;
+
+}
+
+.card-cultivo img{
+
+  transition:
+    transform .25s ease,
+    filter .25s ease;
+
+}
+
+.card-cultivo:hover img{
+
+  transform:scale(1.04);
+
+  filter:brightness(1.05);
+
+}
+
+.card-cultivo:hover p{
+
+  color:var(--dorado);
+
+}
+
+/* =========================================================
+   ENLACES TIPO TARJETA
+   ========================================================= */
+
+.camino-enlace-caja,
+.acceso-card{
+
+  text-decoration:none;
+
+  color:inherit;
+
+}
+
+/* =========================================================
+   DETALLE CULTIVO
+   ========================================================= */
+
+.detalle-cultivo hr{
+
+  border:none;
+
+  border-top:
+    1px solid rgba(255,215,0,.25);
+
+}
+
+/* =========================================================
+   CHECKS / ESTADOS
+   ========================================================= */
+
+.check-resumen-ok{
+
+  color:#4caf50;
+
+}
+
+.check-resumen-medio{
+
+  color:#ffb300;
+
+}
+
+.check-resumen-mal{
+
+  color:#f44336;
+
+}
+
+/* =========================================================
+   TABLAS DENTRO DE TARJETAS
+   ========================================================= */
+
+.tarjeta .tabla,
+.tarjeta-panel .tabla,
+.tarjeta-panel .tabla-maestra,
+.tarjeta-panel .tabla-control{
+
+  background:transparent;
+
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media(max-width:768px){
+
+  .tarjeta,
+  .tarjeta-panel,
+  .tarjeta-mini,
+  .tarjeta-mini-panel,
+  .card-cultivo,
+  .camino-enlace-caja{
+
+    border-radius:14px;
+
+  }
+
+}

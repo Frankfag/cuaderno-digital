@@ -1,0 +1,230 @@
+/* TODAS LAS TABLAS DE LA WEB
+.tabla
+.tabla-control
+.tabla-maestra
+
+th
+td
+tbody
+thead
+*/
+
+/* =========================================================
+   TABLAS GLOBALES
+   ========================================================= */
+
+.tabla,
+.tabla-control,
+.tabla-maestra{
+
+  width:100%;
+
+  border-collapse:collapse;
+
+  background:none;
+
+}
+
+.tabla thead,
+.tabla tbody,
+.tabla-control thead,
+.tabla-control tbody,
+.tabla-maestra thead,
+.tabla-maestra tbody{
+
+  background:none;
+
+}
+
+.tabla tr,
+.tabla-control tr,
+.tabla-maestra tr{
+
+  background:none;
+
+}
+
+/* =========================================================
+   CONTENEDOR TABLAS
+   ========================================================= */
+
+.tabla-contenedor,
+.table-wrap{
+
+  overflow-x:auto;
+
+}
+
+/* =========================================================
+   TABLAS PRINCIPALES
+   ========================================================= */
+
+.tabla,
+.tabla-control,
+.tabla-maestra{
+
+  width:100%;
+
+  border-collapse:collapse;
+
+  background:transparent;
+
+}
+
+/* =========================================================
+   CABECERAS DORADAS
+   ========================================================= */
+  
+.tabla th,
+.tabla-control th,
+.tabla-maestra th{
+
+  color:var(--dorado);
+
+  background:none;
+
+  border-bottom:
+    1px solid rgba(255,215,0,.25);
+
+}
+
+.tabla tbody tr:hover,
+.tabla-control tbody tr:hover,
+.tabla-maestra tbody tr:hover{
+
+  background:
+    rgba(255,215,0,.04);
+
+}
+
+/* =========================================================
+   CELDAS
+   ========================================================= */
+
+.tabla td,
+.tabla-control td,
+.tabla-maestra td{
+
+  
+background:none;
+
+  border-bottom:
+    1px solid rgba(255,215,0,.10);
+
+
+}
+
+/* =========================================================
+   FILAS
+   ========================================================= */
+
+.tabla tr,
+.tabla-control tr,
+.tabla-maestra tr{
+
+  transition:
+    background .25s ease;
+
+}
+
+.tabla tbody tr:hover,
+.tabla-control tbody tr:hover,
+.tabla-maestra tbody tr:hover{
+
+  background:
+    rgba(255,215,0,.05);
+
+}
+
+/* =========================================================
+   COLUMNAS IMPORTANTES
+   ========================================================= */
+
+.tabla td strong,
+.tabla-control td strong,
+.tabla-maestra td strong{
+
+  color:var(--dorado);
+
+}
+
+/* =========================================================
+   BOTONES DENTRO TABLAS
+   ========================================================= */
+
+.tabla button,
+.tabla-control button,
+.tabla-maestra button{
+
+  cursor:pointer;
+
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media(max-width:768px){
+
+  .tabla thead,
+  .tabla-control thead,
+  .tabla-maestra thead{
+
+    display:none;
+
+  }
+
+  .tabla,
+  .tabla-control,
+  .tabla-maestra,
+
+  .tabla tbody,
+  .tabla-control tbody,
+  .tabla-maestra tbody,
+
+  .tabla tr,
+  .tabla-control tr,
+  .tabla-maestra tr{
+
+    display:block;
+
+  }
+
+  .tabla tr,
+  .tabla-control tr,
+  .tabla-maestra tr{
+
+    margin-bottom:18px;
+
+    padding:14px;
+
+    background:
+      rgba(255,255,255,.04);
+
+    border:
+      1px solid rgba(255,215,0,.15);
+
+    border-radius:12px;
+
+  }
+
+  .tabla td,
+  .tabla-control td,
+  .tabla-maestra td{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    text-align:left;
+
+    border:none;
+
+    padding:8px 0;
+
+  }
+
+}
+

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuaderno Huerta | Panel Huerta</title>
+  <link rel="stylesheet" href="/cuaderno-huerta/css/huerta-dashboard.css">
+
+   <!-- ✅ CSS UNIFICADOS --> 
+  <link rel="stylesheet" href="../../css-global/tarjetas-global.css">
+  <link rel="stylesheet" href="../../css-global/formularios-global.css">
+  <link rel="stylesheet" href="../../css-global/tablas-global.css">
+
+</head>
+
+<body>
+
+<div class="contenedor-salir-global">
+
+  <button
+    onclick="logout()"
+    class="boton-salir-rojo">
+
+    Cerrar sesión
+
+  </button>
+
+</div>
+
+
+
+<header class="header">
+    <div class="header__marca">
+      <img src="/cuaderno-huerta/img/logo1.png" alt="Logo" class="header__logo">
+      <h1 class="header__titulo">MASIA CENTENARIA</h1>
+    </div>
+
+    <nav class="nav-huerta">
+  <a href="/cuaderno-olivar/html/index.html">Inicio Principal</a>    
+  <a href="/cuaderno-huerta/html/huerta-dashboard.html" class="activo">📊Panel Huerta</a>
+  <a href="/cuaderno-huerta/html/huerta-riegos.html">🚿Regar</a>
+  <a href="/cuaderno-huerta/html/cuaderno-huerta.html">🌿 Huerta</a>
+  <a href="/cuaderno-huerta/html/huerta-labores.html">📋Labores</a>
+  <a href="/cuaderno-huerta/html/huerta-abonos.html">🌿Abonado</a>
+  <a href="/cuaderno-huerta/html/huerta-calendario.html">📋Calendario</a>
+</nav>  
+</header>
+
+  <!-- Menú hamburguesa -->
+  <button class="boton-menu" onclick="toggleMenu()">☰</button>
+
+  <div id="menuLateral" class="menu-lateral">
+  <a href="/cuaderno-olivar/html/index.html">Inicio Principal</a>    
+  <a href="/cuaderno-huerta/html/huerta-dashboard.html"class="activo">📊Panel Huerta</a>
+  <a href="/cuaderno-huerta/html/huerta-riegos.html">🚿Regar</a>
+  <a href="/cuaderno-huerta/html/cuaderno-huerta.html" >🌿 Huerta</a>
+  <a href="cuaderno-huerta/html/huerta-labores.html">📋Labores</a>
+  <a href="cuaderno-huerta/html/huerta-abonos.html">🌿Abonado</a>
+  <a href="cuaderno-huerta/html/huerta-calendario.html">📋Calendario</a>
+  <a href="#" onclick="logout()">🚪 Salir</a>
+  </div>
+
+
+<!-- ALERTA GLOBAL -->
+    <section class="tarjeta">
+      <h3>Alerta global de la huerta</h3>
+      <div id="alertaDashboard" class="alerta-box">
+        <p id="textoAlertaDashboard">Sin alertas</p>
+      </div>
+    </section>
+
+  <main class="main">
+    
+    <!-- RESUMEN PRINCIPAL -->
+<section class="tarjeta">
+
+  <h3>Resumen general de campaña</h3>
+
+  <div class="grid-dashboard">
+
+    <!-- 5 -->
+    <div class="tarjeta-mini">
+      <h4>Riegos</h4>
+      <p id="dashRiegos" class="numero">0</p>
+
+      <p class="texto-riego">
+        ✅ Completado <span id="dashRiegosCompletados">0</span> /
+        ⏳ Pendiente <span id="dashRiegosPendientes">0</span>
+      </p>
+
+      <p id="dashAvisoRiegos"></p>
+      <p id="dashContadorRiego"></p>
+    </div>
+
+
+    <!-- 1 -->
+    <div class="tarjeta-mini">
+      <h4>Cultivos activos</h4>
+      <p id="dashCultivos" class="numero">0</p>
+      <div id="listaActivosDashboard" class="mini-lista-dashboard"></div>
+    </div>
+
+     <!-- 2 -->
+    <div class="tarjeta-mini">
+      <h4>Listos para cosechar</h4>
+      <p id="listosCosechar" class="numero">0</p>
+      <div id="listaListosDashboard" class="mini-lista-dashboard"></div>
+    </div>
+    <!-- 3 -->
+    <div class="tarjeta-mini">
+      <h4>Próximas cosechas</h4>
+      <p id="proximasCosechas" class="numero">0</p>
+      <div id="listaProximasDashboard" class="mini-lista-dashboard"></div>
+    </div>
+    <!-- 4 -->
+    <div class="tarjeta-mini">
+      <h4>Kilos cosechados</h4>
+      <p id="dashKilos" class="numero">0</p>
+    </div>
+    
+    <!-- 6 -->
+    <div class="tarjeta-mini">
+      <h4>Labores</h4>
+      <p id="dashLabores" class="numero">0</p>
+    </div>
+    <!-- 7 -->
+    <div class="tarjeta-mini">
+      <h4>Abonados</h4>
+      <p id="dashAbonos" class="numero">0</p>
+    </div>
+
+    <!-- 8 -->
+    <div class="tarjeta-mini">
+      <h4>Campaña activa</h4>
+      <p id="dashCampaña" class="numero">--</p>
+    </div>
+
+  </div>
+
+</section>
+
+    
+
+    <!-- RESUMEN POR PARCELA -->
+    <section class="tarjeta">
+      <h3>Resumen por parcela</h3>
+      <div class="tabla-contenedor">
+        <table class="tabla">
+          <thead>
+            <tr>
+              <th>Parcela</th>
+              <th>Cultivos</th>
+              <th>Labores</th>
+              <th>Riegos</th>
+              <th>Abonos</th>
+              <th>Kilos cosechados</th>
+            </tr>
+          </thead>
+          <tbody id="tablaParcelasDashboard"></tbody>
+        </table>
+      </div>
+    </section>
+
+    
+  </main>
+<script src="/cuaderno-olivar/js/acceso.js"></script>
+<script src="../js/huerta-dashboard.js"></script>
+  
+</body>
+</html>

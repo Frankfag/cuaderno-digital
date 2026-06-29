@@ -85,6 +85,52 @@ function saveCultivos(data) {
   localStorage.setItem(STORAGE_CULTIVOS, JSON.stringify(data));
 }
 
+// =====================================
+// CARGAR CULTIVOS DESDE SUPABASE
+// =====================================
+async function cargarCultivosDesdeSupabase() {
+  try {
+    const { data, error } = await supabaseClient
+      .from("cultivos_huerta")
+      .select("*")
+      .order("id", { ascending: false });
+
+    if (error) {
+      console.error("Error cargando cultivos desde Supabase:", error);
+      return;
+    }
+
+    const cultivos = data.map(item => ({
+      id: item.id,
+      fechaPlantacion: item.fecha_plantacion,
+      parcela: item.parcela,
+      cultivo: item.cultivo,
+      cultivoId: item.cultivo_id,
+      variedad: item.variedad || "",
+      superficie: item.superficie || "",
+      riego: item.riego || "",
+      diasCosecha: item.dias_cosecha || "",
+      fechaCosecha: item.fecha_cosecha,
+      familia: item.familia || "",
+      notas: item.notas || "",
+      campaña: item.campaña || getCampaña(),
+      cosechado: item.cosechado || false,
+      checklist: item.checklist || {
+        riego: false,
+        abonado: false,
+        plagas: false
+      }
+    }));
+
+    saveCultivos(cultivos);
+
+    console.log("Cultivos cargados desde Supabase:", cultivos.length);
+
+  } catch (err) {
+    console.error("Error general cargando Supabase:", err);
+  }
+}
+
 function formatearFechaISO(fechaISO) {
   if (!fechaISO) return "";
   const partes = fechaISO.split("-");
@@ -977,7 +1023,7 @@ function initResetHuerta() {
 // =====================================
 // INICIO
 // =====================================
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
   console.log("JS huerta cargado ✅");
 
   // initMenuLinks(); // <-- COMENTADO PARA EVITAR QUE SE DETENGA EL SCRIPT 
@@ -988,6 +1034,8 @@ document.addEventListener("DOMContentLoaded", function () {
   initPrint();
   initExport();
   initResetHuerta();
+
+  await cargarCultivosDesdeSupabase();
 
   normalizarChecklistCultivos();
 
@@ -1004,7 +1052,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   try {
-    initRadar(); // Ahora sí llegará aquí y tu radar volverá a la vida 📊
+    initRadar();
   } catch (e) {
     console.log("Error radar ❌", e);
   }

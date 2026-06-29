@@ -48,6 +48,45 @@ function getRiegos() {
   return getData(STORAGE_RIEGOS_HUERTA);
 }
 
+// =====================================
+// CARGAR RIEGOS DESDE SUPABASE
+// =====================================
+async function cargarRiegosDesdeSupabase() {
+  try {
+    const { data, error } = await supabaseClient
+      .from("riegos_huerta")
+      .select("*")
+      .order("id", { ascending: false });
+
+    if (error) {
+      console.error("Error cargando riegos desde Supabase:", error);
+      return;
+    }
+
+    const riegos = data.map(item => ({
+      id: item.id,
+      fecha: item.fecha,
+      horaPrevista: item.hora_prevista || "",
+      parcela: item.parcela || "",
+      minutos: item.minutos || 0,
+      sistema: item.sistema || "",
+      notas: item.notas || "",
+      estado: item.estado || "PENDIENTE",
+      fechaHoraInicioReal: item.fecha_hora_inicio_real || "",
+      fechaHoraFinPrevista: item.fecha_hora_fin_prevista || "",
+      fechaHoraFinReal: item.fecha_hora_fin_real || "",
+      campaña: item.campaña || getCampañaHuerta()
+    }));
+
+    saveRiegos(riegos);
+
+    console.log("Riegos cargados desde Supabase:", riegos.length);
+
+  } catch (err) {
+    console.error("Error general cargando riegos desde Supabase:", err);
+  }
+}
+
 function saveRiegos(data) {
   saveData(STORAGE_RIEGOS_HUERTA, data);
 }
@@ -964,7 +1003,10 @@ function initPronosticoReus() {
 // =====================================
 // INIT
 // =====================================
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
+
+  await cargarRiegosDesdeSupabase();
+
   initFechaPorDefecto();
   renderDatalistParcelas();
 
@@ -995,5 +1037,5 @@ document.addEventListener("DOMContentLoaded", function () {
   setInterval(function () {
     initPronosticoReus();
   }, 15 * 60 * 1000);
+
 });
-``

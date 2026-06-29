@@ -4,7 +4,7 @@
 
 // ---------- STORAGE ----------
 const STORAGE_RIEGOS_HUERTA = "huerta_riegos";
-const STORAGE_CAMPAÑA_HUERTA = "huerta_campaña_activa";
+const STORAGE_CAMPAÑA_HUERTA = "campaña_activa";
 const STORAGE_CULTIVOS_HUERTA = "huerta_cultivos";
 const STORAGE_PARCELAS_CONTROL_RIEGO = "huerta_riego_parcelas_control";
 const STORAGE_CHECKS_SEMANA_RIEGO = "checks_semana_riego";
@@ -239,7 +239,32 @@ function initFormularioRiego() {
     const datos = getRiegos();
     datos.push(registro);
     saveRiegos(datos);
-
+    // =====================================
+// SUPABASE
+// =====================================
+    supabaseClient
+  .from("riegos_huerta")
+  .insert({
+    id: registro.id,
+    fecha: registro.fecha,
+    hora_prevista: registro.horaPrevista,
+    parcela: registro.parcela,
+    minutos: registro.minutos,
+    sistema: registro.sistema,
+    notas: registro.notas,
+    estado: registro.estado,
+    fecha_hora_inicio_real: registro.fechaHoraInicioReal,
+    fecha_hora_fin_prevista: registro.fechaHoraFinPrevista,
+    fecha_hora_fin_real: registro.fechaHoraFinReal,
+    campaña: registro.campaña
+  })
+  .then(({ error }) => {
+    if (error) {
+      console.error("Error guardando riego en Supabase:", error);
+    } else {
+      console.log("Riego guardado en Supabase");
+    }
+  });
     form.reset();
     initFechaPorDefecto();
 

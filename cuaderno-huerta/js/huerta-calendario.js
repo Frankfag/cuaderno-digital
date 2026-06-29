@@ -1066,3 +1066,17 @@ function initCalendarioCultivos() {
 document.addEventListener("DOMContentLoaded", function () {
   initCalendarioCultivos();
 });
+// =========================================================
+// BOTON IMPRIMIR LISTA DE COMPRA
+// =========================================================
+document.addEventListener("DOMContentLoaded", function () {
+
+  const btn = document.getElementById("btnImprimirResumen");
+
+  if (btn) {
+    btn.addEventListener("click", function () {
+      window.print();
+    });
+  }
+
+});

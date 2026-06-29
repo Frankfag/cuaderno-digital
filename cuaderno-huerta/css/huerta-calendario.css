@@ -1506,3 +1506,28 @@ select:hover{
   }
 
 }
+
+
+/* ==========================================================
+   BOTON RESUMEN DE COMPRA VERDURAS
+   ========================================================== */
+  .boton-accion{
+    
+ border:none;
+    border-radius:8px;
+    padding:12px 18px;
+    color:white;
+    background:linear-gradient(
+      135deg,
+      rgba(52,152,219,.55),
+      rgba(52,152,219,.25)
+    );
+    cursor:pointer;
+
+  }
+   #btnImprimirResumen{
+  display:block;
+  margin:0 auto 20px auto;
+  min-width:220px;
+  
+}

@@ -397,8 +397,8 @@ body{
 }
 
 .camino-icono img{
-    width:100%;
-    height:250px;
+    width:80%;
+    height:200px;
     object-fit:cover;
     border-radius:12px;
 }
@@ -413,7 +413,7 @@ body{
 
   color:var(--dorado);
 
-  margin-bottom:10px;
+  margin-bottom:5px;
 
 }
 
@@ -497,6 +497,44 @@ body{
 
     text-align:center;
 
+  }
+
+}
+
+
+/* =========================================================
+   BOTON MI CUENTA MOVIL
+   ========================================================= */
+.btn-mi-cuenta{
+  display:inline-block;
+  padding:10px 16px;
+  border-radius:10px;
+  text-decoration:none;
+  color:#fff;
+
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(8px);
+
+  border:1px solid rgba(255,255,255,.10);
+
+  transition:.25s;
+}
+
+.btn-mi-cuenta:hover{
+  transform:translateY(-2px);
+  background:rgba(255,255,255,.15);
+}
+
+/* =========================================================
+   BOTONES CENTRADO EN LA MISMA LINEA MOVIL
+   ========================================================= */
+@media (max-width:768px){
+
+  .contenedor-botones-superior{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-bottom:15px;
   }
 
 }

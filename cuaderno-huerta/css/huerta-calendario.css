@@ -1495,3 +1495,14 @@ select:hover{
   border-color:rgba(255,215,0,.45);
 
 }
+
+/* ==========================================================
+   OCULTAR CERRAR SESION MOVIL
+   ========================================================== */
+@media(max-width:768px){
+
+  .boton-salir-rojo{
+    display:none !important;
+  }
+
+}

@@ -489,3 +489,14 @@ body {
     0 8px 20px rgba(0,0,0,.25);
 
 }
+
+/* ==========================================================
+   OCULTAR CERRAR SESION MOVIL
+   ========================================================== */
+@media(max-width:768px){
+
+  .boton-salir-rojo{
+    display:none !important;
+  }
+
+}

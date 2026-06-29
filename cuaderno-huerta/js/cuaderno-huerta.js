@@ -4,7 +4,7 @@
 
 const STORAGE_CULTIVOS = "huerta_cultivos";
 const STORAGE_CHECKS = "huerta_checks";
-const STORAGE_CAMPAÑA = "huerta_campaña_activa";
+const STORAGE_CAMPAÑA = "campaña_activa";
 
 // Función para abrir y cerrar el menú con el botón ☰
 function toggleMenu() {
@@ -53,6 +53,8 @@ function initSelectorCampaña() {
   }
 
   selector.value = getCampaña();
+
+  console.log("Campaña Huerta:", getCampaña());
 
   if (titulo) {
     titulo.textContent = `CUADERNO HUERTA — ${getCampaña()}`;
@@ -128,13 +130,13 @@ function normalizarChecklistCultivos() {
         riego: false,
         abonado: false,
         plagas: false,
-        estado: false
+        
       };
     } else {
       if (typeof item.checklist.riego === "undefined") item.checklist.riego = false;
       if (typeof item.checklist.abonado === "undefined") item.checklist.abonado = false;
       if (typeof item.checklist.plagas === "undefined") item.checklist.plagas = false;
-      if (typeof item.checklist.estado === "undefined") item.checklist.estado = false;
+      
     }
 
     return item;
@@ -153,7 +155,7 @@ window.toggleCheck = function (id, tipo, el) {
           riego: false,
           abonado: false,
           plagas: false,
-          estado: false
+          
         };
       }
 
@@ -179,7 +181,7 @@ function contarChecksCultivo(item) {
   if (item.checklist.riego) total++;
   if (item.checklist.abonado) total++;
   if (item.checklist.plagas) total++;
-  if (item.checklist.estado) total++;
+  
 
   return total;
 }
@@ -379,7 +381,7 @@ function initFormulario() {
         riego: false,
         abonado: false,
         plagas: false,
-        estado: false
+        
       }
     };
 
@@ -508,10 +510,7 @@ function cargarTabla() {
             </label>
             <label class="check-item ${clasePlagas}" style="display: block; margin: 2px 0; padding: 3px 6px; font-size: 11px; text-align: left;">
               <input type="checkbox" onchange="toggleCheck(${item.id}, 'plagas', this)" ${item.checklist?.plagas ? "checked" : ""}> 🐛 Plagas
-            </label>
-            <label class="check-item ${claseEstado}" style="display: block; margin: 2px 0; padding: 3px 6px; font-size: 11px; text-align: left;">
-              <input type="checkbox" onchange="toggleCheck(${item.id}, 'estado', this)" ${item.checklist?.estado ? "checked" : ""}> ✅ Estado
-            </label>
+            
             <span class="check-resumen ${resumenCheck.clase}" style="font-size: 10px; margin-top: 4px; padding: 2px 4px; display: block;">
               ${resumenCheck.texto}
             </span>

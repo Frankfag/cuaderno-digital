@@ -28,7 +28,7 @@ document.addEventListener("click", function(event) {
 // -------------------------------------
 // STORAGE
 // -------------------------------------
-const STORAGE_CAMPAÑA_HUERTA = "huerta_campaña_activa";
+const STORAGE_CAMPAÑA_HUERTA = "campaña_activa";
 const STORAGE_CULTIVOS_HUERTA = "huerta_cultivos";
 const STORAGE_LABORES_HUERTA = "huerta_labores";
 const STORAGE_RIEGOS_HUERTA = "huerta_riegos";

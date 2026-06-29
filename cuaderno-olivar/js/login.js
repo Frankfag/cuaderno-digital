@@ -126,7 +126,7 @@ function clearSession() {
 // - inputs #user y #pass
 // - mensaje #error
 // =========================================================
-function login() {
+async function login() {
   const inputUser = document.getElementById("user");
   const inputPass = document.getElementById("pass");
   const error = document.getElementById("error");
@@ -138,21 +138,35 @@ function login() {
 
   error.textContent = "";
 
-  const usuarios = getUsuarios();
+  try {
+    const { data, error: supabaseError } = await supabaseClient
+      .from("usuarios")
+      .select("*")
+      .ilike("usuario", user)
+      .eq("password", pass)
+      .single();
 
-  const encontrado = usuarios.find(u =>
-    u.user.toLowerCase() === user && u.pass === pass
-  );
+    if (supabaseError || !data) {
+      error.textContent = "Usuario o contraseña incorrectos";
+      return;
+    }
 
-  if (encontrado) {
+    const encontrado = {
+      user: data.usuario,
+      pass: data.password,
+      role: data.rol
+    };
+
     saveSession(encontrado);
 
     // Compatibilidad con otros módulos heredados
     localStorage.setItem(STORAGE_PASSWORD, encontrado.pass);
 
     window.location.replace(getIndexUrl());
-  } else {
-    error.textContent = "Usuario o contraseña incorrectos";
+
+  } catch (err) {
+    console.error("Error login Supabase:", err);
+    error.textContent = "Error conectando con la base de datos";
   }
 }
 

@@ -342,7 +342,7 @@ function initFormulario() {
     if (ultimo) {
       const familiaAnterior = ultimo.familia || "";
       const familiaActual = familia || "";
-
+      console.log("Cultivo guardado en Supabase");
       if (familiaAnterior && familiaActual && familiaAnterior === familiaActual) {
         const continuar = confirm(
           `⚠️ ALERTA DE ROTACIÓN\n\n` +
@@ -387,6 +387,37 @@ function initFormulario() {
 
     datos.push(registro);
     saveCultivos(datos);
+
+
+// =====================================
+    // SUPABASE
+    // =====================================
+    supabaseClient
+  .from("cultivos_huerta")
+  .insert({
+    id: registro.id,
+    fecha_plantacion: registro.fechaPlantacion,
+    parcela: registro.parcela,
+    cultivo: registro.cultivo,
+    cultivo_id: registro.cultivoId,
+    variedad: registro.variedad,
+    superficie: registro.superficie || null,
+    familia: registro.familia,
+    riego: registro.riego,
+    dias_cosecha: registro.diasCosecha,
+    fecha_cosecha: registro.fechaCosecha,
+    notas: registro.notas,
+    campaña: registro.campaña,
+    cosechado: registro.cosechado,
+    checklist: registro.checklist
+  })
+  .then(({ error }) => {
+    if (error) {
+      console.error("Error Supabase:", error);
+    } else {
+      console.log("Cultivo guardado en Supabase");
+    }
+  });
 
     form.reset();
     const campoFechaCosecha = document.getElementById("hFechaCosecha");

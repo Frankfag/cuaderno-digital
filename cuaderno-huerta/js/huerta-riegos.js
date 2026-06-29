@@ -356,20 +356,19 @@ function lanzarAvisoFin(mensaje) {
 // =====================================
 // ACCIONES RIEGO
 // =====================================
+// =====================================
+// INICIAR RIEGO
+// =====================================
 window.iniciarRiego = function (id) {
   const datos = getRiegos();
-
-  const activo = datos.find(x => x.estado === "EN_CURSO");
-  if (activo) {
-    alert(`Ya hay un riego en curso en ${activo.parcela}.`);
-    return;
-  }
-
   const item = datos.find(x => Number(x.id) === Number(id));
+
   if (!item) return;
 
   const ahora = new Date();
-  const fin = new Date(ahora.getTime() + Number(item.minutos || 0) * 60000);
+  const fin = new Date(
+    ahora.getTime() + Number(item.minutos) * 60 * 1000
+  );
 
   item.estado = "EN_CURSO";
   item.fechaHoraInicioReal = ahora.toISOString();
@@ -378,6 +377,23 @@ window.iniciarRiego = function (id) {
 
   saveRiegos(datos);
 
+  supabaseClient
+    .from("riegos_huerta")
+    .update({
+      estado: item.estado,
+      fecha_hora_inicio_real: item.fechaHoraInicioReal,
+      fecha_hora_fin_prevista: item.fechaHoraFinPrevista,
+      fecha_hora_fin_real: item.fechaHoraFinReal
+    })
+    .eq("id", item.id)
+    .then(({ error }) => {
+      if (error) {
+        console.error("Error iniciando riego en Supabase:", error);
+      } else {
+        console.log("Riego iniciado en Supabase");
+      }
+    });
+
   console.log("RIEGO INICIADO:", item);
 
   cargarRiegos();
@@ -385,9 +401,15 @@ window.iniciarRiego = function (id) {
   actualizarResumen();
   actualizarAlertaGeneral();
 };
+
+
+// =====================================
+// FINALIZAR RIEGO
+// =====================================
 window.finalizarRiego = function (id, automatico = false) {
   const datos = getRiegos();
   const item = datos.find(x => Number(x.id) === Number(id));
+
   if (!item) return;
 
   item.estado = "COMPLETADO";
@@ -395,7 +417,25 @@ window.finalizarRiego = function (id, automatico = false) {
 
   saveRiegos(datos);
 
+  supabaseClient
+    .from("riegos_huerta")
+    .update({
+      estado: item.estado,
+      fecha_hora_inicio_real: item.fechaHoraInicioReal,
+      fecha_hora_fin_prevista: item.fechaHoraFinPrevista,
+      fecha_hora_fin_real: item.fechaHoraFinReal
+    })
+    .eq("id", item.id)
+    .then(({ error }) => {
+      if (error) {
+        console.error("Error finalizando riego en Supabase:", error);
+      } else {
+        console.log("Riego finalizado en Supabase");
+      }
+    });
+
   const siguiente = getSiguientePendiente();
+
   const textoSiguiente = siguiente
     ? ` Siguiente pendiente: ${siguiente.parcela}${siguiente.horaPrevista ? ` a las ${siguiente.horaPrevista}` : ""}.`
     : " No quedan más riegos pendientes.";
@@ -414,15 +454,36 @@ window.finalizarRiego = function (id, automatico = false) {
 };
 
 
+// =====================================
+// CANCELAR RIEGO
+// =====================================
 window.cancelarRiego = function (id) {
   const datos = getRiegos();
   const item = datos.find(x => Number(x.id) === Number(id));
+
   if (!item) return;
 
   item.estado = "CANCELADO";
   item.fechaHoraFinReal = "";
 
   saveRiegos(datos);
+
+  supabaseClient
+    .from("riegos_huerta")
+    .update({
+      estado: item.estado,
+      fecha_hora_inicio_real: item.fechaHoraInicioReal,
+      fecha_hora_fin_prevista: item.fechaHoraFinPrevista,
+      fecha_hora_fin_real: item.fechaHoraFinReal
+    })
+    .eq("id", item.id)
+    .then(({ error }) => {
+      if (error) {
+        console.error("Error cancelando riego en Supabase:", error);
+      } else {
+        console.log("Riego cancelado en Supabase");
+      }
+    });
 
   cargarRiegos();
   actualizarPanelRiego();
@@ -431,9 +492,38 @@ window.cancelarRiego = function (id) {
   actualizarAlertaGeneral();
 };
 
+
+// =====================================
+// ELIMINAR RIEGO
+// =====================================
 window.eliminarRiego = function (id) {
-  const datos = getRiegos().filter(x => Number(x.id) !== Number(id));
+  const datos = getRiegos().filter(
+    x => Number(x.id) !== Number(id)
+  );
+
   saveRiegos(datos);
+
+  supabaseClient
+    .from("riegos_huerta")
+    .delete()
+    .eq("id", id)
+    .then(({ error }) => {
+      if (error) {
+        console.error("Error eliminando riego en Supabase:", error);
+      } else {
+        console.log("Riego eliminado de Supabase");
+      }
+    });
+
+  cargarRiegos();
+  actualizarPanelRiego();
+  actualizarResumen();
+  actualizarInformeSemanal();
+  actualizarAlertaGeneral();
+  renderDatalistParcelas();
+;
+
+
 
   cargarRiegos();
   actualizarPanelRiego();

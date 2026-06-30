@@ -30,7 +30,8 @@ export default async function handler(req, res) {
       const fin = new Date(riego.fecha_hora_fin_prevista).getTime();
 
       // ✅ condición correcta (evita duplicados)
-      if (fin <= ahora && !riego.fecha_hora_fin_real) {
+      if (!riego.fecha_hora_fin_real)
+
 
         console.log("⏰ Riego terminado:", riego.parcela);
 

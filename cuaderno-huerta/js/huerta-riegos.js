@@ -117,6 +117,36 @@ function getRiegosCampaña() {
 }
 
 // =====================================
+// TELEGRAM
+// =====================================
+const TELEGRAM_TOKEN = "8883964028:AAGCM42R9Z09jV2ohKDPYmjk7cN7rGPM6sY";
+const TELEGRAM_CHAT_ID = "-5105892734";
+//const TELEGRAM_CHAT_ID = "6191197987";
+
+function enviarTelegram(mensaje) {
+
+  const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+
+  fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      chat_id: TELEGRAM_CHAT_ID,
+      text: mensaje
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log("Telegram OK", data);
+  })
+  .catch(err => {
+    console.error("Error Telegram", err);
+  });
+}
+
+// =====================================
 // UTILIDADES
 // =====================================
 function hoyISO() {
@@ -443,6 +473,16 @@ window.finalizarRiego = function (id, automatico = false) {
   const mensaje = automatico
     ? `⏰ Ha terminado el riego de ${item.parcela}.${textoSiguiente}`
     : `✅ Has finalizado el riego de ${item.parcela}.${textoSiguiente}`;
+
+// =====================================
+// ENVIAR MENSAJE A TELEGRAM
+// =====================================
+    enviarTelegram(
+  `🚿 Riego finalizado\n\n` +
+  `Parcela: ${item.parcela}\n` +
+  `Hora: ${new Date().toLocaleTimeString()}\n\n` +
+  `${textoSiguiente}`
+);
 
   lanzarAvisoFin(mensaje);
 

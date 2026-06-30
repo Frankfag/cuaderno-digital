@@ -17,26 +17,24 @@ export default async function handler(req, res) {
     );
 
     const data = await response.json();
-const ahora = Date.now();
+    const ahora = Date.now();
 
-// ✅ comprobar que es un array
-if (!Array.isArray(data)) {
-  console.log("No es array:", data);
-  return res.status(200).json({ ok: true, aviso: "sin datos" });
-}
-
-
+    // ✅ comprobar que es un array
     if (!Array.isArray(data)) {
-      return res.status(200).json({ ok: true, notice: "no data" });
+      console.log("No es array:", data);
+      return res.status(200).json({ ok: true, aviso: "sin datos" });
     }
 
     for (const riego of data) {
 
       const fin = new Date(riego.fecha_hora_fin_prevista).getTime();
 
+      // ✅ condición correcta (evita duplicados)
       if (fin <= ahora && !riego.fecha_hora_fin_real) {
 
-        // ✅ actualizar estado en Supabase
+        console.log("⏰ Riego terminado:", riego.parcela);
+
+        // ✅ actualizar Supabase
         await fetch(
           `https://bmaffeacaztvhfblaegl.supabase.co/rest/v1/riegos_huerta?id=eq.${riego.id}`,
           {
@@ -71,7 +69,7 @@ if (!Array.isArray(data)) {
           }
         );
 
-        console.log("✅ Riego automático:", riego.parcela);
+        console.log("✅ Enviado a Telegram:", riego.parcela);
       }
     }
 

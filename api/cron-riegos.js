@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   try {
 
     const response = await fetch(
-      "https://bmaffeacaztvhfblaegl.supabase.co/rest/v1/riegos_huerta?estado=eq.EN_CURSO",
+      "https://bmaffeacaztvhfblaegl.supabase.co/rest/v1/riegos_huerta",
       {
         headers: {
           "apikey": SUPABASE_KEY,
@@ -20,7 +20,6 @@ export default async function handler(req, res) {
     const ahora = Date.now();
 
     if (!Array.isArray(data)) {
-      console.log("No es array:", data);
       return res.status(200).json({ ok: true });
     }
 
@@ -28,12 +27,9 @@ export default async function handler(req, res) {
 
       const fin = new Date(riego.fecha_hora_fin_prevista).getTime();
 
-      // 👉 PARA PROBAR (SIN TIEMPO)
-      if (!riego.fecha_hora_fin_real) {
+      if (fin <= ahora && !riego.fecha_hora_fin_real) {
 
-        console.log("⏰ Procesando riego:", riego.parcela);
-
-        // ✅ UPDATE EN SUPABASE
+        // actualizar estado
         await fetch(
           `https://bmaffeacaztvhfblaegl.supabase.co/rest/v1/riegos_huerta?id=eq.${riego.id}`,
           {
@@ -51,32 +47,28 @@ export default async function handler(req, res) {
           }
         );
 
-        // ✅ TELEGRAM
+        // telegram
         await fetch(
           `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`,
           {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               chat_id: CHAT_ID,
               text:
-                `🚿 Riego finalizado\n\n` +
+                `🚿 RIEGO FINALIZADO\n\n` +
                 `📍 Parcela: ${riego.parcela}\n` +
                 `⏰ Hora: ${new Date().toLocaleTimeString()}`
             })
           }
         );
 
-        console.log("✅ Enviado Telegram:", riego.parcela);
       }
     }
 
     return res.status(200).json({ ok: true });
 
   } catch (err) {
-    console.error(err);
     return res.status(500).json({ error: err.message });
   }
 }

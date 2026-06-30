@@ -1,11 +1,8 @@
 export default async function handler(req, res) {
 
-  //const TELEGRAM_TOKEN = "TU_TOKEN";
-  //const CHAT_ID = "-5105892734"; // grupo
-
-    const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
-    const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
-    const SUPABASE_KEY = process.env.SUPABASE_KEY;
+  const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
+  const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+  const SUPABASE_KEY = process.env.SUPABASE_KEY;
 
   try {
 
@@ -14,30 +11,39 @@ export default async function handler(req, res) {
       {
         headers: {
           "apikey": SUPABASE_KEY,
-
           "Authorization": `Bearer ${SUPABASE_KEY}`
-
         }
       }
     );
 
     const data = await response.json();
-    const ahora = Date.now();
+const ahora = Date.now();
+
+// ✅ comprobar que es un array
+if (!Array.isArray(data)) {
+  console.log("No es array:", data);
+  return res.status(200).json({ ok: true, aviso: "sin datos" });
+}
+
+
+    if (!Array.isArray(data)) {
+      return res.status(200).json({ ok: true, notice: "no data" });
+    }
 
     for (const riego of data) {
 
       const fin = new Date(riego.fecha_hora_fin_prevista).getTime();
 
-      if (fin <= ahora) {
+      if (fin <= ahora && !riego.fecha_hora_fin_real) {
 
-        // actualizar estado en Supabase
+        // ✅ actualizar estado en Supabase
         await fetch(
           `https://bmaffeacaztvhfblaegl.supabase.co/rest/v1/riegos_huerta?id=eq.${riego.id}`,
           {
             method: "PATCH",
             headers: {
-              "apikey": "TU_ANON_KEY",
-              "Authorization": "Bearer TU_ANON_KEY",
+              "apikey": SUPABASE_KEY,
+              "Authorization": `Bearer ${SUPABASE_KEY}`,
               "Content-Type": "application/json"
             },
             body: JSON.stringify({
@@ -47,7 +53,7 @@ export default async function handler(req, res) {
           }
         );
 
-        // enviar Telegram
+        // ✅ enviar Telegram
         await fetch(
           `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`,
           {
@@ -65,16 +71,14 @@ export default async function handler(req, res) {
           }
         );
 
-        console.log("✅ Riego procesado:", riego.id);
+        console.log("✅ Riego automático:", riego.parcela);
       }
-
     }
 
-    res.status(200).json({ ok: true });
+    return res.status(200).json({ ok: true });
 
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
-
 }

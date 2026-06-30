@@ -29,6 +29,57 @@ export default async function handler(req, res) {
 
       if (fin <= ahora && !riego.fecha_hora_fin_real) {
 
+        const tiempoRestante = fin - ahora;
+const cincoMin = 5 * 60 * 1000;
+
+// ✅ aviso antes de terminar
+if (
+  tiempoRestante > 0 &&
+  tiempoRestante <= cincoMin &&
+  !riego.aviso_enviado
+) {
+
+  console.log("⚠️ Aviso 5 minutos:", riego.parcela);
+
+  // enviar Telegram
+  await fetch(
+    `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        chat_id: CHAT_ID,
+        text:
+          `⚠️ RIEGO A PUNTO DE TERMINAR\n\n` +
+          `📍 Parcela: ${riego.parcela}\n` +
+          `⏳ Faltan menos de 5 minutos`
+      })
+    }
+  );
+
+  // marcar aviso como enviado que ya avisó
+  await fetch(
+    `https://bmaffeacaztvhfblaegl.supabase.co/rest/v1/riegos_huerta?id=eq.${riego.id}`,
+    {
+      method: "PATCH",
+      headers: {
+        "apikey": SUPABASE_KEY,
+        "Authorization": `Bearer ${SUPABASE_KEY}`,
+        "Content-Type": "application/json",
+        "Prefer": "return=minimal"
+      },
+      body: JSON.stringify({
+        aviso_enviado: true
+      })
+    }
+  );
+
+  console.log("⚠️ Aviso previo enviado:", riego.parcela);
+}
+
+
         // actualizar estado
         await fetch(
           `https://bmaffeacaztvhfblaegl.supabase.co/rest/v1/riegos_huerta?id=eq.${riego.id}`,
@@ -46,6 +97,10 @@ export default async function handler(req, res) {
             })
           }
         );
+
+
+
+
 
         // telegram
         await fetch(

@@ -60,7 +60,12 @@ function finalizarRiegoGlobal(riego) {
       enviarTelegram(
         `🚿 Riego finalizado\n\n` +
         `Parcela: ${riego.parcela}\n` +
-        `Hora: ${new Date().toLocaleTimeString()}`
+        `Hora: ${new Date().toLocaleTimeString("es-ES", {
+          timeZone: "Europe/Madrid",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit"
+        })}`
       );
 
       console.log("✅ Riego finalizado GLOBAL y enviado");

@@ -608,74 +608,60 @@ function actualizarPanelRiego() {
   const siguientePendiente = getSiguientePendiente();
 
   if (!activos.length) {
+  parcela.value = "-";
+  inicio.value = "-";
+  fin.value = "-";
+  contador.value = "-";
+  siguiente.value = getSiguientePendiente()?.parcela || "-";
+  estado.value = "SIN RIEGO";
 
-    parcela.value = "-";
-    inicio.value = "-";
-    fin.value = "-";
-    contador.value = "-";
-    siguiente.value = siguientePendiente ? siguientePendiente.parcela : "-";
-    estado.value = "SIN RIEGO";
+  mensaje.classList.remove("alerta-roja", "alerta-verde");
+  mensaje.classList.add("alerta-amarilla");
+  mensaje.innerHTML = "<p>No hay riegos en marcha</p>";
 
-    mensaje.classList.remove("alerta-roja", "alerta-verde");
-    mensaje.classList.add("alerta-amarilla");
-    mensaje.innerHTML = "<p>Ahora mismo no hay ningún riego en marcha.</p>";
+  return;
+}
 
-    actualizarRestantesEnTabla();
-    return;
-  }
+// ✅ mostrar TODAS las parcelas activas
+parcela.value = activos.map(r => r.parcela).join(", ");
 
-  // 🔥 Mostrar todas las parcelas activas
-  parcela.value = activos.map(r => r.parcela).join(", ");
+// ✅ coger el riego más cercano a terminar
+const activoProximo = activos.reduce((a, b) => {
+  return new Date(a.fechaHoraFinPrevista) < new Date(b.fechaHoraFinPrevista) ? a : b;
+});
 
-  const ahoraMs = Date.now();
+const ahoraMs = Date.now();
+const finMs = new Date(activoProximo.fechaHoraFinPrevista).getTime();
+const restanteMs = finMs - ahoraMs;
 
-  // 🔥 coger el que termina antes (para contador principal)
-  const activoProximo = activos.reduce((a, b) => {
-    return new Date(a.fechaHoraFinPrevista) < new Date(b.fechaHoraFinPrevista) ? a : b;
-  });
+contador.value = restanteTexto(restanteMs);
+inicio.value = formatearFechaHora(activoProximo.fechaHoraInicioReal);
+fin.value = formatearFechaHora(activoProximo.fechaHoraFinPrevista);
 
-  const finMs = new Date(activoProximo.fechaHoraFinPrevista).getTime();
-  const restanteMs = finMs - ahoraMs;
+siguiente.value = getSiguientePendiente()?.parcela || "No hay";
+estado.value = "EN CURSO";
 
-  if (restanteMs <= 0) {
-    contador.value = "00:00";
-    window.finalizarRiego(activoProximo.id, true);
-    return;
-  }
+// ✅ PANEL PRO MULTI-RIEGO
+mensaje.classList.remove("alerta-roja", "alerta-amarilla");
+mensaje.classList.add("alerta-verde");
 
-  inicio.value = formatearFechaHora(activoProximo.fechaHoraInicioReal);
-  fin.value = formatearFechaHora(activoProximo.fechaHoraFinPrevista);
-  contador.value = restanteTexto(restanteMs);
-  siguiente.value = siguientePendiente ? siguientePendiente.parcela : "No hay";
-  estado.value = "EN CURSO";
+mensaje.innerHTML = activos.map(r => {
+  const ms = new Date(r.fechaHoraFinPrevista).getTime() - ahoraMs;
 
-  mensaje.classList.remove("alerta-roja", "alerta-amarilla");
-  mensaje.classList.add("alerta-verde");
-
-  // 🔥 MOSTRAR TODOS LOS RIEGOS ACTIVOS
-  mensaje.innerHTML = activos.map(r => {
-
-  const ms = new Date(r.fechaHoraFinPrevista).getTime() - Date.now();
-
-  let color = "#00c853"; // verde
-
+  let color = "#00c853";
   if (ms < 60000) color = "red";
   else if (ms < 300000) color = "orange";
 
   return `
-    <div style="
-      margin: 6px 0;
-      padding: 8px;
-      border-radius: 6px;
-      background: rgba(0,0,0,0.3);
-    ">
-      🚿 <strong>${escaparHTML(r.parcela)}</strong><br>
-      ⏳ <span style="color:${color}; font-weight:bold;">
+    <div style="margin:6px 0;">
+      🚿 <strong>${r.parcela}</strong> → 
+      <span style="color:${color}; font-weight:bold;">
         ${restanteTexto(ms)}
       </span>
     </div>
   `;
 }).join("");
+
 
   actualizarRestantesEnTabla();
 }

@@ -347,12 +347,22 @@ function initFormularioRiego() {
 }
 
 // =====================================
-// RIEGO ACTIVO
+// RIEGO ACTIVO (VARIOS)
 // =====================================
-function getRiegoActivo() {
-  return getRiegosCampaña().find(x => x.estado === "EN_CURSO") || null;
+function getRiegosActivos() {
+  return getRiegosCampaña().filter(x => x.estado === "EN_CURSO");
 }
 
+// Mantener compatibilidad si usas el antiguo
+function getRiegoActivo() {
+  const activos = getRiegosActivos();
+  return activos.length ? activos[0] : null;
+}
+
+
+// =====================================
+// PENDIENTES
+// =====================================
 function getPendientesOrdenados() {
   return getRiegosCampaña()
     .filter(x => x.estado === "PENDIENTE")
@@ -368,6 +378,10 @@ function getSiguientePendiente() {
   return pendientes.length ? pendientes[0] : null;
 }
 
+
+// =====================================
+// NOTIFICACIONES
+// =====================================
 function pedirPermisoNotificaciones() {
   if (!("Notification" in window)) return;
   if (Notification.permission === "default") {
@@ -573,10 +587,12 @@ window.eliminarRiego = function (id) {
   renderDatalistParcelas();
 };
 
+
 // =====================================
 // PANEL EN VIVO + CONTADOR
 // =====================================
 function actualizarPanelRiego() {
+
   const parcela = document.getElementById("parcelaActualRiego");
   const inicio = document.getElementById("inicioActualRiego");
   const fin = document.getElementById("finPrevistoRiego");
@@ -587,10 +603,12 @@ function actualizarPanelRiego() {
 
   if (!parcela || !inicio || !fin || !contador || !siguiente || !estado || !mensaje) return;
 
-  const activo = getRiegoActivo();
+  // 🔥 IMPORTANTE → ahora usamos TODOS
+  const activos = getRiegosActivos();
   const siguientePendiente = getSiguientePendiente();
 
-  if (!activo) {
+  if (!activos.length) {
+
     parcela.value = "-";
     inicio.value = "-";
     fin.value = "-";
@@ -601,33 +619,67 @@ function actualizarPanelRiego() {
     mensaje.classList.remove("alerta-roja", "alerta-verde");
     mensaje.classList.add("alerta-amarilla");
     mensaje.innerHTML = "<p>Ahora mismo no hay ningún riego en marcha.</p>";
+
     actualizarRestantesEnTabla();
     return;
   }
 
-  const finMs = new Date(activo.fechaHoraFinPrevista).getTime();
+  // 🔥 Mostrar todas las parcelas activas
+  parcela.value = activos.map(r => r.parcela).join(", ");
+
   const ahoraMs = Date.now();
+
+  // 🔥 coger el que termina antes (para contador principal)
+  const activoProximo = activos.reduce((a, b) => {
+    return new Date(a.fechaHoraFinPrevista) < new Date(b.fechaHoraFinPrevista) ? a : b;
+  });
+
+  const finMs = new Date(activoProximo.fechaHoraFinPrevista).getTime();
   const restanteMs = finMs - ahoraMs;
 
   if (restanteMs <= 0) {
     contador.value = "00:00";
-    window.finalizarRiego(activo.id, true);
+    window.finalizarRiego(activoProximo.id, true);
     return;
   }
 
-  parcela.value = activo.parcela;
-  inicio.value = formatearFechaHora(activo.fechaHoraInicioReal);
-  fin.value = formatearFechaHora(activo.fechaHoraFinPrevista);
+  inicio.value = formatearFechaHora(activoProximo.fechaHoraInicioReal);
+  fin.value = formatearFechaHora(activoProximo.fechaHoraFinPrevista);
   contador.value = restanteTexto(restanteMs);
   siguiente.value = siguientePendiente ? siguientePendiente.parcela : "No hay";
   estado.value = "EN CURSO";
 
   mensaje.classList.remove("alerta-roja", "alerta-amarilla");
   mensaje.classList.add("alerta-verde");
-  mensaje.innerHTML = `<p>🚿 Regando <strong>${escaparHTML(activo.parcela)}</strong>. Tiempo restante: <strong>${restanteTexto(restanteMs)}</strong></p>`;
+
+  // 🔥 MOSTRAR TODOS LOS RIEGOS ACTIVOS
+  mensaje.innerHTML = activos.map(r => {
+
+  const ms = new Date(r.fechaHoraFinPrevista).getTime() - Date.now();
+
+  let color = "#00c853"; // verde
+
+  if (ms < 60000) color = "red";
+  else if (ms < 300000) color = "orange";
+
+  return `
+    <div style="
+      margin: 6px 0;
+      padding: 8px;
+      border-radius: 6px;
+      background: rgba(0,0,0,0.3);
+    ">
+      🚿 <strong>${escaparHTML(r.parcela)}</strong><br>
+      ⏳ <span style="color:${color}; font-weight:bold;">
+        ${restanteTexto(ms)}
+      </span>
+    </div>
+  `;
+}).join("");
 
   actualizarRestantesEnTabla();
 }
+
 
 // Actualiza solo la celda "Restante" de la fila activa sin redibujar la tabla entera
 function actualizarRestantesEnTabla() {

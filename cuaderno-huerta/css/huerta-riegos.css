@@ -770,3 +770,18 @@ body{
   }
 
 }
+
+/* ==========================================================
+   PANEL RIEGO PRO
+   ========================================================== */
+   .fila-riego-activo {
+  background: rgba(0, 150, 255, 0.1);
+}
+
+.fila-riego-pendiente {
+  background: rgba(255, 200, 0, 0.1);
+}
+
+.fila-riego-completado {
+  background: rgba(0, 200, 100, 0.1);
+}

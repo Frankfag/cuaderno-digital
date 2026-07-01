@@ -31,7 +31,7 @@ export default async function handler(req, res) {
       const tiempoRestante = fin - ahora;
       const cincoMin = 5 * 60 * 1000;
 
-      // ✅ AVISO 5 MINUTOS ANTES
+      // ✅ AVISO 5 MIN ANTES
       if (
         tiempoRestante > 0 &&
         tiempoRestante <= cincoMin &&
@@ -76,7 +76,6 @@ export default async function handler(req, res) {
       // ✅ FINALIZAR RIEGO
       if (fin <= ahora && !riego.fecha_hora_fin_real) {
 
-        // actualizar estado
         await fetch(
           `https://bmaffeacaztvhfblaegl.supabase.co/rest/v1/riegos_huerta?id=eq.${riego.id}`,
           {
@@ -94,7 +93,6 @@ export default async function handler(req, res) {
           }
         );
 
-        // enviar Telegram final
         await fetch(
           `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`,
           {
@@ -117,12 +115,13 @@ export default async function handler(req, res) {
           }
         );
       }
-    }
 
-    // ✅ RESPUESTA FINAL
+    } // ✅ cierre del for
+
     return res.status(200).json({ ok: true });
 
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
-}
+
+} // ✅ cierre final

@@ -496,13 +496,91 @@ window.addEventListener("focus", function () {
   refrescarDashboard();
 });
 
-// refresco en vivo para contador y aviso de riego
-pintarRiegosDashboard(); // 🔥 pinta al cargar
+// =====================================================
+// SINCRONIZAR RIEGOS DASHBOARD DESDE SUPABASE
+// =====================================================
+// Objetivo:
+// - Leer los riegos reales desde Supabase
+// - Actualizar localStorage
+// - Permitir que las funciones actuales del dashboard
+//   sigan funcionando sin modificaciones
+// =====================================================
+async function sincronizarRiegosDashboard() {
 
-setInterval(function () {
+  const { data, error } = await supabaseClient
+    .from("riegos_huerta")
+    .select("*")
+    .order("id", { ascending: false });
+
+  if (error) {
+    console.error(
+      "Error sincronizando riegos dashboard:",
+      error
+    );
+    return;
+  }
+
+  const riegos = data.map(item => ({
+    id: item.id,
+    fecha: item.fecha,
+    horaPrevista: item.hora_prevista || "",
+    parcela: item.parcela || "",
+    minutos: item.minutos || 0,
+    sistema: item.sistema || "",
+    notas: item.notas || "",
+    estado: item.estado || "PENDIENTE",
+
+    fechaHoraInicioReal:
+      item.fecha_hora_inicio_real || "",
+
+    fechaHoraFinPrevista:
+      item.fecha_hora_fin_prevista || "",
+
+    fechaHoraFinReal:
+      item.fecha_hora_fin_real || "",
+
+    campaña:
+      item.campaña || getCampañaHuerta()
+  }));
+
+  // Guardar copia local para uso del dashboard
+  localStorage.setItem(
+    STORAGE_RIEGOS_HUERTA,
+    JSON.stringify(riegos)
+  );
+
+  console.log(
+    "Riegos sincronizados dashboard:",
+    riegos.length
+  );
+}
+
+// =====================================================
+// DASHBOARD - CARGA INICIAL
+// =====================================================
+// 1. Sincroniza Supabase → localStorage
+// 2. Carga resumen general
+// 3. Pinta panel de riegos
+// 4. Refresca automáticamente cada 10 segundos
+// =====================================================
+
+document.addEventListener("DOMContentLoaded", async () => {
+
+  await sincronizarRiegosDashboard();
+
   cargarResumenDashboard();
   pintarRiegosDashboard();
-}, 1000);
+
+  setInterval(async () => {
+
+    await sincronizarRiegosDashboard();
+
+    cargarResumenDashboard();
+    pintarRiegosDashboard();
+
+  }, 10000);
+
+});
 
 
 // PINTAR RIEGO EN DASHBORAD

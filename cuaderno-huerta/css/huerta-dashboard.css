@@ -900,65 +900,335 @@ body{
 }
 
 
-
-
-/* ==========================================================
-   RIEGO EN CURSO DASBOARD
-   ========================================================== */
-/* TARJETA */
-.tarjeta {
-  overflow: visible;
-}
+/* =====================================
+   TARJETA CONTROL DE RIEGO
+===================================== */
 
 .tarjeta-riego-dashboard {
   border: 2px solid #ffd700;
-  border-radius: 12px;
-  padding: 12px;
-  background: rgba(0,0,0,0.3);
-  box-shadow: 0 0 6px rgba(255, 215, 0, 0.2);
+  border-radius: 14px;
+  padding: 14px 16px;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.15);
 }
 
-/* ITEM RIEGO */
-#riegoDashboardContenido .riego-item {
+/* BLOQUES */
+#riegoDashboardContenido,
+#riegoDashboardProgramados,
+#riegoDashboardCompletados {
+  margin-bottom: 15px;
+}
+
+/* TÍTULOS DE SECCIÓN */
+#riegoDashboardContenido h4,
+#riegoDashboardProgramados h4,
+#riegoDashboardCompletados h4 {
+  margin: 0 0 10px;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* ITEM */
+.riego-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 6px 8px;
-  border-radius: 6px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  cursor: pointer;
 
-  transition: transform 0.2s ease, background 0.3s ease;
+  padding: 8px 10px;
+  margin-bottom: 4px;
+
+  border-radius: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+
+  transition: all 0.25s ease;
+  cursor: default;
 }
 
-/* HOVER LIMPIO */
-#riegoDashboardContenido .riego-item:hover {
-  background: rgba(255, 215, 0, 0.15);
+/* HOVER */
+.riego-item:hover {
+  background: rgba(255, 215, 0, 0.12);
   transform: translateX(4px);
 }
 
-/* TEXTO */
+/* COLUMNA IZQUIERDA */
+.riego-info {
+  display: flex;
+  flex-direction: column;
+}
+
+/* NOMBRE PARCELA */
 .riego-parcela {
   color: #ffd700;
-  font-weight: bold;
-  transition: color 0.3s ease;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: color 0.25s ease;
 }
 
 .riego-item:hover .riego-parcela {
-  color: #fff;
+  color: #ffffff;
 }
 
-/* CONTADOR */
+/* DETALLE */
+.riego-detalle {
+  color: #e0e0e0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* FINALIZA */
+.riego-fin {
+  color: #bdbdbd;
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+/* CONTADOR RESTANTE */
 .riego-tiempo {
-  font-weight: bold;
+  font-size: 1.1rem;
+  font-weight: 700;
+
+  min-width: 95px;
+  text-align: right;
+
   transition: transform 0.2s ease;
 }
 
 .riego-item:hover .riego-tiempo {
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
 
 /* COLORES */
-.verde { color: #00e676; }
-.naranja { color: orange; }
-.rojo { color: red; }
+.verde {
+  color: #00e676;
+}
+
+.naranja {
+  color: #ffb300;
+}
+
+.rojo {
+  color: #ff5252;
+  animation: parpadeo 1s infinite;
+}
+
+/* ALERTA CRÍTICA */
+@keyframes parpadeo {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.35;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+
+/* =====================================================
+   CONTROL DE RIEGO - DASHBOARD
+===================================================== */
+
+/* -----------------------------------------------------
+   TARJETA PRINCIPAL
+----------------------------------------------------- */
+.tarjeta-riego-dashboard {
+  border: 2px solid #ffd700;
+  border-radius: 14px;
+  padding: 14px 16px;
+
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(4px);
+
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.15);
+}
+
+/* -----------------------------------------------------
+   BLOQUES
+   (En curso / Programados / Completados)
+----------------------------------------------------- */
+#riegoDashboardContenido,
+#riegoDashboardProgramados,
+#riegoDashboardCompletados {
+  margin-bottom: 15px;
+}
+
+/* -----------------------------------------------------
+   TÍTULOS DE SECCIÓN
+----------------------------------------------------- */
+#riegoDashboardContenido h4,
+#riegoDashboardProgramados h4,
+#riegoDashboardCompletados h4 {
+  margin: 0 0 10px;
+
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* -----------------------------------------------------
+   ITEM DE RIEGO
+----------------------------------------------------- */
+.riego-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 8px 10px;
+  margin-bottom: 8px;
+
+  border-radius: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+
+  transition: all 0.25s ease;
+}
+
+/* -----------------------------------------------------
+   EFECTO HOVER
+----------------------------------------------------- */
+.riego-item:hover {
+  background: rgba(255, 215, 0, 0.12);
+  transform: translateX(4px);
+}
+
+/* -----------------------------------------------------
+   COLUMNA IZQUIERDA
+----------------------------------------------------- */
+.riego-info {
+  display: flex;
+  flex-direction: column;
+}
+
+/* -----------------------------------------------------
+   NOMBRE DE PARCELA
+----------------------------------------------------- */
+.riego-parcela {
+  color: #ffd700;
+
+  font-size: 1rem;
+  font-weight: 700;
+
+  transition: color 0.25s ease;
+}
+
+.riego-item:hover .riego-parcela {
+  color: #ffffff;
+}
+
+/* -----------------------------------------------------
+   DATOS DEL RIEGO
+----------------------------------------------------- */
+.riego-detalle {
+  color: #e0e0e0;
+
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* -----------------------------------------------------
+   FINALIZA EL RIEGO
+----------------------------------------------------- */
+.riego-fin {
+  margin-top: 2px;
+
+  color: #bdbdbd;
+  font-size: 11px;
+}
+
+/* -----------------------------------------------------
+   TIEMPO RESTANTE
+----------------------------------------------------- */
+.riego-restante {
+  margin-top: 8px;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  text-align: center;
+
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 8px;
+}
+
+/* -----------------------------------------------------
+   COLORES DE ESTADO
+----------------------------------------------------- */
+.verde {
+  color: #00e676;
+}
+
+.naranja {
+  color: #ffb300;
+}
+
+.rojo {
+  color: #ff5252;
+  animation: parpadeo 1s infinite;
+}
+
+/* -----------------------------------------------------
+   ANIMACIÓN CRÍTICA
+----------------------------------------------------- */
+@keyframes parpadeo {
+
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.35;
+  }
+
+  100% {
+    opacity: 1;
+  }
+
+}
+
+/* =====================================================
+   CONTROL DE RIEGO - MÓVIL
+===================================================== */
+@media (max-width: 768px) {
+
+  /* Tarjeta más compacta */
+  .tarjeta-riego-dashboard {
+    padding: 12px;
+  }
+
+  /* Cada riego ocupa una ficha vertical */
+  .riego-item {
+    display: block;
+
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  /* Parcela más visible */
+  .riego-parcela {
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+
+  /* Datos secundarios */
+  .riego-detalle,
+  .riego-fin {
+    display: block;
+
+    margin: 3px 0;
+
+    font-size: 12px;
+  }
+
+  /* Contador protagonista */
+  .riego-restante {
+    margin-top: 10px;
+
+    text-align: center;
+
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+}

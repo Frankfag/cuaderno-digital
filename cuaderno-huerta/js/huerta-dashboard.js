@@ -497,6 +497,8 @@ window.addEventListener("focus", function () {
 });
 
 // refresco en vivo para contador y aviso de riego
+pintarRiegosDashboard(); // 🔥 pinta al cargar
+
 setInterval(function () {
   cargarResumenDashboard();
   pintarRiegosDashboard();
@@ -506,49 +508,161 @@ setInterval(function () {
 // PINTAR RIEGO EN DASHBORAD
 function pintarRiegosDashboard() {
 
-  const contenedor = document.getElementById("riegoDashboardContenido");
-  if (!contenedor) return;
+  const curso = document.getElementById("riegoDashboardContenido");
+  const programados = document.getElementById("riegoDashboardProgramados");
+  const completados = document.getElementById("riegoDashboardCompletados");
+
+  if (!curso || !programados || !completados) return;
 
   const riegos = JSON.parse(localStorage.getItem("huerta_riegos")) || [];
+
   const activos = riegos.filter(r => r.estado === "EN_CURSO");
 
-  if (!activos.length) {
-    contenedor.innerHTML = "<p>No hay riegos en curso</p>";
-    return;
-  }
+  const pendientes = riegos
+    .filter(r => r.estado === "PENDIENTE")
+    .sort((a, b) =>
+      `${a.fecha} ${a.horaPrevista || ""}`.localeCompare(
+        `${b.fecha} ${b.horaPrevista || ""}`
+      )
+    );
+
+  const finalizados = riegos
+    .filter(r => r.estado === "COMPLETADO")
+    .slice()
+    .reverse()
+    .slice(0, 10);
 
   const ahora = Date.now();
 
-  contenedor.innerHTML = activos.map(r => {
+  // =====================================================
+// EN CURSO
+// =====================================================
 
-    const ms = new Date(r.fechaHoraFinPrevista).getTime() - ahora;
+if (!activos.length) {
 
-    let color = "#00c853";
-    if (ms < 60000) color = "red";
-    else if (ms < 300000) color = "orange";
+  curso.innerHTML = `
+    <h4>🟢 En curso (0)</h4>
+    <p>No hay riegos activos</p>
+  `;
 
-    const min = Math.floor(ms / 60000);
-    const seg = Math.floor((ms % 60000) / 1000);
+} else {
 
-    return `
-      <div style="
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        padding:6px 0;
-        border-bottom:1px solid rgba(255,255,255,0.1);
-      ">
+  curso.innerHTML = `
+    <h4>🟢 En curso (${activos.length})</h4>
 
-        <div>
-          🚿 <strong>${r.parcela}</strong><br>
-          <small>${minutosAHoras(r.minutos)} · ${r.sistema}</small>
+    ${activos.map(r => {
+
+      const ms =
+        new Date(r.fechaHoraFinPrevista).getTime() - ahora;
+
+      let color = "verde";
+
+      if (ms < 60000) color = "rojo";
+      else if (ms < 300000) color = "naranja";
+
+      return `
+
+        <div class="riego-item">
+
+          <div class="riego-parcela">
+            🚿 ${r.parcela}
+          </div>
+
+          <div class="riego-detalle">
+            💧 ${r.sistema || "Goteo"}
+          </div>
+
+          <div class="riego-detalle">
+            ⏱ Duración: ${minutosAHoras(r.minutos)}
+          </div>
+
+          <div class="riego-fin">
+            🕒 Finaliza:
+            ${new Date(r.fechaHoraFinPrevista).toLocaleTimeString(
+              "es-ES",
+              {
+                hour: "2-digit",
+                minute: "2-digit"
+              }
+            )}
+          </div>
+
+          <div class="riego-restante ${color}">
+            ⏳ ${restanteHorasTexto(ms)}
+          </div>
+
         </div>
 
-        <div style="color:${color}; font-weight:bold;">
-          ${min}:${seg.toString().padStart(2, "0")}
-        </div>
+      `;
 
-      </div>
-    `;
-  }).join("");
+    }).join("")}
+
+  `;
+
+}
+
+  // =====================================================
+  // PINTAR FINALIZAR RIEGO
+  // =====================================================
+  
+
+  // =====================================================
+  // PROGRAMADOS
+  // =====================================================
+
+  programados.innerHTML = `
+    <h4>🟡 Programados (${pendientes.length})</h4>
+
+    ${
+      pendientes.length
+      ? pendientes.map(r => `
+          <div class="riego-item">
+            <div class="riego-info">
+              <div class="riego-parcela">${r.parcela}</div>
+              <div class="riego-detalle">
+                ${r.fecha} ${r.horaPrevista || ""}
+              </div>
+            </div>
+          </div>
+        `).join("")
+      : "<p>No hay riegos programados</p>"
+    }
+  `;
+
+  // =====================================================
+  // COMPLETADOS
+  // =====================================================
+
+  completados.innerHTML = `
+    <h4>✅ Completados (${finalizados.length})</h4>
+
+    ${
+      finalizados.length
+      ? finalizados.map(r => `
+          <div class="riego-item">
+            <div class="riego-info">
+              <div class="riego-parcela">${r.parcela}</div>
+              <div class="riego-detalle">
+                ${minutosAHoras(r.minutos)}
+              </div>
+            </div>
+          </div>
+        `).join("")
+      : "<p>No hay riegos completados</p>"
+    }
+  `;
+}
+
+function restanteHorasTexto(ms) {
+
+  if (ms <= 0) {
+    return "00 h 00 min";
+  }
+
+  const totalMin = Math.floor(ms / 60000);
+
+  const horas = Math.floor(totalMin / 60);
+  const minutos = totalMin % 60;
+
+  return `${horas} h ${String(minutos).padStart(2, "0")} min`;
 }

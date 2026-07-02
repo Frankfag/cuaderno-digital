@@ -61,28 +61,43 @@
   </div>
 
 
-<!-- ALERTA GLOBAL -->
-    <section class="tarjeta">
-      <h3>Alerta global de la huerta</h3>
-      <div id="alertaDashboard" class="alerta-box">
-        <p id="textoAlertaDashboard">Sin alertas</p>
-      </div>
-    </section>
+<!-- ===================================== -->
+<!-- CONTROL DE RIEGO -->
+<!-- ===================================== -->
+<section class="tarjeta">
 
-  <main class="main">
-    
-    <!-- RESUMEN PRINCIPAL -->
+  <h3>🚿 Control de riego</h3>
+
+  <div class="grid-dashboard">
+
+    <!-- EN CURSO -->
+    <div class="tarjeta-mini tarjeta-riego-dashboard">
+      <div id="riegoDashboardContenido"></div>
+    </div>
+
+    <!-- PROGRAMADOS -->
+    <div class="tarjeta-mini tarjeta-riego-dashboard">
+      <div id="riegoDashboardProgramados"></div>
+    </div>
+
+    <!-- COMPLETADOS -->
+    <div class="tarjeta-mini tarjeta-riego-dashboard">
+      <div id="riegoDashboardCompletados"></div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ===================================== -->
+<!-- RESUMEN PRINCIPAL -->
+<!-- ===================================== -->
 <section class="tarjeta">
 
   <h3>Resumen general de campaña</h3>
 
   <div class="grid-dashboard">
-
-    <div class="tarjeta-riego-dashboard">
-      <h3>🚿 Riegos en curso</h3>
-      <div id="riegoDashboardContenido"></div>
-    </div>
-
 
     <!-- 1 -->
     <div class="tarjeta-mini">
@@ -91,29 +106,32 @@
       <div id="listaActivosDashboard" class="mini-lista-dashboard"></div>
     </div>
 
-     <!-- 2 -->
+    <!-- 2 -->
     <div class="tarjeta-mini">
       <h4>Listos para cosechar</h4>
       <p id="listosCosechar" class="numero">0</p>
       <div id="listaListosDashboard" class="mini-lista-dashboard"></div>
     </div>
+
     <!-- 3 -->
     <div class="tarjeta-mini">
       <h4>Próximas cosechas</h4>
       <p id="proximasCosechas" class="numero">0</p>
       <div id="listaProximasDashboard" class="mini-lista-dashboard"></div>
     </div>
+
     <!-- 4 -->
     <div class="tarjeta-mini">
       <h4>Kilos cosechados</h4>
       <p id="dashKilos" class="numero">0</p>
     </div>
-    
+
     <!-- 6 -->
     <div class="tarjeta-mini">
       <h4>Labores</h4>
       <p id="dashLabores" class="numero">0</p>
     </div>
+
     <!-- 7 -->
     <div class="tarjeta-mini">
       <h4>Abonados</h4>

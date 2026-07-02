@@ -48,6 +48,17 @@ function getRiegos() {
   return getData(STORAGE_RIEGOS_HUERTA);
 }
 
+function minutosAHoras(min) {
+  const h = Math.floor(min / 60);
+  const m = min % 60;
+
+  if (h > 0 && m > 0) return `${h} h ${m} min`;
+  if (h > 0) return `${h} h`;
+  return `${m} min`;
+}
+
+
+
 // =====================================
 // CARGAR RIEGOS DESDE SUPABASE
 // =====================================
@@ -281,7 +292,8 @@ function initFormularioRiego() {
     const fecha = document.getElementById("fechaRiego")?.value || hoyISO();
     const hora = document.getElementById("horaRiego")?.value || "";
     const parcela = normalizarTexto(document.getElementById("parcelaRiego")?.value);
-    const minutos = Number(document.getElementById("minutosRiego")?.value || 0);
+    const horasInput = document.getElementById("minutosRiego").value || 0;
+    const minutos = Number(horasInput) * 60;
     const sistema = document.getElementById("sistemaRiego")?.value || "Goteo";
     const notas = normalizarTexto(document.getElementById("notasRiego")?.value || "");
 
@@ -347,22 +359,12 @@ function initFormularioRiego() {
 }
 
 // =====================================
-// RIEGO ACTIVO (VARIOS)
+// RIEGO ACTIVO
 // =====================================
-function getRiegosActivos() {
-  return getRiegosCampaña().filter(x => x.estado === "EN_CURSO");
-}
-
-// Mantener compatibilidad si usas el antiguo
 function getRiegoActivo() {
-  const activos = getRiegosActivos();
-  return activos.length ? activos[0] : null;
+  return getRiegosCampaña().find(x => x.estado === "EN_CURSO") || null;
 }
 
-
-// =====================================
-// PENDIENTES
-// =====================================
 function getPendientesOrdenados() {
   return getRiegosCampaña()
     .filter(x => x.estado === "PENDIENTE")
@@ -378,10 +380,6 @@ function getSiguientePendiente() {
   return pendientes.length ? pendientes[0] : null;
 }
 
-
-// =====================================
-// NOTIFICACIONES
-// =====================================
 function pedirPermisoNotificaciones() {
   if (!("Notification" in window)) return;
   if (Notification.permission === "default") {
@@ -587,12 +585,10 @@ window.eliminarRiego = function (id) {
   renderDatalistParcelas();
 };
 
-
 // =====================================
 // PANEL EN VIVO + CONTADOR
 // =====================================
 function actualizarPanelRiego() {
-
   const parcela = document.getElementById("parcelaActualRiego");
   const inicio = document.getElementById("inicioActualRiego");
   const fin = document.getElementById("finPrevistoRiego");
@@ -603,69 +599,47 @@ function actualizarPanelRiego() {
 
   if (!parcela || !inicio || !fin || !contador || !siguiente || !estado || !mensaje) return;
 
-  // 🔥 IMPORTANTE → ahora usamos TODOS
-  const activos = getRiegosActivos();
+  const activo = getRiegoActivo();
   const siguientePendiente = getSiguientePendiente();
 
-  if (!activos.length) {
-  parcela.value = "-";
-  inicio.value = "-";
-  fin.value = "-";
-  contador.value = "-";
-  siguiente.value = getSiguientePendiente()?.parcela || "-";
-  estado.value = "SIN RIEGO";
+  if (!activo) {
+    parcela.value = "-";
+    inicio.value = "-";
+    fin.value = "-";
+    contador.value = "-";
+    siguiente.value = siguientePendiente ? siguientePendiente.parcela : "-";
+    estado.value = "SIN RIEGO";
 
-  mensaje.classList.remove("alerta-roja", "alerta-verde");
-  mensaje.classList.add("alerta-amarilla");
-  mensaje.innerHTML = "<p>No hay riegos en marcha</p>";
+    mensaje.classList.remove("alerta-roja", "alerta-verde");
+    mensaje.classList.add("alerta-amarilla");
+    mensaje.innerHTML = "<p>Ahora mismo no hay ningún riego en marcha.</p>";
+    actualizarRestantesEnTabla();
+    return;
+  }
 
-  return;
-}
+  const finMs = new Date(activo.fechaHoraFinPrevista).getTime();
+  const ahoraMs = Date.now();
+  const restanteMs = finMs - ahoraMs;
 
-// ✅ mostrar TODAS las parcelas activas
-parcela.value = activos.map(r => r.parcela).join(", ");
+  if (restanteMs <= 0) {
+    contador.value = "00:00";
+    window.finalizarRiego(activo.id, true);
+    return;
+  }
 
-// ✅ coger el riego más cercano a terminar
-const activoProximo = activos.reduce((a, b) => {
-  return new Date(a.fechaHoraFinPrevista) < new Date(b.fechaHoraFinPrevista) ? a : b;
-});
+  parcela.value = activo.parcela;
+  inicio.value = formatearFechaHora(activo.fechaHoraInicioReal);
+  fin.value = formatearFechaHora(activo.fechaHoraFinPrevista);
+  contador.value = restanteTexto(restanteMs);
+  siguiente.value = siguientePendiente ? siguientePendiente.parcela : "No hay";
+  estado.value = "EN CURSO";
 
-const ahoraMs = Date.now();
-const finMs = new Date(activoProximo.fechaHoraFinPrevista).getTime();
-const restanteMs = finMs - ahoraMs;
-
-contador.value = restanteTexto(restanteMs);
-inicio.value = formatearFechaHora(activoProximo.fechaHoraInicioReal);
-fin.value = formatearFechaHora(activoProximo.fechaHoraFinPrevista);
-
-siguiente.value = getSiguientePendiente()?.parcela || "No hay";
-estado.value = "EN CURSO";
-
-// ✅ PANEL PRO MULTI-RIEGO
-mensaje.classList.remove("alerta-roja", "alerta-amarilla");
-mensaje.classList.add("alerta-verde");
-
-mensaje.innerHTML = activos.map(r => {
-  const ms = new Date(r.fechaHoraFinPrevista).getTime() - ahoraMs;
-
-  let color = "#00c853";
-  if (ms < 60000) color = "red";
-  else if (ms < 300000) color = "orange";
-
-  return `
-    <div style="margin:6px 0;">
-      🚿 <strong>${r.parcela}</strong> → 
-      <span style="color:${color}; font-weight:bold;">
-        ${restanteTexto(ms)}
-      </span>
-    </div>
-  `;
-}).join("");
-
+  mensaje.classList.remove("alerta-roja", "alerta-amarilla");
+  mensaje.classList.add("alerta-verde");
+  mensaje.innerHTML = `<p>🚿 Regando <strong>${escaparHTML(activo.parcela)}</strong>. Tiempo restante: <strong>${restanteTexto(restanteMs)}</strong></p>`;
 
   actualizarRestantesEnTabla();
 }
-
 
 // Actualiza solo la celda "Restante" de la fila activa sin redibujar la tabla entera
 function actualizarRestantesEnTabla() {
@@ -820,7 +794,8 @@ function cargarRiegos() {
       <td>${formatearFechaISO(item.fecha)}</td>
       <td>${item.horaPrevista || "-"}</td>
       <td><strong>${item.parcela}</strong></td>
-      <td>${item.minutos}</td>
+      <td>${minutosAHoras(item.minutos)}</td>
+
       <td>${item.sistema || "Goteo"}</td>
       <td class="celda-estado">
         ${renderEstadoBonito(item.estado)}

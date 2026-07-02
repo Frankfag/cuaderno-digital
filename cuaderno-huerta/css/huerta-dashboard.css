@@ -898,3 +898,67 @@ body{
   }
 
 }
+
+
+
+
+/* ==========================================================
+   RIEGO EN CURSO DASBOARD
+   ========================================================== */
+/* TARJETA */
+.tarjeta {
+  overflow: visible;
+}
+
+.tarjeta-riego-dashboard {
+  border: 2px solid #ffd700;
+  border-radius: 12px;
+  padding: 12px;
+  background: rgba(0,0,0,0.3);
+  box-shadow: 0 0 6px rgba(255, 215, 0, 0.2);
+}
+
+/* ITEM RIEGO */
+#riegoDashboardContenido .riego-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+/* HOVER LIMPIO */
+#riegoDashboardContenido .riego-item:hover {
+  background: rgba(255, 215, 0, 0.15);
+  transform: translateX(4px);
+}
+
+/* TEXTO */
+.riego-parcela {
+  color: #ffd700;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.riego-item:hover .riego-parcela {
+  color: #fff;
+}
+
+/* CONTADOR */
+.riego-tiempo {
+  font-weight: bold;
+  transition: transform 0.2s ease;
+}
+
+.riego-item:hover .riego-tiempo {
+  transform: scale(1.1);
+}
+
+/* COLORES */
+.verde { color: #00e676; }
+.naranja { color: orange; }
+.rojo { color: red; }

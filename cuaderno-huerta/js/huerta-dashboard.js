@@ -97,14 +97,13 @@ function calcularEstado(fechaCosechaISO, cosechado) {
   return "EN_CURSO";
 }
 
-function restanteTexto(ms) {
-  if (ms <= 0) return "00:00";
+function minutosAHoras(min) {
+  const h = Math.floor(min / 60);
+  const m = min % 60;
 
-  const totalSeg = Math.floor(ms / 1000);
-  const min = Math.floor(totalSeg / 60);
-  const seg = totalSeg % 60;
-
-  return `${String(min).padStart(2, "0")}:${String(seg).padStart(2, "0")}`;
+  if (h > 0 && m > 0) return `${h} h ${m} min`;
+  if (h > 0) return `${h} h`;
+  return `${m} min`;
 }
 
 function formatearFechaISO(fechaISO) {
@@ -500,4 +499,56 @@ window.addEventListener("focus", function () {
 // refresco en vivo para contador y aviso de riego
 setInterval(function () {
   cargarResumenDashboard();
+  pintarRiegosDashboard();
 }, 1000);
+
+
+// PINTAR RIEGO EN DASHBORAD
+function pintarRiegosDashboard() {
+
+  const contenedor = document.getElementById("riegoDashboardContenido");
+  if (!contenedor) return;
+
+  const riegos = JSON.parse(localStorage.getItem("huerta_riegos")) || [];
+  const activos = riegos.filter(r => r.estado === "EN_CURSO");
+
+  if (!activos.length) {
+    contenedor.innerHTML = "<p>No hay riegos en curso</p>";
+    return;
+  }
+
+  const ahora = Date.now();
+
+  contenedor.innerHTML = activos.map(r => {
+
+    const ms = new Date(r.fechaHoraFinPrevista).getTime() - ahora;
+
+    let color = "#00c853";
+    if (ms < 60000) color = "red";
+    else if (ms < 300000) color = "orange";
+
+    const min = Math.floor(ms / 60000);
+    const seg = Math.floor((ms % 60000) / 1000);
+
+    return `
+      <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:6px 0;
+        border-bottom:1px solid rgba(255,255,255,0.1);
+      ">
+
+        <div>
+          🚿 <strong>${r.parcela}</strong><br>
+          <small>${minutosAHoras(r.minutos)} · ${r.sistema}</small>
+        </div>
+
+        <div style="color:${color}; font-weight:bold;">
+          ${min}:${seg.toString().padStart(2, "0")}
+        </div>
+
+      </div>
+    `;
+  }).join("");
+}

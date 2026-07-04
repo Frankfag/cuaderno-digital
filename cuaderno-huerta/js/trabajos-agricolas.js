@@ -107,6 +107,12 @@ document.addEventListener(
 
 async function iniciarModulo() {
 
+  initFormularioTrabajos();
+
+  cargarListaTrabajos();
+
+  actualizarContadorTrabajos();
+
   cargarFechaActual();
 
   cargarCampaña();
@@ -119,7 +125,11 @@ async function iniciarModulo() {
 
   cultivosGlobal = getCultivos();
 
+  console.log(cultivosGlobal);
+
   await cargarParcelas();
+
+  cargarCultivosParcela();
 
   configurarEventos();
 
@@ -218,28 +228,34 @@ async function cargarParcelas() {
     </option>
   `;
 
-  const parcelasUnicas = [
-    ...new Set(
-      cultivosGlobal.map(
-        cultivo => cultivo.parcela
-      )
-    )
-  ];
+  console.log(
+  cultivosGlobal.map(
+    cultivo => cultivo.parcela
+  )
+);
 
-  parcelasUnicas
-    .filter(Boolean)
-    .sort()
-    .forEach(parcela => {
+  const PARCELAS_HUERTA = [
+  "Parcela 1",
+  "Parcela 2",
+  "Parcela 3",
+  "Parcela 4",
+  "Parcela 5",
+  "Parcela 6",
+  "Parcela 7"
+];
 
-      const option =
-        document.createElement("option");
+PARCELAS_HUERTA.forEach(parcela => {
 
-      option.value = parcela;
-      option.textContent = parcela;
+  const option =
+    document.createElement("option");
 
-      select.appendChild(option);
+  option.value = parcela;
 
-    });
+  option.textContent = parcela;
+
+  select.appendChild(option);
+
+});
 
 }
 
@@ -351,7 +367,24 @@ async function guardarTrabajo(e) {
   const trabajos =
     getTrabajos();
 
-  const registro = {
+  
+  const selectOperario =
+  document.getElementById("operario");
+
+  const operarioNombre =
+  selectOperario.options[
+    selectOperario.selectedIndex
+  ].text;
+
+  const selectCultivo =
+  document.getElementById("cultivo");
+
+  const cultivoNombre =
+  selectCultivo.options[
+    selectCultivo.selectedIndex
+  ].text;
+
+    const registro = {
 
     id: Date.now(),
 
@@ -370,15 +403,9 @@ async function guardarTrabajo(e) {
         "parcela"
       ).value,
 
-    cultivo:
-      document.getElementById(
-        "cultivo"
-      ).value,
+    cultivo: cultivoNombre,
 
-    operario:
-      document.getElementById(
-        "operario"
-      ).value,
+    operario: operarioNombre,  
 
     categoria:
       document.getElementById(
@@ -403,7 +430,7 @@ async function guardarTrabajo(e) {
 
   saveTrabajos(trabajos);
 
-  cargarTablaTrabajos();
+  cargarListaTrabajos();
 
   actualizarContadorTrabajos();
 
@@ -437,45 +464,14 @@ function actualizarContadorTrabajos() {
 }
 
 /* =====================================
-   PARCELA → CULTIVOS
+   CULTIVOS
 ===================================== */
-
 function cargarCultivosParcela() {
-
-  const parcelaSeleccionada =
-    document.getElementById("parcela").value;
 
   const selectCultivo =
     document.getElementById("cultivo");
 
-  if (!parcelaSeleccionada) {
-
-    bloquearSelectCultivo();
-
-    return;
-
-  }
-
-  const cultivosFiltrados =
-    cultivosGlobal.filter(
-      cultivo =>
-        String(cultivo.parcela) ===
-        String(parcelaSeleccionada)
-    );
-
   selectCultivo.disabled = false;
-
-  if (cultivosFiltrados.length === 0) {
-
-    selectCultivo.innerHTML = `
-      <option value="">
-        No hay cultivos disponibles
-      </option>
-    `;
-
-    return;
-
-  }
 
   selectCultivo.innerHTML = `
     <option value="">
@@ -483,22 +479,28 @@ function cargarCultivosParcela() {
     </option>
   `;
 
-  cultivosFiltrados.forEach(cultivo => {
+  console.log(
+  "TOTAL CULTIVOS:",
+  Object.keys(CULTIVOS_DB).length
+);
 
-    const option =
-      document.createElement("option");
+  Object.entries(CULTIVOS_DB)
+    .forEach(([id, cultivo]) => {
 
-    option.value =
-      cultivo.cultivoId;
+      const option =
+        document.createElement("option");
 
-    option.textContent =
-      cultivo.cultivo;
+      option.value = id;
 
-    selectCultivo.appendChild(option);
+      option.textContent =
+        cultivo.nombre;
 
-  });
+      selectCultivo.appendChild(option);
+
+    });
 
 }
+
 
 /* =====================================
    CATEGORÍA → TRABAJOS
@@ -541,6 +543,64 @@ function cargarTrabajosCategoria() {
     option.textContent = trabajo;
 
     selectTrabajo.appendChild(option);
+
+  });
+
+}
+
+/* =====================================
+   LISTA DE TRABAJOS
+===================================== */
+
+function cargarListaTrabajos() {
+
+  const lista =
+    document.getElementById("listaTrabajos");
+
+  if (!lista) return;
+
+  const trabajos =
+    getTrabajos();
+
+  lista.innerHTML = "";
+
+  trabajos.forEach(item => {
+
+    const card =
+      document.createElement("div");
+
+    card.className =
+      "tarjeta-mini";
+
+    card.innerHTML = `
+      <h3>✂️ ${item.trabajo || "-"}</h3>
+
+      <p><strong>Fecha:</strong> ${item.fecha || "-"}</p>
+
+      <p><strong>Campaña:</strong> ${item.campana || "-"}</p>
+
+      <p><strong>Parcela:</strong> ${item.parcela || "-"}</p>
+
+      <p><strong>Cultivo:</strong> ${item.cultivo || "-"}</p>
+
+      <p><strong>Operario:</strong> ${item.operario || "-"}</p>
+
+      <p><strong>Categoría:</strong> ${item.categoria || "-"}</p>
+
+      <div class="acciones-formulario">
+
+        <button class="boton">
+          ✏️ Editar
+        </button>
+
+        <button class="boton">
+          🗑️ Eliminar
+        </button>
+
+      </div>
+    `;
+
+    lista.appendChild(card);
 
   });
 

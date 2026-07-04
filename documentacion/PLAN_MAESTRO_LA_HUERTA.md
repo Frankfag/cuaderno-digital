@@ -670,6 +670,83 @@ se revisará esta arquitectura.
 
 ---
 
+# 🚜 ACTUALIZACIÓN PROYECTO LA HUERTA
+## Módulo: Trabajos Agrícolas
+### Fecha: Julio 2026
+
+---
+
+# ✅ ESTADO GENERAL
+
+Se completa la primera versión funcional del módulo:
+
+🚜 Trabajos Agrícolas
+
+El módulo ya permite:
+
+- Crear registros de trabajos agrícolas.
+- Seleccionar parcela.
+- Seleccionar cultivo.
+- Seleccionar operario.
+- Seleccionar categoría.
+- Seleccionar trabajo asociado.
+- Guardar registros.
+- Mostrar historial.
+- Mostrar contador de registros.
+
+
+Módulo Trabajos Agrícolas
+Versión: 1.0
+
+Estado:
+FUNCIONAL
+
+Formulario:
+✅ Operativo
+
+Historial:
+✅ Operativo
+
+Contador:
+✅ Operativo
+
+Campañas:
+✅ Operativo
+
+Parcelas:
+✅ Operativo
+
+Cultivos:
+✅ Operativo
+
+Operarios:
+✅ Operativo
+
+Categorías:
+✅ Operativo
+
+Trabajos:
+✅ Operativo
+
+Supabase:
+🔲 Pendiente integración completa
+
+---
+
+# ✅ DECISIONES IMPORTANTES ADOPTADAS
+
+## 1. Parcelas
+
+### Decisión anterior
+
+Las parcelas se obtenían desde:
+
+```js
+getCultivos()
+
+
+---
+
 # 🧪 CUADERNO FITOSANITARIO
 
 ## Estado

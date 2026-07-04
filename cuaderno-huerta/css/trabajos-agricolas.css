@@ -1,0 +1,36 @@
+/* =========================================================
+   TRABAJOS-AGRICOLAS TARJETA RESUMEN RESPONSIVE
+   ========================================================= */
+#listaTrabajos .tarjeta-mini {
+    padding: 20px;
+    margin: 15px 0;
+
+    border: 2px solid #d4af37;
+    border-radius: 16px;
+
+    background: rgba(0, 0, 0, 0.35);
+
+    text-align: center;
+}
+
+#listaTrabajos .tarjeta-mini h3 {
+    font-size: 1.8rem;
+    color: #ffd700;
+
+    margin-bottom: 15px;
+}
+
+#listaTrabajos .tarjeta-mini p {
+    font-size: 1rem;
+    line-height: 1.8;
+
+    margin: 8px 0;
+}
+
+#listaTrabajos .tarjeta-mini strong {
+    color: #ffd700;
+}
+
+#listaTrabajos .acciones-formulario {
+    margin-top: 15px;
+}

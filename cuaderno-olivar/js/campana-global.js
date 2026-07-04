@@ -49,4 +49,11 @@ function aplicarCampanaGlobalEnSelector(selectorId, tituloId, textoTitulo) {
   if (titulo) {
     titulo.textContent = textoTitulo + campana;
   }
+
 }
+function getCampaña() {
+  return getCampanaGlobal();
+}
+window.getCampaña = function () {
+  return getCampanaGlobal();
+};

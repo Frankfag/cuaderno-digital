@@ -900,68 +900,84 @@ body{
 }
 
 
-/* =====================================
+/* =====================================================
    TARJETA CONTROL DE RIEGO
-===================================== */
+===================================================== */
 
+/* -----------------------------------------------------
+   TARJETA PRINCIPAL
+----------------------------------------------------- */
 .tarjeta-riego-dashboard {
   border: 2px solid #ffd700;
   border-radius: 14px;
+
   padding: 14px 16px;
+
   background: rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(4px);
+
   box-shadow: 0 0 15px rgba(255, 215, 0, 0.15);
 }
 
-/* BLOQUES */
+/* -----------------------------------------------------
+   BLOQUES
+   (En curso / Programados / Completados)
+----------------------------------------------------- */
 #riegoDashboardContenido,
 #riegoDashboardProgramados,
 #riegoDashboardCompletados {
   margin-bottom: 15px;
 }
 
-/* TÍTULOS DE SECCIÓN */
+/* -----------------------------------------------------
+   TÍTULOS DE SECCIÓN
+----------------------------------------------------- */
 #riegoDashboardContenido h4,
 #riegoDashboardProgramados h4,
 #riegoDashboardCompletados h4 {
   margin: 0 0 10px;
+
   color: #ffffff;
   font-weight: 700;
 }
 
-/* ITEM */
+/* =====================================================
+   TARJETA DE RIEGO (VERSIÓN VERTICAL)
+===================================================== */
+
 .riego-item {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
 
-  padding: 8px 10px;
-  margin-bottom: 4px;
+  padding: 12px;
+  margin-bottom: 10px;
 
-  border-radius: 8px;
+  border-radius: 10px;
+
+  background: rgba(255,255,255,0.03);
   border-bottom: 1px solid rgba(255,255,255,0.08);
 
   transition: all 0.25s ease;
-  cursor: default;
 }
 
-/* HOVER */
+/* -----------------------------------------------------
+   EFECTO HOVER
+----------------------------------------------------- */
 .riego-item:hover {
-  background: rgba(255, 215, 0, 0.12);
+  background: rgba(255, 215, 0, 0.10);
   transform: translateX(4px);
 }
 
-/* COLUMNA IZQUIERDA */
-.riego-info {
-  display: flex;
-  flex-direction: column;
-}
-
-/* NOMBRE PARCELA */
+/* -----------------------------------------------------
+   NOMBRE DE LA PARCELA
+----------------------------------------------------- */
 .riego-parcela {
   color: #ffd700;
-  font-weight: 700;
+
   font-size: 1rem;
+  font-weight: 700;
+
   transition: color 0.25s ease;
 }
 
@@ -969,42 +985,52 @@ body{
   color: #ffffff;
 }
 
-/* DETALLE */
+/* -----------------------------------------------------
+   DETALLES DEL RIEGO
+----------------------------------------------------- */
 .riego-detalle {
+  margin-top: 4px;
+
   color: #e0e0e0;
+
   font-size: 0.9rem;
   line-height: 1.4;
 }
 
-/* FINALIZA */
+/* -----------------------------------------------------
+   HORA DE FINALIZACIÓN
+----------------------------------------------------- */
 .riego-fin {
+  margin-top: 4px;
+
   color: #bdbdbd;
-  font-size: 11px;
-  margin-top: 2px;
+  font-size: 12px;
 }
 
-/* CONTADOR RESTANTE */
-.riego-tiempo {
-  font-size: 1.1rem;
+/* -----------------------------------------------------
+   CONTADOR RESTANTE
+----------------------------------------------------- */
+.riego-restante {
+  width: 100%;
+
+  margin-top: 10px;
+  padding-top: 10px;
+
+  text-align: center;
+
+  border-top: 1px solid rgba(255,255,255,0.08);
+
+  font-size: 24px;
   font-weight: 700;
-
-  min-width: 95px;
-  text-align: right;
-
-  transition: transform 0.2s ease;
 }
 
-.riego-item:hover .riego-tiempo {
-  transform: scale(1.08);
-}
-
-/* COLORES */
-
+/* -----------------------------------------------------
+   COLORES DE ESTADO
+----------------------------------------------------- */
 .verde {
   color: #00e676;
   text-shadow: 0 0 6px rgba(0,230,118,.4);
 }
-
 
 .naranja {
   color: #ffb300;
@@ -1015,8 +1041,11 @@ body{
   animation: parpadeo 1s infinite;
 }
 
-/* ALERTA CRÍTICA */
+/* -----------------------------------------------------
+   ANIMACIÓN ESTADO CRÍTICO
+----------------------------------------------------- */
 @keyframes parpadeo {
+
   0% {
     opacity: 1;
   }
@@ -1028,6 +1057,36 @@ body{
   100% {
     opacity: 1;
   }
+
+}
+
+/* =====================================================
+   RESPONSIVE MÓVIL
+===================================================== */
+
+@media (max-width: 768px) {
+
+  .tarjeta-riego-dashboard {
+    padding: 12px;
+  }
+
+  .riego-item {
+    padding: 10px;
+  }
+
+  .riego-parcela {
+    font-size: 16px;
+  }
+
+  .riego-detalle,
+  .riego-fin {
+    font-size: 12px;
+  }
+
+  .riego-restante {
+    font-size: 22px;
+  }
+
 }
 
 
@@ -1235,4 +1294,95 @@ body{
     font-weight: 700;
   }
 
+}
+
+/* BLOQUE INFORMACIÓN */
+.riego-info {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+
+/* =====================================================
+   DASHBOARD - TARJETAS PREMIUM
+   Solo afecta al dashboard
+===================================================== */
+
+.grid-dashboard .tarjeta-mini {
+
+  background: rgba(0, 0, 0, 0.35);
+
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+
+  border: 1px solid rgba(255, 215, 0, 0.25);
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 0 15px rgba(255, 215, 0, 0.12);
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* -----------------------------------------------------
+   EFECTO HOVER
+----------------------------------------------------- */
+
+.grid-dashboard .tarjeta-mini:hover {
+
+  background: rgba(255, 215, 0, 0.06);
+
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 0 20px rgba(255, 215, 0, 0.25);
+
+}
+
+/* -----------------------------------------------------
+   TITULOS
+----------------------------------------------------- */
+
+.grid-dashboard .tarjeta-mini h4 {
+
+  color: #ffd700;
+
+  font-weight: 700;
+
+  margin-bottom: 12px;
+}
+
+/* -----------------------------------------------------
+   NUMEROS PRINCIPALES
+----------------------------------------------------- */
+
+.grid-dashboard .tarjeta-mini .numero {
+
+  font-size: 2rem;
+  font-weight: 700;
+
+  color: #ffffff;
+
+  text-shadow:
+    0 0 8px rgba(255,255,255,0.15);
+}
+
+/* -----------------------------------------------------
+   LISTAS INTERNAS
+----------------------------------------------------- */
+
+.grid-dashboard .mini-lista-dashboard {
+
+  margin-top: 10px;
+
+  color: #e0e0e0;
+
+  font-size: 0.9rem;
+
+  line-height: 1.5;
 }

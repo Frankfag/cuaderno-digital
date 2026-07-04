@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuaderno Huerta | Labores</title>
+  <link rel="stylesheet" href="/cuaderno-huerta/css/huerta-labores.css">
+
+   <!-- ✅ CSS UNIFICADOS --> 
+  <link rel="stylesheet" href="../../css-global/tarjetas-global.css">
+  <link rel="stylesheet" href="../../css-global/formularios-global.css">
+  <link rel="stylesheet" href="../../css-global/tablas-global.css">
+  <link rel="stylesheet" href="../../cuaderno-huerta/css/trabajos-agricolas.css">
+
+</head>
+
+<body>
+
+<div class="contenedor-salir-global">
+
+  <button
+    onclick="logout()"
+    class="boton-salir-rojo">
+
+    Cerrar sesión
+
+  </button>
+
+</div>
+
+
+<header class="header">
+    <div class="header__marca">
+      <img src="/cuaderno-huerta/img/logo1.png" alt="Logo" class="header__logo">
+      <h1 class="header__titulo">MASIA CENTENARIA</h1>
+    </div>
+
+    <nav class="nav-huerta">
+  <a href="/cuaderno-olivar/html/index.html">Inicio Principal</a>    
+  <a href="/cuaderno-huerta/html/huerta-dashboard.html">📊Panel Huerta</a>
+  <a href="/cuaderno-huerta/html/huerta-riegos.html">🚿Regar</a>
+  <a href="/cuaderno-huerta/html/cuaderno-huerta.html">🌿 Huerta</a>
+  <a href="/cuaderno-huerta/html/trabajos-agricolas.html" class="activo">📋Trabajos Agricolas</a>
+  <a href="/cuaderno-huerta/html/huerta-calendario.html">📋Calendario</a>
+</nav>  
+</header>
+
+  <!-- Menú hamburguesa -->
+  <button class="boton-menu" onclick="toggleMenu()">☰</button>
+
+  <div id="menuLateral" class="menu-lateral">
+  <a href="/cuaderno-olivar/html/index.html">Inicio Principal</a>    
+  <a href="/cuaderno-huerta/html/huerta-dashboard.html">📊Panel Huerta</a>
+  <a href="/cuaderno-huerta/html/huerta-riegos.html">🚿Regar</a>
+  <a href="/cuaderno-huerta/html/cuaderno-huerta.html" >🌿 Huerta</a>
+  <a href="/cuaderno-huerta/html/trabajos-agricolas.html" class="activo">📋Trabajos Agricolas</a>
+  <a href="/cuaderno-huerta/html/huerta-calendario.html">📋Calendario</a>
+  <a href="#" onclick="logout()">🚪 Salir</a>
+  </div>
+
+  <main class="main">
+
+    
+
+
+    <!-- =====================================
+         NUEVO TRABAJO AGRÍCOLA
+    ===================================== -->
+
+    <section class="tarjeta">
+
+        <h2>🚜 Nuevo Trabajo Agrícola</h2>
+
+        <form id="formTrabajo">
+
+            <input
+                type="hidden"
+                id="trabajoId">
+
+            <div class="campo">
+
+                <label for="fecha">Fecha</label>
+
+                <input
+                    type="date"
+                    id="fecha"
+                    required>
+
+            </div>
+
+            <div class="campo">
+
+                <label for="campana">Campaña</label>
+
+                <input
+                    type="text"
+                    id="campana"
+                    readonly>
+
+            </div>
+
+            <div class="campo">
+
+                <label for="parcela">
+                    Parcela
+                </label>
+
+                <select
+                    id="parcela"
+                    required>
+
+                    <option value="">
+                        Seleccionar parcela
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="campo">
+
+                <label for="cultivo">
+                    Cultivo
+                </label>
+
+                <select
+                id="cultivo"
+                required
+                disabled>
+                    <option value="">
+                        Seleccionar parcela primero
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="campo">
+
+                <label for="operario">
+                    Operario
+                </label>
+
+                <select
+                    id="operario"
+                    required>
+
+                    <option value="">
+                        Seleccionar operario
+                    </option>
+
+                    <option value="1">Franklin</option>
+                    <option value="2">Alexis</option>
+                    <option value="3">Meritxell</option>
+                    <option value="4">Invitado</option>
+
+                </select>
+
+            </div>
+
+            <div class="campo">
+
+                <label for="categoria">
+                    Categoría
+                </label>
+
+                <select
+                    id="categoria"
+                    required>
+
+                    <option value="">
+                        Seleccionar categoría
+                    </option>
+
+                    <option value="Preparación del terreno">
+                        Preparación del terreno
+                    </option>
+
+                    <option value="Siembra y plantación">
+                        Siembra y plantación
+                    </option>
+
+                    <option value="Mantenimiento">
+                        Mantenimiento
+                    </option>
+
+                    <option value="Cosecha">
+                        Cosecha
+                    </option>
+
+                    <option value="Postcosecha">
+                        Postcosecha
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="campo">
+
+                <label for="trabajo">
+                    Trabajo realizado
+                </label>
+
+                <select
+                    id="trabajo"
+                    required
+                    disabled>
+
+                    <option value="">
+                        Seleccionar categoría primero
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="campo">
+
+                <label for="observaciones">
+                    Observaciones
+                </label>
+
+                <textarea
+                    id="observaciones"
+                    rows="4"
+                    placeholder="Observaciones del trabajo realizado"></textarea>
+
+            </div>
+
+            <div class="acciones-formulario">
+
+                <button
+                    type="submit"
+                    class="boton">
+
+                    💾 Guardar Trabajo
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+    <!-- =====================================
+         HISTORIAL DE TRABAJOS
+    ===================================== -->
+
+    <section class="tarjeta">
+
+        <h2>
+
+            📋 Historial de Trabajos
+
+            (<span id="totalTrabajos">0</span>)
+
+        </h2>
+
+        <!-- =====================================
+             FILTROS
+        ===================================== -->
+
+        <div class="filtros-trabajos">
+
+            <div class="campo">
+
+                <label for="filtroCampana">
+                    Campaña
+                </label>
+
+                <select id="filtroCampana">
+
+                    <option value="">
+                        Todas las campañas
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="campo">
+
+                <label for="filtroParcela">
+                    Parcela
+                </label>
+
+                <select id="filtroParcela">
+
+                    <option value="">
+                        Todas las parcelas
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="campo">
+
+                <label for="filtroCategoria">
+                    Categoría
+                </label>
+
+                <select id="filtroCategoria">
+
+                    <option value="">
+                        Todas las categorías
+                    </option>
+
+                    <option value="Preparación del terreno">
+                        Preparación del terreno
+                    </option>
+
+                    <option value="Siembra y plantación">
+                        Siembra y plantación
+                    </option>
+
+                    <option value="Mantenimiento">
+                        Mantenimiento
+                    </option>
+
+                    <option value="Cosecha">
+                        Cosecha
+                    </option>
+
+                    <option value="Postcosecha">
+                        Postcosecha
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <!-- =====================================
+             LISTA DE TRABAJOS
+        ===================================== -->
+
+        <div id="listaTrabajos">
+
+            <!-- JS -->
+
+            Ejemplo visual
+
+            <div class="tarjeta-mini">
+
+                <h3>✂️ Poda</h3>
+
+                <p><strong>Fecha:</strong> 02/07/2026</p>
+
+                <p><strong>Campaña:</strong> 2026</p>
+
+                <p><strong>Parcela:</strong> Parcela 3</p>
+
+                <p><strong>Cultivo:</strong> Tomate Montserrat</p>
+
+                <p><strong>Operario:</strong> Alexis</p>
+
+                <p><strong>Categoría:</strong> Mantenimiento</p>
+
+                <p><strong>Trabajo:</strong> Poda</p>
+
+                <div class="acciones-formulario">
+
+                    <button class="boton">
+                        ✏️ Editar
+                    </button>
+
+                    <button class="boton">
+                        🗑️ Eliminar
+                    </button>
+
+                </div>
+
+            </div>
+
+            
+
+        </div>
+
+    </section>
+
+
+
+
+        <!-- ✅ BOTÓN BIEN COLOCADO -->
+        <div class="acciones-formulario">
+          <button type="submit" class="boton">Guardar labor</button>
+        </div>    
+    </main>
+
+<!--<script src="/cuaderno-olivar/js/campana-global.js"></script>
+<script src="../../cuaderno-olivar/js/supabase.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="../js/trabajos-agricolas.js"></script>
+<script src="/cuaderno-olivar/js/acceso.js"></script>
+<script src="../js/cuaderno-huerta.js"></script>-->
+
+
+<script src="../../cuaderno-olivar/js/riegos-global.js"></script>  
+<script src="../js/trabajos-agricolas.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../../cuaderno-olivar/js/supabase.js"></script>
+<script src="../js/cuaderno-huerta.js"></script>
+<script src="/cuaderno-olivar/js/acceso.js"></script>
+<script src="/cuaderno-olivar/js/campana-global.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+

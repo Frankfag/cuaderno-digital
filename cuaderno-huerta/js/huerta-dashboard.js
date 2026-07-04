@@ -640,38 +640,42 @@ if (!activos.length) {
 
       return `
 
-        <div class="riego-item">
+  <div class="riego-item">
 
-          <div class="riego-parcela">
-            🚿 ${r.parcela}
-          </div>
+    <div class="riego-info">
 
-          <div class="riego-detalle">
-            💧 ${r.sistema || "Goteo"}
-          </div>
+      <div class="riego-parcela">
+        🚿 ${r.parcela}
+      </div>
 
-          <div class="riego-detalle">
-            ⏱ Duración: ${minutosAHoras(r.minutos)}
-          </div>
+      <div class="riego-detalle">
+        💧 ${r.sistema || "Goteo"}
+      </div>
 
-          <div class="riego-fin">
-            🕒 Finaliza:
-            ${new Date(r.fechaHoraFinPrevista).toLocaleTimeString(
-              "es-ES",
-              {
-                hour: "2-digit",
-                minute: "2-digit"
-              }
-            )}
-          </div>
+      <div class="riego-detalle">
+        ⏱ Duración: ${minutosAHoras(r.minutos)}
+      </div>
 
-          <div class="riego-restante ${color}">
-            ⏳ ${restanteHorasTexto(ms)}
-          </div>
+      <div class="riego-fin">
+        🕒 Finaliza:
+        ${new Date(r.fechaHoraFinPrevista).toLocaleTimeString(
+          "es-ES",
+          {
+            hour: "2-digit",
+            minute: "2-digit"
+          }
+        )}
+      </div>
 
-        </div>
+    </div>
 
-      `;
+    <div class="riego-restante ${color}">
+      ⏳ ${restanteHorasTexto(ms)}
+    </div>
+
+  </div>
+
+`;
 
     }).join("")}
 

@@ -129,6 +129,10 @@ async function iniciarModulo() {
 
   await cargarParcelas();
 
+  cargarFiltroParcelas();
+
+  cargarFiltroCampañas();
+
   cargarCultivosParcela();
 
   configurarEventos();
@@ -317,6 +321,28 @@ function configurarEventos() {
       cargarTrabajosCategoria
     );
 
+  document
+  .getElementById("filtroParcela")
+  ?.addEventListener(
+    "change",
+    cargarListaTrabajos
+  );  
+
+  document
+  .getElementById("filtroCampana")
+  ?.addEventListener(
+    "change",
+    () => {
+
+      console.log(
+        "CAMBIO CAMPAÑA"
+      );
+
+      cargarListaTrabajos();
+
+    }
+  );
+
 }
 
 
@@ -326,109 +352,83 @@ function configurarEventos() {
 
 async function guardarTrabajo(e) {
 
-  async function guardarTrabajo(e) {
-
-  console.log("🚜 GUARDAR FUNCIONA");
-
-  alert("ENTRÓ EN GUARDAR");
-
   e.preventDefault();
 
-}
-async function guardarTrabajo(e) {
+  const trabajos = getTrabajos();
 
-    console.log("1");
+  const trabajoId =
+    document.getElementById("trabajoId").value;
 
-    e.preventDefault();
-
-    console.log("2");
-
-    const trabajos = getTrabajos();
-
-    console.log("3", trabajos);
-
-    const registro = {
-        id: Date.now()
-    };
-
-    console.log("4", registro);
-
-    trabajos.push(registro);
-
-    console.log("5", trabajos);
-
-    saveTrabajos(trabajos);
-
-    console.log("6");
-}
-
-  e.preventDefault();
-
-  const trabajos =
-    getTrabajos();
-
-  
   const selectOperario =
-  document.getElementById("operario");
+    document.getElementById("operario");
 
   const operarioNombre =
-  selectOperario.options[
-    selectOperario.selectedIndex
-  ].text;
+    selectOperario.options[
+      selectOperario.selectedIndex
+    ]?.text || "";
 
   const selectCultivo =
-  document.getElementById("cultivo");
+    document.getElementById("cultivo");
 
   const cultivoNombre =
-  selectCultivo.options[
-    selectCultivo.selectedIndex
-  ].text;
+    selectCultivo.options[
+      selectCultivo.selectedIndex
+    ]?.text || "";
 
-    const registro = {
+  const registro = {
 
-    id: Date.now(),
+    id: trabajoId || Date.now(),
 
     fecha:
-      document.getElementById(
-        "fecha"
-      ).value,
+      document.getElementById("fecha").value,
 
     campana:
-      document.getElementById(
-        "campana"
-      ).value,
+      document.getElementById("campana").value,
 
     parcela:
-      document.getElementById(
-        "parcela"
-      ).value,
+      document.getElementById("parcela").value,
 
     cultivo: cultivoNombre,
 
-    operario: operarioNombre,  
+    operario: operarioNombre,
 
     categoria:
-      document.getElementById(
-        "categoria"
-      ).value,
+      document.getElementById("categoria").value,
 
     trabajo:
-      document.getElementById(
-        "trabajo"
-      ).value,
+      document.getElementById("trabajo").value,
 
     observaciones:
-      document.getElementById(
-        "observaciones"
-      ).value,
+      document.getElementById("observaciones").value,
 
     activo: true
 
   };
 
-  trabajos.push(registro);
+  if (trabajoId) {
+
+    const indice =
+      trabajos.findIndex(
+        item =>
+          String(item.id) ===
+          String(trabajoId)
+      );
+
+    if (indice !== -1) {
+
+      trabajos[indice] = registro;
+
+    }
+
+  } else {
+
+     trabajos.unshift(registro);
+
+  }
 
   saveTrabajos(trabajos);
+
+  document.getElementById("trabajoId").value = "";
 
   cargarListaTrabajos();
 
@@ -554,13 +554,47 @@ function cargarTrabajosCategoria() {
 
 function cargarListaTrabajos() {
 
+  
+
   const lista =
-    document.getElementById("listaTrabajos");
+    document.getElementById(
+      "listaTrabajos"
+    );
 
   if (!lista) return;
 
-  const trabajos =
+  let trabajos =
     getTrabajos();
+
+  const filtroCampana =
+    document.getElementById(
+      "filtroCampana"
+    )?.value || "";
+
+  if (filtroCampana) {
+
+    trabajos = trabajos.filter(
+      item =>
+        item.campana === filtroCampana
+    );
+
+  }
+
+  
+
+  const filtroParcela =
+    document.getElementById(
+      "filtroParcela"
+    )?.value || "";
+
+  if (filtroParcela) {
+
+    trabajos = trabajos.filter(
+      item =>
+        item.parcela === filtroParcela
+    );
+
+  }
 
   lista.innerHTML = "";
 
@@ -575,7 +609,13 @@ function cargarListaTrabajos() {
     card.innerHTML = `
       <h3>✂️ ${item.trabajo || "-"}</h3>
 
-      <p><strong>Fecha:</strong> ${item.fecha || "-"}</p>
+      ${item.fecha
+  ? item.fecha
+      .split("-")
+      .reverse()
+      .join("/")
+  : "-"
+}
 
       <p><strong>Campaña:</strong> ${item.campana || "-"}</p>
 
@@ -589,11 +629,15 @@ function cargarListaTrabajos() {
 
       <div class="acciones-formulario">
 
-        <button class="boton">
+        <button
+          class="boton"
+          onclick="editarTrabajo(${item.id})">
           ✏️ Editar
         </button>
 
-        <button class="boton">
+        <button
+          class="boton"
+          onclick="eliminarTrabajo(${item.id})">
           🗑️ Eliminar
         </button>
 
@@ -603,5 +647,216 @@ function cargarListaTrabajos() {
     lista.appendChild(card);
 
   });
+
+}
+
+function cargarFiltroParcelas() {
+
+  const select =
+    document.getElementById(
+      "filtroParcela"
+    );
+
+  if (!select) return;
+
+  select.innerHTML = `
+    <option value="">
+      Todas las parcelas
+    </option>
+  `;
+
+  const PARCELAS_HUERTA = [
+    "Parcela 1",
+    "Parcela 2",
+    "Parcela 3",
+    "Parcela 4",
+    "Parcela 5",
+    "Parcela 6",
+    "Parcela 7"
+  ];
+
+  PARCELAS_HUERTA.forEach(parcela => {
+
+    const option =
+      document.createElement("option");
+
+    option.value = parcela;
+
+    option.textContent = parcela;
+
+    select.appendChild(option);
+
+  });
+
+}
+
+/* =====================================
+  BOTON y EDITAR TRABAJO
+===================================== */
+
+function editarTrabajo(id) {
+
+   console.log("EDITAR ID:", id);
+
+  const trabajos = getTrabajos();
+
+  const trabajo =
+  trabajos.find(
+    item =>
+      String(item.id) ===
+      String(id)
+  );
+
+  console.log("TRABAJO:", trabajo);
+
+
+  if (!trabajo) return;
+
+  document.getElementById(
+    "trabajoId"
+  ).value = trabajo.id;
+
+  document.getElementById(
+    "fecha"
+  ).value = trabajo.fecha;
+
+  document.getElementById(
+    "campana"
+  ).value = trabajo.campana;
+
+  document.getElementById(
+    "parcela"
+  ).value = trabajo.parcela;
+
+  const selectCultivo =
+  document.getElementById(
+    "cultivo"
+  );
+
+for (let i = 0; i < selectCultivo.options.length; i++) {
+
+  if (
+    selectCultivo.options[i].text ===
+    trabajo.cultivo
+  ) {
+
+    selectCultivo.selectedIndex = i;
+
+    break;
+
+  }
+
+}
+
+  const selectOperario =
+  document.getElementById(
+    "operario"
+  );
+
+for (let i = 0; i < selectOperario.options.length; i++) {
+
+  if (
+    selectOperario.options[i].text ===
+    trabajo.operario
+  ) {
+
+    selectOperario.selectedIndex = i;
+
+    break;
+
+  }
+
+}
+
+  document.getElementById(
+    "categoria"
+  ).value = trabajo.categoria;
+
+  cargarTrabajosCategoria();
+
+  document.getElementById(
+    "trabajo"
+  ).value = trabajo.trabajo;
+
+  document.getElementById(
+    "observaciones"
+  ).value = trabajo.observaciones || "";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+/* =====================================
+   BOTON ELIMINAR TRABAJO
+===================================== */
+
+function eliminarTrabajo(id) {
+
+  console.log("ELIMINAR ID:", id);
+
+  const trabajo = getTrabajos().find(
+  item =>
+    String(item.id) ===
+    String(id)
+);
+
+const confirmar = confirm(
+  `¿Eliminar el trabajo "${trabajo?.trabajo || "-"}"?`
+);
+
+
+  if (!confirmar) return;
+
+  let trabajos = getTrabajos();
+
+  trabajos = trabajos.filter(
+  item =>
+    String(item.id) !== String(id)
+);
+
+  saveTrabajos(trabajos);
+
+  cargarListaTrabajos();
+
+  actualizarContadorTrabajos();
+
+}
+
+/* =====================================
+   FILTRO CAMPAÑAS
+===================================== */
+
+function cargarFiltroCampañas() {
+
+  const select =
+    document.getElementById(
+      "filtroCampana"
+    );
+
+  if (!select) return;
+
+  select.innerHTML = `
+    <option value="">
+      Todas las campañas
+    </option>
+  `;
+
+  for (let i = 2023; i <= 2059; i++) {
+
+    const option =
+      document.createElement("option");
+
+    option.value =
+      `${i}-${i + 1}`;
+
+    option.textContent =
+      `${i}-${i + 1}`;
+
+    select.appendChild(option);
+
+  }
 
 }

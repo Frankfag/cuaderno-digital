@@ -32,7 +32,7 @@ input
 }
 
 /* =========================================================
-   LABELS
+   LABELS .CAMPO LABEL
    ========================================================= */
 
 .campo label,
@@ -42,6 +42,8 @@ input
   color:var(--dorado);
 
   font-weight:bold;
+
+  font-size: 20px;
 
 }
 
@@ -72,6 +74,8 @@ textarea,
 
   color:#ffffff;
 
+  font-size: 20px;
+
   border:1px solid rgba(255,215,0,.25);
 
   border-radius:10px;
@@ -79,6 +83,7 @@ textarea,
   transition:
     border-color .25s ease,
     box-shadow .25s ease;
+
 
 }
 
@@ -90,7 +95,7 @@ input::placeholder,
 textarea::placeholder,
 .campo input::placeholder,
 .campo textarea::placeholder{
-
+font-size: 20px;
   color:rgba(255,255,255,.70);
 
 }
@@ -127,7 +132,7 @@ textarea{
 }
 
 /* =========================================================
-   SELECTS
+   SELECTS DESPLEGABLE OPTIUM
    ========================================================= */
 
 select{
@@ -149,6 +154,8 @@ select option{
 
   color:#000000;
 
+  font-size: 15px;
+
 }
 
 #selectorCultivo optgroup{
@@ -158,6 +165,8 @@ select option{
   background:#f3f3f3;
 
   font-weight:bold;
+
+  
 
 }
 

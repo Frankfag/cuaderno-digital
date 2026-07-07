@@ -596,8 +596,8 @@ function cargarTabla() {
 
         <!-- 9. Celda de Acción (Forzada como columna final limpia) -->
         <td style="vertical-align: middle; text-align: center; padding: 6px; width: 140px; min-width: 140px;">
-          <button class="boton" onclick="marcarCosechado(${item.id})" style="display: block !important; width: 110px !important; margin: 4px auto !important; padding: 5px 0 !important; font-size: 11px !important;">Cosechado</button>
-          <button class="boton" onclick="desmarcarCosechado(${item.id})" style="display: block !important; width: 110px !important; margin: 4px auto !important; padding: 5px 0 !important; font-size: 11px !important;">Desmarcar</button>
+          <button class="boton" onclick="marcarCosechado(${item.id})" style="display: block !important; width: 110px !important; margin: 4px auto !important; padding: 5px 0 !important; font-size: 18px !important;">Cosechado</button>
+          <button class="boton" onclick="desmarcarCosechado(${item.id})" style="display: block !important; width: 110px !important; margin: 4px auto !important; padding: 5px 0 !important; font-size: 18px !important;">Desmarcar</button>
           <button class="boton boton-eliminar" onclick="borrarCultivo(${item.id})" style="display: block !important; width: 110px !important; margin: 4px auto !important; padding: 5px 0 !important; font-size: 11px !important;">🗑️ Eliminar</button>
         </td>
       `;

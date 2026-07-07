@@ -94,6 +94,40 @@ body{
 
 }
 
+/* Título dorado animado, igual a tu login */
+.header__titulo {
+  font-size: 30px;
+  font-weight: bold;
+
+  background: linear-gradient(
+    90deg,
+    #ffd700,
+    #ffecb3,
+    #ffd700,
+    #b8860b,
+    #ffd700
+  );
+  background-size: 300%;
+
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  animation: brilloDorado 4s linear infinite;
+}
+
+@keyframes brilloDorado {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 300% 50%;
+  }
+}
+
+
 /* =========================================================
    MENU ESCRITORIO
    ========================================================= */
@@ -245,12 +279,12 @@ body{
 }
 
 /* =========================================================
-   TARJETAS
+   TARJETAS PINTA JS 
    ========================================================= */
 
 .tarjeta{
 
-  
+  font-size: 20px;
 
   padding:20px;
 
@@ -261,6 +295,9 @@ body{
 
 }
 
+/* =========================================================
+   TARJETAS TITULO GLOBAL H3
+   ========================================================= */
 .tarjeta h3{
 
   color:var(--dorado);
@@ -268,6 +305,8 @@ body{
   margin-bottom:20px;
 
   text-align:center;
+
+  font-size: 22px;
 
 }
 
@@ -308,6 +347,8 @@ body{
 
   font-weight:bold;
 
+
+
 }
 
 .campo input,
@@ -315,7 +356,7 @@ body{
 .campo textarea{
 
   width:100%;
-
+  
   padding:10px;
 }
 
@@ -434,7 +475,7 @@ body{
 .tabla td:nth-child(3){
 
   text-align:left;
-
+  
 }
 
 /* =========================================================
@@ -470,6 +511,8 @@ body{
   color:var(--dorado);
 
   margin-bottom:8px;
+
+  font-size: 20px;
 
 }
 
@@ -611,16 +654,19 @@ body{
   .tabla td:nth-child(1)::before{
     content:"Fecha";
     color:var(--dorado);
+    
   }
 
   .tabla td:nth-child(2)::before{
     content:"Hora";
     color:var(--dorado);
+    
   }
 
   .tabla td:nth-child(3)::before{
     content:"Parcela";
     color:var(--dorado);
+    
   }
 
   .tabla td:nth-child(4)::before{
@@ -776,12 +822,15 @@ body{
    ========================================================== */
    .fila-riego-activo {
   background: rgba(0, 150, 255, 0.1);
+  font-size: 20px;
 }
 
 .fila-riego-pendiente {
   background: rgba(255, 200, 0, 0.1);
+  font-size: 20px;
 }
 
 .fila-riego-completado {
   background: rgba(0, 200, 100, 0.1);
+  font-size: 20px;
 }

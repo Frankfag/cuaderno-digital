@@ -61,6 +61,7 @@ Objetivos:
 
 ✅ Control de riego avanzado
 
+✅ Trabajos agrícolas
 ---
 
 ## Módulos en planificación

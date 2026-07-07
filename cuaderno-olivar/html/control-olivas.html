@@ -262,16 +262,30 @@
       </div>
     </section>
 
-    <!-- ======================================================
-         INFORME AUTOMÁTICO
+<!-- ======================================================
+         LISTADO VIAJES
          ====================================================== -->
-    <section class="tarjeta-panel" id="zonaInforme">
-      <h3>Informe automático en tablas</h3>
-      <div id="alertasStock" class="texto-alerta"></div>
-      <div id="reportTables" class="tabla-contenedor"></div>
+    <section class="tarjeta-panel">
+      <h3>Listado viajes</h3>
+
+      <div class="tabla-contenedor">
+        <table id="tablaViajes" class="tabla">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Destino</th>
+              <th>Kg</th>
+              <th>Referencia</th>
+              <th>Observaciones</th>
+              <th class="ocultar-print">Acción</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </section>
 
-    <!-- ======================================================
+<!-- ======================================================
          LISTADO CLIENTES
          ====================================================== -->
     <section class="tarjeta-panel">
@@ -296,28 +310,19 @@
       </div>
     </section>
 
-    <!-- ======================================================
-         LISTADO VIAJES
-         ====================================================== -->
-    <section class="tarjeta-panel">
-      <h3>Listado viajes</h3>
 
-      <div class="tabla-contenedor">
-        <table id="tablaViajes" class="tabla">
-          <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>Destino</th>
-              <th>Kg</th>
-              <th>Referencia</th>
-              <th>Observaciones</th>
-              <th class="ocultar-print">Acción</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
+    <!-- ======================================================
+         INFORME AUTOMÁTICO
+         ====================================================== -->
+    <section class="tarjeta-panel" id="zonaInforme">
+      <h3>Informe automático en tablas</h3>
+      <div id="alertasStock" class="texto-alerta"></div>
+      <div id="reportTables" class="tabla-contenedor"></div>
     </section>
+
+    
+
+    
 
     <!-- ======================================================
          ZONA IMPRESIÓN

@@ -306,7 +306,7 @@ body{
 
   text-align:center;
 
-  font-size: 22px;
+  font-size: 28px;
 
 }
 
@@ -822,15 +822,15 @@ body{
    ========================================================== */
    .fila-riego-activo {
   background: rgba(0, 150, 255, 0.1);
-  font-size: 20px;
+  font-size: 22px;
 }
 
 .fila-riego-pendiente {
   background: rgba(255, 200, 0, 0.1);
-  font-size: 20px;
+  font-size: 22px;
 }
 
 .fila-riego-completado {
   background: rgba(0, 200, 100, 0.1);
-  font-size: 20px;
+  font-size: 22px;
 }

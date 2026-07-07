@@ -329,7 +329,7 @@ body{
 
   color:#fff;
 
-  
+  font-size: 15px;
 }
 
 #btnPrintHuerta{
@@ -514,6 +514,13 @@ body{
 
 }
 
+/* =========================================================
+   LABEL FORMULARIOS
+   ========================================================= */
+.formulario-grid{
+  text-align: center;
+}
+
 .acciones-formulario{
 
   grid-column:1/-1;
@@ -599,7 +606,7 @@ body{
 
   text-align:center;
 
-  font-size: 22px;
+  font-size: 30px;
 
 }
 
@@ -612,6 +619,7 @@ body{
   gap: 16px;
   text-align: center;
   margin-top: 15px;
+  font-size: 25px;
 }
 
 .mini-pronostico div {
@@ -623,6 +631,7 @@ body{
 .mini-pronostico h4 {
   color: #ffd700;
   margin-bottom: 5px;
+  
 }
 
 .mini-pronostico p {

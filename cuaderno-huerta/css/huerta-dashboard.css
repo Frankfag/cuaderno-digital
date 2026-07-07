@@ -94,6 +94,38 @@ body{
 
 }
 
+/* Título dorado animado, igual a tu login */
+.header__titulo {
+  font-size: 30px;
+  font-weight: bold;
+
+  background: linear-gradient(
+    90deg,
+    #ffd700,
+    #ffecb3,
+    #ffd700,
+    #b8860b,
+    #ffd700
+  );
+  background-size: 300%;
+
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  animation: brilloDorado 4s linear infinite;
+}
+
+@keyframes brilloDorado {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 300% 50%;
+  }
+}
 
 
 /* =========================================================
@@ -263,6 +295,9 @@ body{
 
 }
 
+/* =========================================================
+   TITULO H3 CONTROL DE RIEGO FORMULARIOS
+   ========================================================= */
 .tarjeta h3{
 
   color:var(--dorado);
@@ -270,6 +305,8 @@ body{
   margin-bottom:20px;
 
   text-align:center;
+
+  font-size: 30px;
 
 }
 
@@ -773,6 +810,8 @@ body{
 
   margin-bottom:12px;
 
+  font-size: 28px;
+
 }
 
 .numero{
@@ -1077,16 +1116,16 @@ body{
   }
 
   .riego-parcela {
-    font-size: 16px;
+    font-size: 20px;
   }
 
   .riego-detalle,
   .riego-fin {
-    font-size: 12px;
+    font-size: 20px;
   }
 
   .riego-restante {
-    font-size: 22px;
+    font-size: 20px;
   }
 
 }
@@ -1121,7 +1160,7 @@ body{
 }
 
 /* -----------------------------------------------------
-   TÍTULOS DE SECCIÓN
+   TÍTULOS DE SECCIÓN MOVIL
 ----------------------------------------------------- */
 #riegoDashboardContenido h4,
 #riegoDashboardProgramados h4,
@@ -1130,6 +1169,7 @@ body{
 
   color: #ffffff;
   font-weight: 700;
+  font-size: 28px;
 }
 
 /* -----------------------------------------------------
@@ -1179,6 +1219,7 @@ body{
 
 .riego-item:hover .riego-parcela {
   color: #ffffff;
+  
 }
 
 /* -----------------------------------------------------
@@ -1272,7 +1313,7 @@ body{
 
   /* Parcela más visible */
   .riego-parcela {
-    font-size: 16px;
+    font-size: 28px;
     margin-bottom: 6px;
   }
 
@@ -1283,7 +1324,7 @@ body{
 
     margin: 3px 0;
 
-    font-size: 12px;
+    font-size: 20px;
   }
 
   /* Contador protagonista */
@@ -1292,7 +1333,7 @@ body{
 
     text-align: center;
 
-    font-size: 22px;
+    font-size: 30px;
     font-weight: 700;
   }
 

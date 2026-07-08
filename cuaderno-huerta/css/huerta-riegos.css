@@ -361,10 +361,12 @@ body{
 }
 
 /* =========================================================
-   BOTONES
+   BOTONES GUARDAR RIEGO, FINALIZAR, CANCELAR,INICIAR,X,RESETAR RIEGO
    ========================================================= */
 
 .boton{
+
+  font-size: 20px;
 
   border:none;
 
@@ -405,21 +407,26 @@ body{
 }
 
 /* =========================================================
-   ALERTAS
+   ALERTAS VERDES SEMANA ACTUAL.PC Y MOVIL
    ========================================================= */
 
 .alerta-box{
 
+  font-size: 20px;
+  
   border-radius:12px;
 
-  padding:15px;
+  padding:1px;
 
   text-align:center;
 
 }
 
+/* =========================================================
+   ALERTAS VERDES PC Y MOVIL
+   ========================================================= */
 .alerta-verde{
-
+font-size: 17px;
   background:
   rgba(60,191,97,.18);
 

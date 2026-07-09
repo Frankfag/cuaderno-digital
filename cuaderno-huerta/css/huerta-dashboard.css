@@ -1,5 +1,10 @@
 /* =========================================================
-   MASÍA CENTENARIA · HUERTA RIEGOS
+   MASÍA CENTENARIA
+   HUERTA CALENDARIO
+   ========================================================= */
+
+/* =========================================================
+   RESET
    ========================================================= */
 
 *{
@@ -8,18 +13,22 @@
   box-sizing:border-box;
 }
 
+/* =========================================================
+   VARIABLES
+   ========================================================= */
+
 :root{
 
   --dorado:#ffd700;
-  --verde:#3cbf61;
-  --rojo:#d9534f;
-  --amarillo:#f0ad4e;
+  --verde:#4caf50;
 
   --texto:#ffffff;
 
-  --panel:rgba(0,0,0,.28);
+  --panel:rgba(0,0,0,.30);
 
-  --borde:rgba(255,255,255,.12);
+  --borde:rgba(255,255,255,.15);
+
+  --sombra:0 8px 25px rgba(0,0,0,.40);
 
 }
 
@@ -35,12 +44,12 @@ body{
 
   min-height:100vh;
 
-  background:
-    linear-gradient(
-      rgba(0,0,0,.30),
-      rgba(0,0,0,.30)
-    ),
-    url("../img/olivo_centenario.jpg");
+  background-image:
+  linear-gradient(
+    rgba(0,0,0,.35),
+    rgba(0,0,0,.35)
+  ),
+  url("../img/img/olivo_centenario.jpg");
 
   background-size:cover;
 
@@ -56,32 +65,30 @@ body{
 
 .header{
 
-  display:flex;
+  display:flex !important;
 
-  justify-content:space-between;
+  justify-content:space-between !important;
 
-  align-items:center;
+  align-items:center !important;
 
-  gap:20px;
+  gap:20px !important;
 
-  padding:20px;
+  padding:35px !important;
 
 }
 
 .header__marca{
 
-  display:flex;
-
+  
+  display:flex ;
   align-items:center;
 
-  gap:10px;
-
-  
+  /*gap:1px;*/
 
 }
 
 .header__logo{
-
+  
   width:120px !important;
   height: 120px !important;
 
@@ -183,33 +190,33 @@ body{
 
 .boton-menu{
 
-  position:fixed;
+  position:fixed !important;
 
-  top:15px;
+  top:15px !important;
 
-  left:14px;
+  left:14px !important;
 
-  z-index:1100;
+  z-index:1100 !important;
 
-  display:none;
+  display:none; /*HACE DESAPARECER EL MENU HAMBURGUESA*/
 
-  width:50px;
+  width:50px !important;
 
-  height:50px;
+  height:50px !important;
 
-  border:none;
+  border:none !important;
 
-  border-radius:10px;
+  border-radius:10px !important;
 
-  background:rgba(0,0,0,.45);
+  background:rgba(0,0,0,.45) !important;
 
-  color:var(--dorado);
+  color:var(--dorado) !important;
 
-  font-size:28px;
+  font-size:28px !important;
 
-  cursor:pointer;
+  cursor:pointer !important;
 
-  backdrop-filter:blur(8px);
+  backdrop-filter:blur(8px) !important;
 
 }
 
@@ -257,7 +264,7 @@ body{
 
   font-weight:bold;
 
-  font-size: 20px;
+  font-size: 22px;
 
 }
 
@@ -268,7 +275,113 @@ body{
 }
 
 /* =========================================================
-   MAIN
+   EFECTOS VISUALES EXTRA
+   HOVER EN ENLACES, TARJETAS, BOTONES Y FICHA
+   ========================================================= */
+
+/* =========================================================
+   1) ENLACES DEL MENÚ ESCRITORIO
+   ========================================================= */
+.nav-huerta a {
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.20s ease,
+    box-shadow 0.25s ease;
+}
+
+.nav-huerta a:hover {
+  background: rgba(255, 215, 0, 0.28);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+/* =========================================================
+   2) ENLACES DEL MENÚ LATERAL
+   ========================================================= */
+.menu-lateral a {
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    padding-left 0.25s ease;
+}
+
+.menu-lateral a:hover {
+  background: rgba(255, 255, 255, 0.10);
+  color: var(--dorado);
+  padding-left: 22px;
+}
+
+/* =========================================================
+   HOVER TODOS LOS BOTONES
+   ========================================================= */
+
+.boton,
+.boton-eliminar,
+.boton-menu{
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    background .25s ease,
+    border-color .25s ease;
+
+}
+
+/* Botones normales */
+
+.boton:hover{
+
+  transform:translateY(-2px);
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.25);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,215,0,.45),
+      rgba(255,215,0,.20)
+    );
+
+}
+
+/* Botón eliminar */
+
+.boton-eliminar:hover{
+
+  transform:translateY(-2px);
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.25);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(220,53,69,.55),
+      rgba(220,53,69,.25)
+    );
+
+}
+
+/* Botón hamburguesa */
+
+.boton-menu:hover{
+
+  transform:scale(1.05);
+
+  background:
+    rgba(255,215,0,.12);
+
+  box-shadow:
+    0 0 12px rgba(255,215,0,.25);
+
+}
+
+
+/* =========================================================
+   MAIN ANCHO MARGEN PRINCIPAL
    ========================================================= */
 
 .main{

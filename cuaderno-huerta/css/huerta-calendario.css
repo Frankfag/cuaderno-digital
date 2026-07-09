@@ -65,43 +65,78 @@ body{
 
 .header{
 
-  display:flex;
+  display:flex !important;
 
-  justify-content:space-between;
+  justify-content:space-between !important;
 
-  align-items:center;
+  align-items:center !important;
 
-  gap:20px;
+  gap:20px !important;
 
-  padding:20px;
+  padding:35px !important;
 
 }
 
 .header__marca{
 
-  display:flex;
-
+  
+  display:flex ;
   align-items:center;
 
-  gap:15px;
+  /*gap:1px;*/
 
 }
 
 .header__logo{
-
-  width:90px;
+  
+  width:120px !important;
+  height: 120px !important;
 
 }
 
 .header__titulo{
 
-  font-size:30px;
+  color:var(--dorado);
+
+  font-size:30px !important;
 
   font-weight:bold;
 
-  color:var(--dorado);
-
 }
+
+/* Título dorado animado, igual a tu login */
+.header__titulo {
+  font-size: 30px;
+  font-weight: bold;
+
+  background: linear-gradient(
+    90deg,
+    #ffd700,
+    #ffecb3,
+    #ffd700,
+    #b8860b,
+    #ffd700
+  );
+  background-size: 300%;
+
+  background-clip: text;
+  -webkit-background-clip: text;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  animation: brilloDorado 4s linear infinite;
+}
+
+@keyframes brilloDorado {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 300% 50%;
+  }
+}
+
 
 /* =========================================================
    MENU ESCRITORIO
@@ -121,55 +156,246 @@ body{
 
   text-decoration:none;
 
-  color:var(--texto);
+  color:#ffffff;
 
   padding:8px 12px;
 
   border-radius:8px;
 
-  background:rgba(255,255,255,.08);
+  background:rgba(255,255,255,.05);
+
+  transition:.25s;
+
+}
+
+.nav-huerta a:hover{
+
+  background:rgba(255,215,0,.20);
+
+  transform:translateY(-2px);
 
 }
 
 .nav-huerta a.activo{
 
-  background:rgba(255,215,0,.25);
+  background:rgba(255,215,0,.20);
 
   color:var(--dorado);
 
 }
 
 /* =========================================================
-   MENU MOVIL
+   MENU HAMBURGUESA
    ========================================================= */
 
 .boton-menu{
 
-  display:none;
+  position:fixed !important;
+
+  top:15px !important;
+
+  left:14px !important;
+
+  z-index:1100 !important;
+
+  display:none; /*HACE DESAPARECER EL MENU HAMBURGUESA*/
+
+  width:50px !important;
+
+  height:50px !important;
+
+  border:none !important;
+
+  border-radius:10px !important;
+
+  background:rgba(0,0,0,.45) !important;
+
+  color:var(--dorado) !important;
+
+  font-size:28px !important;
+
+  cursor:pointer !important;
+
+  backdrop-filter:blur(8px) !important;
 
 }
 
 .menu-lateral{
 
-  display:none;
+  position:fixed;
+
+  top:0;
+
+  left:0;
+
+  z-index:1200;
+
+  width:240px;
+
+  height:100%;
+
+  padding-top:70px;
+
+  background:rgba(0,0,0,.35);
+
+  backdrop-filter:blur(10px);
+
+  transform:translateX(-100%);
+
+  transition:.25s;
+
+}
+
+.menu-lateral.activo{
+
+  transform:translateX(0);
+
+}
+
+.menu-lateral a{
+
+  display:block;
+
+  padding:12px 18px;
+
+  color:var(--dorado);
+
+  text-decoration:none;
+
+  font-weight:bold;
+
+  font-size: 22px;
+
+}
+
+.menu-lateral a:hover{
+
+  background:rgba(255,255,255,.08);
 
 }
 
 /* =========================================================
-   MAIN
+   EFECTOS VISUALES EXTRA
+   HOVER EN ENLACES, TARJETAS, BOTONES Y FICHA
    ========================================================= */
 
-.main-container{
+/* =========================================================
+   1) ENLACES DEL MENÚ ESCRITORIO
+   ========================================================= */
+.nav-huerta a {
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.20s ease,
+    box-shadow 0.25s ease;
+}
+
+.nav-huerta a:hover {
+  background: rgba(255, 215, 0, 0.28);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+/* =========================================================
+   2) ENLACES DEL MENÚ LATERAL
+   ========================================================= */
+.menu-lateral a {
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    padding-left 0.25s ease;
+}
+
+.menu-lateral a:hover {
+  background: rgba(255, 255, 255, 0.10);
+  color: var(--dorado);
+  padding-left: 22px;
+}
+
+/* =========================================================
+   HOVER TODOS LOS BOTONES
+   ========================================================= */
+
+.boton,
+.boton-eliminar,
+.boton-menu{
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    background .25s ease,
+    border-color .25s ease;
+
+}
+
+/* Botones normales */
+
+.boton:hover{
+
+  transform:translateY(-2px);
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.25);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,215,0,.45),
+      rgba(255,215,0,.20)
+    );
+
+}
+
+/* Botón eliminar */
+
+.boton-eliminar:hover{
+
+  transform:translateY(-2px);
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.25);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(220,53,69,.55),
+      rgba(220,53,69,.25)
+    );
+
+}
+
+/* Botón hamburguesa */
+
+.boton-menu:hover{
+
+  transform:scale(1.05);
+
+  background:
+    rgba(255,215,0,.12);
+
+  box-shadow:
+    0 0 12px rgba(255,215,0,.25);
+
+}
+
+
+/* =========================================================
+   MAIN ANCHO MARGEN PRINCIPAL
+   ========================================================= */
+
+.main{
 
   width:100%;
 
-  max-width:1400px;
+  max-width:1500px;
 
   margin:auto;
 
   padding:20px;
 
 }
+
 
 /* =========================================================
    TARJETAS
@@ -454,83 +680,6 @@ body{
 
   }
 
-  .header{
-
-    padding-left:70px;
-
-  }
-
-  .boton-menu{
-
-    display:block;
-
-    position:fixed;
-
-    top:15px;
-
-    left:15px;
-
-    width:42px;
-
-    height:42px;
-
-    z-index:3000;
-
-  }
-
-  .menu-lateral{
-
-    position:fixed;
-
-    left:-260px;
-
-    top:0;
-
-    width:250px;
-
-    height:100%;
-
-    background:#111;
-
-    padding-top:70px;
-
-    display:block;
-
-    transition:.3s;
-
-    z-index:2500;
-
-  }
-
-  .menu-lateral.activo{
-
-    left:0;
-
-  }
-
-  .menu-lateral a{
-
-    display:block;
-
-    padding:15px;
-
-    color:white;
-
-    text-decoration:none;
-
-  }
-
-  .header__logo{
-
-    width:70px;
-
-  }
-
-  .header__titulo{
-
-    font-size:20px;
-
-  }
 
   .calendario-grid{
 
@@ -559,44 +708,7 @@ body{
 
 }
 
-/* =========================================================
-   EFECTOS VISUALES EXTRA
-   HOVER EN ENLACES, TARJETAS, BOTONES Y FICHA
-   ========================================================= */
 
-/* =========================================================
-   1) ENLACES DEL MENÚ ESCRITORIO
-   ========================================================= */
-.nav-huerta a {
-  transition:
-    background 0.25s ease,
-    color 0.25s ease,
-    transform 0.20s ease,
-    box-shadow 0.25s ease;
-}
-
-.nav-huerta a:hover {
-  background: rgba(255, 215, 0, 0.28);
-  color: #ffffff;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-}
-
-/* =========================================================
-   2) ENLACES DEL MENÚ LATERAL
-   ========================================================= */
-.menu-lateral a {
-  transition:
-    background 0.25s ease,
-    color 0.25s ease,
-    padding-left 0.25s ease;
-}
-
-.menu-lateral a:hover {
-  background: rgba(255, 255, 255, 0.10);
-  color: var(--dorado);
-  padding-left: 22px;
-}
 
 /* =========================================================
    3) TARJETAS DE CULTIVOS

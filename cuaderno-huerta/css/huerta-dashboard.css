@@ -74,13 +74,16 @@ body{
 
   align-items:center;
 
-  gap:15px;
+  gap:10px;
+
+  
 
 }
 
 .header__logo{
 
-  width:85px;
+  width:120px !important;
+  height: 120px !important;
 
 }
 
@@ -88,7 +91,7 @@ body{
 
   color:var(--dorado);
 
-  font-size:30px;
+  font-size:30px !important;
 
   font-weight:bold;
 
@@ -182,7 +185,7 @@ body{
 
   position:fixed;
 
-  top:50px;
+  top:15px;
 
   left:14px;
 
@@ -190,9 +193,9 @@ body{
 
   display:none;
 
-  width:42px;
+  width:50px;
 
-  height:42px;
+  height:50px;
 
   border:none;
 
@@ -202,7 +205,7 @@ body{
 
   color:var(--dorado);
 
-  font-size:24px;
+  font-size:28px;
 
   cursor:pointer;
 
@@ -299,7 +302,7 @@ body{
 }
 
 /* =========================================================
-   TITULO H3 CONTROL DE RIEGO FORMULARIOS
+   TITULO H3 RESUMEN GENERAL DE CAMPAÑA
    ========================================================= */
 .tarjeta h3{
 
@@ -353,14 +356,13 @@ ICONO + TITULO PANEL RAPIDO
 
     margin-bottom:20px;
 
-    
 
     
 }
 
 .icono-dashboard{
-    width:70px;
-    height:70px;
+    width:100px;
+    height:80px;
     
 }
 
@@ -857,6 +859,9 @@ arrriba ICONO + TITULO PANEL RAPIDO
 
 }
 
+/* =========================================================
+   TITULOS LABEL DENTRO DE LAS TARJETAS RESUMEN GENERAL DE CAMPAÑA DASHBOARD
+   ========================================================= */
 .tarjeta-mini h4{
 
   color:var(--dorado);
@@ -1191,11 +1196,11 @@ arrriba ICONO + TITULO PANEL RAPIDO
 
 }
 /* =====================================================
-   INFORMACION TARJETA EN CURSO DE RIEGO - DASHBOARD
+   INFORMACION DE LA PARCELA (NOTA) EN CURSO REGANDO - DASHBOARD
 ===================================================== */
 .cultivo-riego {
     color: #9cff9c;
-    font-size: 20px;
+    font-size: 28px;
     margin-top: 4px;
     margin-bottom: 6px;
     font-style: italic;
@@ -1203,9 +1208,7 @@ arrriba ICONO + TITULO PANEL RAPIDO
 
 
 
-/* =====================================================
-   CONTROL DE RIEGO - DASHBOARD
-===================================================== */
+
 
 /* -----------------------------------------------------
    TARJETA PRINCIPAL
@@ -1232,13 +1235,12 @@ arrriba ICONO + TITULO PANEL RAPIDO
 }
 
 /* -----------------------------------------------------
-   TÍTULOS DE SECCIÓN MOVIL
+   TÍTULOS DE SECCIÓN EN CURSO, PROGRAMADOS,COMPLETADOS
 ----------------------------------------------------- */
 #riegoDashboardContenido h4,
 #riegoDashboardProgramados h4,
 #riegoDashboardCompletados h4 {
   margin: 0 0 10px;
-
   color: #ffffff;
   font-weight: 700;
   font-size: 28px;
@@ -1384,9 +1386,9 @@ arrriba ICONO + TITULO PANEL RAPIDO
     margin-bottom: 10px;
   }
 
-  /* Parcela más visible */
+  /* INFORMACION PARCELA EN CURSO REGANDO */
   .riego-parcela {
-    font-size: 28px;
+    font-size: 30px;
     margin-bottom: 6px;
   }
 
@@ -1507,15 +1509,18 @@ arrriba ICONO + TITULO PANEL RAPIDO
    BARRA LATERAL INDIFICATIVO EN CURSO, PROGRAMADOS, COMPLETADOS
 ----------------------------------------------------- */
 .tarjeta-riego-curso {
-    border-left: 6px solid #00ff66 !important; 
+    border-left: 6px solid #00ff66 !important;
+    border-right: 6px solid #00ff66 !important;  
 }
 
 .tarjeta-riego-programados {
     border-left: 6px solid #ffd700 !important;
+    border-right: 6px solid #ffd700 !important;
 }
 
 .tarjeta-riego-completados {
     border-left: 6px solid #00aaff !important;
+    border-right: 6px solid #00aaff !important;
 }
 
 

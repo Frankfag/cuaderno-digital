@@ -182,7 +182,7 @@ body{
 
   position:fixed;
 
-  top:82px;
+  top:50px;
 
   left:14px;
 
@@ -202,7 +202,7 @@ body{
 
   color:var(--dorado);
 
-  font-size:22px;
+  font-size:24px;
 
   cursor:pointer;
 
@@ -254,6 +254,8 @@ body{
 
   font-weight:bold;
 
+  font-size: 20px;
+
 }
 
 .menu-lateral a:hover{
@@ -282,9 +284,10 @@ body{
    TARJETAS
    ========================================================= */
 
-.tarjeta{
 
-  
+
+   
+   .tarjeta{
 
   padding:20px;
 
@@ -306,24 +309,72 @@ body{
 
   text-align:center;
 
-  font-size: 30px;
+  font-size: 33px;
 
 }
 
 /* =========================================================
-   FORMULARIOS
+FORMULARIOS
    ========================================================= */
+.formulario-grid {
 
-.formulario-grid{
+    display:grid;
 
-  display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
 
-  grid-template-columns:
-  repeat(auto-fit,minmax(220px,1fr));
-
-  gap:15px;
+    gap:15px;
 
 }
+ 
+
+/* =========================================================
+ICONO + TITULO PANEL RAPIDO
+   ========================================================= */
+.panel-titulo-rapido {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+.panel-titulo-rapido {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    justify-content:center;
+
+    margin-bottom:20px;
+
+    
+
+    
+}
+
+.icono-dashboard{
+    width:70px;
+    height:70px;
+    
+}
+
+.panel-titulo-rapido h3{
+    font-size: 30px;
+    margin:0;
+    color:#ffd700;
+    text-shadow:0 0 10px rgba(255,215,0,.4);
+
+}
+
+/* =========================================================
+arrriba ICONO + TITULO PANEL RAPIDO
+   ========================================================= */
 
 .campo{
 
@@ -664,7 +715,7 @@ body{
   }
 
   .tabla td:nth-child(4)::before{
-    content:"Min";
+    content:"Horas de riego";
     color:var(--dorado);
   }
 
@@ -760,6 +811,8 @@ body{
    DASHBOARD
    ========================================================= */
 
+
+   
 .grid-dashboard{
 
   display:grid;
@@ -948,6 +1001,8 @@ body{
 /* -----------------------------------------------------
    TARJETA PRINCIPAL
 ----------------------------------------------------- */
+
+
 .tarjeta-riego-dashboard {
   border: 2px solid #ffd700;
   border-radius: 14px;
@@ -959,6 +1014,7 @@ body{
 
   box-shadow: 0 0 15px rgba(255, 215, 0, 0.15);
 }
+
 
 /* -----------------------------------------------------
    BLOQUES
@@ -1044,7 +1100,7 @@ body{
 .riego-fin {
   margin-top: 4px;
 
-  color: #bdbdbd;
+  color: #faf7f7;
   font-size: 12px;
 }
 
@@ -1081,6 +1137,11 @@ body{
   color: #ff5252;
   animation: parpadeo 1s infinite;
 }
+
+
+
+
+
 
 /* -----------------------------------------------------
    ANIMACIÓN ESTADO CRÍTICO
@@ -1129,6 +1190,17 @@ body{
   }
 
 }
+/* =====================================================
+   INFORMACION TARJETA EN CURSO DE RIEGO - DASHBOARD
+===================================================== */
+.cultivo-riego {
+    color: #9cff9c;
+    font-size: 20px;
+    margin-top: 4px;
+    margin-bottom: 6px;
+    font-style: italic;
+}
+
 
 
 /* =====================================================
@@ -1175,6 +1247,7 @@ body{
 /* -----------------------------------------------------
    ITEM DE RIEGO
 ----------------------------------------------------- */
+
 .riego-item {
   display: flex;
   justify-content: space-between;
@@ -1324,7 +1397,7 @@ body{
 
     margin: 3px 0;
 
-    font-size: 20px;
+    font-size: 24px;
   }
 
   /* Contador protagonista */
@@ -1429,3 +1502,35 @@ body{
 
   line-height: 1.5;
 }
+
+/* -----------------------------------------------------
+   BARRA LATERAL INDIFICATIVO EN CURSO, PROGRAMADOS, COMPLETADOS
+----------------------------------------------------- */
+.tarjeta-riego-curso {
+    border-left: 6px solid #00ff66 !important; 
+}
+
+.tarjeta-riego-programados {
+    border-left: 6px solid #ffd700 !important;
+}
+
+.tarjeta-riego-completados {
+    border-left: 6px solid #00aaff !important;
+}
+
+
+/* -----------------------------------------------------
+   COLOREAR LOS TITULOS EN CURSO, PROGRAMADOS, COMPLETADOS
+----------------------------------------------------- */
+#riegoDashboardContenido h4 {
+    color: #00ff66;
+}
+
+#riegoDashboardProgramados h4 {
+    color: #ffd700;
+}
+
+#riegoDashboardCompletados h4 {
+    color: #00aaff;
+}
+

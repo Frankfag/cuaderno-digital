@@ -279,7 +279,7 @@ body{
 }
 
 /* =========================================================
-   TARJETAS PINTA JS 
+   TARJETAS PINTA JS CARGANDO INFORME SEMANAL Y IMPUST DENTRO RADAR TIEMPO
    ========================================================= */
 
 .tarjeta{
@@ -292,6 +292,8 @@ body{
 
   box-shadow:
   0 8px 30px rgba(0,0,0,.25);
+
+  
 
 }
 
@@ -338,6 +340,7 @@ body{
 .campo--doble{
 
   grid-column:1/-1;
+  
 
 }
 
@@ -407,12 +410,18 @@ body{
 }
 
 /* =========================================================
-   ALERTAS VERDES SEMANA ACTUAL.PC Y MOVIL
+   ALERTAS AMRILLO NARANJA JA PINTA: SEMANA ACTUAL.PC Y MOVIL
    ========================================================= */
 
 .alerta-box{
 
-  font-size: 20px;
+  margin-top: 20px;
+
+  margin-bottom: 20px;
+
+  line-height: 1.6;
+
+  font-size: 17px;
   
   border-radius:12px;
 
@@ -677,7 +686,7 @@ font-size: 17px;
   }
 
   .tabla td:nth-child(4)::before{
-    content:"Min";
+    content:"Horas de riego";
     color:var(--dorado);
   }
 

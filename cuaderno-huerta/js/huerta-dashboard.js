@@ -648,6 +648,15 @@ if (!activos.length) {
         🚿 ${r.parcela}
       </div>
 
+      
+${r.notas
+  ? `<div class="cultivo-riego">
+       🌱 ${r.notas}
+     </div>`
+  : ""}
+
+
+
       <div class="riego-detalle">
         💧 ${r.sistema || "Goteo"}
       </div>

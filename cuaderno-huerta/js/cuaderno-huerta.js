@@ -845,7 +845,8 @@ function actualizarAlerta(lluvia, estado) {
     texto.textContent = "⚠️ POSIBLE LLUVIA - VALORAR RIEGO";
   } else {
     box.classList.add("alerta-verde");
-    texto.textContent = "✅ CONDICIÓN NORMAL - RIEGO PERMITIDO";
+    texto.textContent =
+  "✅ CALOR A REGA OK";
   }
 }
 

@@ -199,13 +199,31 @@ function escaparHTML(str) {
     .replace(/"/g, "&quot;");
 }
 
-function restanteTexto(ms) {
+/*function restanteTexto(ms) {
   if (ms <= 0) return "00:00";
   const totalSeg = Math.floor(ms / 1000);
   const min = Math.floor(totalSeg / 60);
   const seg = totalSeg % 60;
   return `${String(min).padStart(2, "0")}:${String(seg).padStart(2, "0")}`;
+}*/
+
+function restanteTexto(ms) {
+
+  if (ms <= 0) return "0:00 h";
+
+  const totalMin =
+    Math.floor(ms / 60000);
+
+  const horas =
+    Math.floor(totalMin / 60);
+
+  const minutos =
+    totalMin % 60;
+
+  return `${horas}:${String(minutos).padStart(2, "0")} h`;
+
 }
+
 
 function obtenerInicioSemana(fecha = new Date()) {
   const d = new Date(fecha);
@@ -924,7 +942,7 @@ function actualizarInformeSemanal() {
     box.classList.add("alerta-amarilla");
     box.innerHTML = `
       <p><strong>Semana actual:</strong> ${inicioSemana.toLocaleDateString("es-ES")} - ${finSemana.toLocaleDateString("es-ES")}</p>
-      <p>No has definido todavía las parcelas de control semanal.</p>
+      <p>No hay parcelas guardadas .</p>
     `;
     return;
   }
@@ -1092,7 +1110,8 @@ function actualizarAlertaMeteo(lluvia, estado) {
     texto.textContent = "⚠️ POSIBLE LLUVIA - VALORAR RIEGO";
   } else {
     box.classList.add("alerta-verde");
-    texto.textContent = "✅ CONDICIÓN NORMAL - RIEGO PERMITIDO";
+    texto.textContent =
+  "✅ CALOR A REGA OK";
   }
 }
 

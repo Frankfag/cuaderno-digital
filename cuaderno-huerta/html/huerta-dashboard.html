@@ -50,7 +50,7 @@
 
   <div id="menuLateral" class="menu-lateral">
   <a href="/cuaderno-olivar/html/index.html">Inicio Principal</a>    
-  <a href="/cuaderno-huerta/html/huerta-dashboard.html"class="activo">📊Panel Huerta</a>
+  <a href="/cuaderno-huerta/html/huerta-dashboard.html"class="activo"> Panel</a>
   <a href="/cuaderno-huerta/html/huerta-riegos.html">🚿Regar</a>
   <a href="/cuaderno-huerta/html/cuaderno-huerta.html" >🌿 Huerta</a>
   <a href="/cuaderno-huerta/html/trabajos-agricolas.html">📋Trabajos Agricolas</a>
@@ -62,24 +62,35 @@
 <!-- ===================================== -->
 <!-- CONTROL DE RIEGO -->
 <!-- ===================================== -->
+
+<div class="panel-titulo-rapido">
+
+    <img class="icono-dashboard"  src="../../cuaderno-huerta/img/icono/dashboard-icono.png" alt="">
+
+    <h3>PANEL RÁPIDO</h3>
+
+</div>
+
 <section class="tarjeta">
 
-  <h3>🚿 Control de riego</h3>
-
-  <div class="grid-dashboard">
+ 
 
     <!-- EN CURSO -->
-    <div class="tarjeta-mini tarjeta-riego-dashboard">
-      <div id="riegoDashboardContenido"></div>
+    
+<div class="tarjeta-mini tarjeta-riego-dashboard tarjeta-riego-curso  ">
+
+      <div id="riegoDashboardContenido" ></div>
     </div>
 
     <!-- PROGRAMADOS -->
-    <div class="tarjeta-mini tarjeta-riego-dashboard">
+    
+<div class="tarjeta-mini tarjeta-riego-dashboard tarjeta-riego-programados">
+
       <div id="riegoDashboardProgramados"></div>
     </div>
 
     <!-- COMPLETADOS -->
-    <div class="tarjeta-mini tarjeta-riego-dashboard">
+    <div class="tarjeta-mini tarjeta-riego-dashboard tarjeta-riego-completados">
       <div id="riegoDashboardCompletados"></div>
     </div>
 
@@ -91,6 +102,8 @@
 <!-- ===================================== -->
 <!-- RESUMEN PRINCIPAL -->
 <!-- ===================================== -->
+
+
 <section class="tarjeta">
 
   <h3>Resumen general de campaña</h3>

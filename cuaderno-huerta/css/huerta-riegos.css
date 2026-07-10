@@ -968,3 +968,13 @@ font-size: 17px;
   background: rgba(0, 200, 100, 0.1);
   font-size: 22px;
 }
+
+
+.ayuda-hora{
+    display:block;
+    color:#ccc;
+    font-size:0.8rem;
+    margin-top:-10px;
+    margin-bottom:10px;
+    text-align:center;
+}

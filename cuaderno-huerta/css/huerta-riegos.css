@@ -969,12 +969,16 @@ font-size: 17px;
   font-size: 22px;
 }
 
-
+/* ==========================================================
+   HORA PREVISTA EL IMPUTS HACER DE COLOR SUAVE
+   ========================================================== */
 .ayuda-hora{
     display:block;
-    color:#ccc;
+    color: #ffffff;
+    opacity: 0.8;
     font-size:0.8rem;
     margin-top:-10px;
     margin-bottom:10px;
-    text-align:center;
+    text-align:left;
+    
 }

@@ -1018,7 +1018,7 @@ function actualizarAlertaGeneral() {
   }
 
   box.classList.add("alerta-verde");
-  texto.textContent = "✅ Sin alertas de riego. Todo controlado.";
+  texto.textContent = "✅ Todo controlado.";
 }
 
 // =====================================
@@ -1111,7 +1111,7 @@ function actualizarAlertaMeteo(lluvia, estado) {
   } else {
     box.classList.add("alerta-verde");
     texto.textContent =
-  "✅ CALOR A REGA OK";
+  "✅ CALOR A REGAR OK";
   }
 }
 

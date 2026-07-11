@@ -93,17 +93,17 @@
 .detalle-cultivo h2{
 
   color:var(--dorado);
-
+  
 }
 
 /* =========================================================
-   TARJETAS MINI
+   INFORME TEXTO DENTRO DE LAS TARJETAS MINI HISTORIAL DE TRAABJO
    ========================================================= */
 
 .tarjeta-mini,
 .tarjeta-mini-panel{
-
   text-align:center;
+  
 
 }
 

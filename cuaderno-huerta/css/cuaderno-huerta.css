@@ -440,17 +440,23 @@ body{
 
 .boton-accion{
 
+  margin-top: 30px; /*ESPACIO ENTRE LOS BOTONES Y IMPUTS AÑO SELECTOR*/
+  
+  margin-bottom: 30px;/*ESPACIO ENTRE LOS BOTONES Y LA CAJA ALERTA VERDE CALOR TOCA REGAR OK*/
+  
   border:none;
 
   border-radius:8px;
 
-  padding:12px 18px;
+  padding:12px 25px; /*12PX IZQ. ALTO DEL BOTON Y EL 25PX DERECHO OCUPÓ LOS 3 BOTONES EL ANCHO DE SU CAJA*/
 
   cursor:pointer;
 
   color:#fff;
 
   font-size: 15px;
+
+  
 }
 
 #btnPrintHuerta{
@@ -525,9 +531,10 @@ body{
 .botoncultivo {
   display: inline-block;
   padding: 10px 16px;
-
-  margin-top: 10px;   /* ✅ en vez de -100px */
-
+  width: 200px;
+  height: 45px;
+  margin-bottom: 15px;   /* ✅ en vez de -100px */
+font-size: 22px;
   border-radius: 10px;
   border: 1px solid rgba(255, 215, 0, 0.6);
 
@@ -703,9 +710,11 @@ body{
 
   border-radius:12px;
 
-  padding:15px;
+  padding:12px;
 
   text-align:center;
+
+  font-size: 22px;
 
 }
 
@@ -717,22 +726,24 @@ body{
 }
 
 /* =====================================
-✅ RADAR PRO TITULO TIEMPO LOCAL EN REUS
+✅ TITULO CONTROL DE RUTINAS
 ===================================== */
 .tarjeta h3{
 
   color:var(--dorado);
 
-  margin-bottom:20px;
+  margin-top: 40px;
 
+  margin-bottom: 20px;
+  
   text-align:center;
 
-  font-size: 30px;
+  font-size: 40px;
 
 }
 
 /* =====================================
-✅ RADAR PRO CAJAS ADENTRO
+✅ RADAR PRO LABEL TITULOS CAJAS ADENTRO
 ===================================== */
 .mini-pronostico {
   display: grid;
@@ -741,12 +752,14 @@ body{
   text-align: center;
   margin-top: 15px;
   font-size: 25px;
+  
 }
 
 .mini-pronostico div {
   padding: 15px;
   border-radius: 12px;
   background: rgba(255,255,255,0.05);
+  
 }
 
 .mini-pronostico h4 {
@@ -796,6 +809,7 @@ body{
 .mini-pronostico p {
   font-size: 20px;
   font-weight: bold;
+  
 }
 
 @media (max-width: 900px) {
@@ -873,6 +887,7 @@ body{
     max-width: 100% !important;
     padding: 12px !important;
     box-sizing: border-box !important;
+    
   }
 
   #tabla-historico-cultivos {
@@ -881,6 +896,7 @@ body{
     overflow: visible !important;
     padding: 0 !important;
     background: transparent !important;
+    
   }
 
   /* TABLA -> TARJETAS */
@@ -898,11 +914,13 @@ body{
   
   #tabla-historico-cultivos .tabla thead {
     display: none !important;
+    
   }
 
   #tabla-historico-cultivos .tabla tbody {
     display: block !important;
     width: 100% !important;
+    
   }
 
   /* CADA CULTIVO = TARJETA */
@@ -934,7 +952,7 @@ body{
     white-space: normal !important;
     word-break: break-word !important;
     box-sizing: border-box !important;
-    font-size: 15px !important;
+    font-size: 18px !important;
     line-height: 1.2 !important;
   }
 
@@ -942,7 +960,7 @@ body{
   #tabla-historico-cultivos .tabla tbody tr td::before {
     display: block !important;
     margin-bottom: 3px !important;
-    font-size: 17px !important;
+    font-size: 20px !important;
     line-height: 1.1 !important;
     font-weight: 700 !important;
     letter-spacing: .35px !important;
@@ -963,25 +981,33 @@ body{
 
   /* FILA 3: NOTAS */
   #tabla-historico-cultivos .tabla tbody tr td:nth-child(7) {
+
     grid-column: 1 / -1 !important;
     padding-top: 8px !important;
-    border-top: 1px solid rgba(255,255,255,0.10) !important;
+    border-top: 1px solid rgba(255,255,255,250) !important;
+    border-bottom: 1px solid rgba(255,255,255,250) !important;
     align-items: flex-start !important;
     text-align: left !important;
+    font-size: 22px !important;
+    
   }
 
   #tabla-historico-cultivos .tabla tbody tr td:nth-child(7)::before {
     content: "Notas";
+    
+    
   }
 
   /* FILA 4: CHECKLIST */
   #tabla-historico-cultivos .tabla tbody tr td:nth-child(8) {
+    
     grid-column: 1 / -1 !important;
     padding-top: 8px !important;
     border-top: 1px solid rgba(255,255,255,0.10) !important;
     width: 100% !important;
     max-width: 100% !important;
     display: block !important;
+    
   }
   
 /*LABEL TAREAS CHECHLIST MOVIL*/
@@ -990,7 +1016,7 @@ body{
     display: block !important;
     text-align: center !important;
     margin-bottom: 8px !important;
-    font-size: 17px !important;
+    font-size: 20px !important;
     font-weight: 700 !important;
 
   }
@@ -1005,6 +1031,7 @@ body{
     gap: 8px !important;
     margin: 0 !important;
     justify-items: center !important;
+    
   }
 
   /* CADA CHECK MÁS ANCHO Y CENTRADO */
@@ -1032,6 +1059,7 @@ body{
     transform: scale(1.2) !important;
     margin: 0 !important;
     flex: 0 0 auto !important;
+    
   }
 
   /* OCULTAR RESUMEN TIPO “Checklist pendiente” */
@@ -1174,7 +1202,7 @@ body{
   font-size:14px;
 
   font-weight:bold;
-
+border: 1px solid rgba(255,255,255,255);
 }
 
   #tabla-historico-cultivos .tabla tbody tr td:nth-child(9)::before {
@@ -1218,6 +1246,7 @@ body{
 }
 .check-resumen{
     display:none !important;
+    
 }
 }
 
@@ -1296,6 +1325,9 @@ body{
 
   }
 
+  /* ==========================================================
+   BOTON X ELIMINAR
+   ========================================================== */
   #tabla-historico-cultivos .tabla tbody tr td:nth-child(9) .boton-eliminar::after{
 
     content:"✕";
@@ -1314,7 +1346,7 @@ body{
 
     color:#fff;
 
-    font-size:14px;
+    font-size:25px;
 
     font-weight:bold;
 

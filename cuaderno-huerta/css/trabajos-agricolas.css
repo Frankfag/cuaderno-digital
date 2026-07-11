@@ -405,15 +405,17 @@ body{
   margin: 20px auto;
   padding: 18px;
   border-radius: 16px;
-
+  gap:500px
   
 }
-
-.tarjeta h3 {
+/* -----------------------------
+   TITULOS H2 DE LAS 2 TARJETAS
+----------------------------- */
+.tarjeta h2 {
   text-align: center;
   color: #ffd700;
-  margin-bottom: 18px;
-  font-size: 24px;
+  margin-bottom: 30px;
+  font-size: 30px;
 }
 
 /* -----------------------------
@@ -435,19 +437,32 @@ body{
   grid-column: 1 / -1;
 }
 
+
+/* -----------------------------
+  TITULOS LABEL DE LOS IMPUTS
+----------------------------- */
 .campo label {
   color: #ffd700;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 28px !important;
 }
 
-.campo input,
+/* -----------------------------
+  TEXTO IMPUTS
+----------------------------- */
+.campo input{
+  font-size: 22px !important;
+}
+
+
 .campo select,
 .campo textarea {
   width: 100%;
   padding: 10px 12px;
   min-height: 44px;
-  font-size: 15px;
+  font-size: 22px !important;
+  
+  color: #fff!important;
 }
 
 .campo textarea {
@@ -455,9 +470,12 @@ body{
   resize: vertical;
 }
 
+/* -----------------------------
+  TEXAREA IMPUTS
+----------------------------- */
 .campo input::placeholder,
 .campo textarea::placeholder {
-  color: #666666;
+  color: #978e8e !important;
 }
 
 /* -----------------------------
@@ -490,7 +508,7 @@ body{
     rgba(255,215,0,0.35),
     rgba(255,215,0,0.15)
   );
-
+  font-size: 22px !important;
   color: #111;
   font-weight: bold;
   text-decoration: none;
@@ -538,7 +556,7 @@ body{
 .tabla th,
 .tabla td {
   padding: 12px 10px;
-  font-size: 14px;
+  font-size: 22px;
   text-align: center;
   border-bottom: 1px solid rgba(255,255,255,0.10);
 }
@@ -560,7 +578,7 @@ body{
 .tabla td:last-child .boton-eliminar {
   padding: 6px 10px;
   min-height: 34px;
-  font-size: 13px;
+  font-size: 50px;
 }
 
 /* -----------------------------
@@ -585,8 +603,11 @@ body{
     padding: 16px;
   }
 
+  /* -----------------------------
+   TITULO DE CAJA CAJA RESUMEN TRABAJO AGRIGOLA
+----------------------------- */
   .tarjeta h3 {
-    font-size: 22px;
+    font-size: 28px !important;
   }
 
   .formulario-grid {
@@ -735,4 +756,16 @@ body{
     display:none !important;
   }
 
+}
+
+/* =========================================================
+   INFORME TEXTO DENTRO DE LAS TARJETAS MINI HISTORIAL DE TRAABJO
+   ========================================================= */
+.tarjeta-mini h3,
+.tarjeta-mini,
+.tarjeta-mini-panel{
+  font-size: 22px !important;
+  text-align:center;
+  margin-top: 50px;
+  margin-bottom: 20px !important;
 }

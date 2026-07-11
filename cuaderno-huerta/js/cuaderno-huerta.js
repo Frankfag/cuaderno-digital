@@ -740,7 +740,7 @@ function actualizarAlertaPlagas() {
   }
 
   box.classList.add("alerta-roja");
-  texto.textContent = `🚨 Control de rutinas pendiente en ${pendientes.length} cultivos. Ejemplos: ${nombres}`;
+  texto.textContent = `🚨 Rutinas pendiente en ${pendientes.length} cultivos. en: ${nombres}`;
 }
 
 
@@ -846,7 +846,7 @@ function actualizarAlerta(lluvia, estado) {
   } else {
     box.classList.add("alerta-verde");
     texto.textContent =
-  "✅ CALOR A REGA OK";
+  "✅ Calor, toca Regar OK";
   }
 }
 

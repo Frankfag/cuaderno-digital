@@ -584,6 +584,32 @@ const baseCultivos = {
   },
 
   // =====================================
+  // CULTIVO · ALCACHOFA
+  // =====================================
+  
+  alcachofa: {
+    id: "alcachofa",
+    nombre: "Alcachofa",
+    icono: "🍏",
+    imagen: "../img/alcachofa.png",
+    meses: ["julio", "agosto", "septiembre"],
+
+    temporadaSiembra: "Verano (esquejes) / Primavera (semilla)",
+    tipoSiembra: "Esqueje directo (zueco) o Semillero",
+    profundidad: "10 cm",
+    distancia: "80 - 100 cm",
+    riego: "Abundante",
+
+    tiempoCosecha: "4 - 5 meses (esqueje)",
+    temporadaCosecha: "Otoño y Primavera",
+    clima: "Mediterráneo, 15ºC - 24ºC",
+    plagas: "Pulgón negro, caracoles, barrenador",
+    beneficiosos: "Lechuga, guisantes, habas",
+    perjudiciales: "Hinojo, patata, tomate"
+  },
+
+  
+  // =====================================
   // CULTIVO · RÁBANO
   // =====================================
   
@@ -607,6 +633,8 @@ const baseCultivos = {
     beneficiosos: "Lechuga, zanahoria, espinaca",
     perjudiciales: "Hyssopo o aromáticas muy invasivas"
   }
+
+  
 };
 
 
@@ -808,12 +836,48 @@ function verCultivo(id) {
   grid.classList.remove("fade-out");
 
   detalle.innerHTML = `
-    <button
-      class="boton boton-volver-cultivo"
-      type="button"
-      onclick="volverCultivos()">
-      ← Volver al calendario
-    </button>
+    
+  <div class="formulario-grid ficha-grid">
+      <div class="campo">
+        <label>Nombre</label>
+        <input type="text" id="checkNombreCultivo" value="${c.nombre}" readonly>
+      </div>
+
+      <div class="campo">
+        <label>Cantidad</label>
+        <input type="number" id="checkCantidadCultivo" min="1" value="1">
+      </div>
+
+      <div class="campo">
+        <label>Precio (€)</label>
+        <input type="number" id="checkPrecioCultivo" min="0" step="0.01" value="0">
+      </div>
+    </div>
+
+    <div class="acciones-ficha-cultivo">
+      <button
+        class="boton"
+        type="button"
+        onclick="anadirChecklist('${c.id}')">
+        ✅ Añadir a la lista de compra
+      </button>
+
+      <button
+        class="boton boton-volver-cultivo"
+        type="button"
+        onclick="volverCultivos()">
+        ← Volver al calendario
+      </button>
+      
+      <!--
+       <button
+        class="boton"
+        type="button"
+        onclick="window.print()">
+        🖨️ Imprimir ficha
+      </button>
+      -->
+
 
     <img src="${c.imagen}" alt="${c.nombre}" class="ficha-imagen">
 
@@ -839,37 +903,14 @@ function verCultivo(id) {
 
     <hr>
 
-    <div class="formulario-grid ficha-grid">
-      <div class="campo">
-        <label>Nombre</label>
-        <input type="text" id="checkNombreCultivo" value="${c.nombre}" readonly>
-      </div>
-
-      <div class="campo">
-        <label>Cantidad</label>
-        <input type="number" id="checkCantidadCultivo" min="1" value="1">
-      </div>
-
-      <div class="campo">
-        <label>Precio (€)</label>
-        <input type="number" id="checkPrecioCultivo" min="0" step="0.01" value="0">
-      </div>
-    </div>
-
-    <div class="acciones-ficha-cultivo">
-      <button
-        class="boton"
+    <button
+        class="boton boton-volver-cultivo"
         type="button"
-        onclick="anadirChecklist('${c.id}')">
-        ✅ Añadir al checklist
-      </button>
+        onclick="volverCultivos()">
+        ← Volver al calendario
+      </button>  
 
-      <button
-        class="boton"
-        type="button"
-        onclick="window.print()">
-        🖨️ Imprimir ficha
-      </button>
+   
     </div>
   `;
 
@@ -890,6 +931,11 @@ function verCultivo(id) {
     });
   }, 300);
 }
+
+
+
+
+
 
 // =========================================================
 // VOLVER AL CALENDARIO
@@ -973,7 +1019,7 @@ function renderResumenChecklistCultivos() {
 
   contenedor.innerHTML = `
     <div style="margin-bottom: 15px; text-align:center;">
-      <strong>Total estimado:</strong> ${euros(totalGeneral)}
+      <strong > Total Compra:</strong> ${euros(totalGeneral)}
     </div>
 
     <div class="tabla-contenedor">
@@ -984,7 +1030,7 @@ function renderResumenChecklistCultivos() {
             <th>Cantidad</th>
             <th>Precio</th>
             <th>Total</th>
-            <th>Acción</th>
+            <th class="no-print">Acción</th>
           </tr>
         </thead>
         <tbody>
@@ -994,7 +1040,7 @@ function renderResumenChecklistCultivos() {
               <td>${item.cantidad}</td>
               <td>${euros(item.precio)}</td>
               <td>${euros(item.total)}</td>
-              <td>
+              <td class="no-print">
                 <button
                   class="boton boton-eliminar"
                   type="button"

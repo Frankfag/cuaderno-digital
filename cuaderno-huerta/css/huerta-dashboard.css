@@ -1652,3 +1652,36 @@ arrriba ICONO + TITULO PANEL RAPIDO
     color: #00aaff;
 }
 
+/* -----------------------------------------------------
+   MOVIL NUEVA REJILLA EN CURSO, PROGRAMADOS, COMPLETADOS
+----------------------------------------------------- */
+.tarjeta-riego-dashboard {
+
+    min-height: 250px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: flex-start;
+
+}
+
+
+/* -----------------------------------------------------
+   PC NUEVA REJILLA EN CURSO, PROGRAMADOS, COMPLETADOS
+----------------------------------------------------- */
+@media (min-width: 1200px){
+
+    .grid-dashboard {
+
+        display:grid;
+
+        grid-template-columns:
+        repeat(4,1fr);
+
+        gap:15px;
+
+    }
+
+}

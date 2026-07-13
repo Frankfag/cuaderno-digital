@@ -419,6 +419,8 @@ body{
 
   margin-bottom:20px;
 
+  font-size: 26px;
+
 }
 
 /* =========================================================
@@ -577,6 +579,8 @@ body{
    ========================================================= */
 
 .boton{
+
+  font-size: 22px;
 
   border:none;
 
@@ -773,13 +777,14 @@ body{
     background 0.30s ease;
 }
 
-/* Cuando la ficha está visible, le damos más presencia */
+/* FICHA DESCRIPCION CULTIVOS */
 .detalle-cultivo:not(.oculto) {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.10);
   border-radius: 14px;
   padding: 18px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  font-size: 20px;
 }
 
 /* Título de la ficha con entrada elegante */
@@ -1060,8 +1065,8 @@ body{
    ========================================================= */
 .ficha-imagen{
   display:block;
-  width:100%;
-  max-width:520px;
+  width:20%;
+  max-width:520px; /*ESTRECHAR O AGRANDAR LAS IMAGENES*/
   margin:0 auto 20px auto;
   border-radius:14px;
   box-shadow:0 8px 24px rgba(0,0,0,.30);
@@ -1271,7 +1276,7 @@ body{
    ========================================================= */
 .detalle-cultivo{
   display:block;
-  transition:opacity .35s ease, transform .35s ease;
+  transition:opacity .3s ease, transform .35s ease;
 }
 
 .detalle-cultivo.oculto{
@@ -1296,10 +1301,11 @@ body{
 }
 
 /* =========================================================
-   BOTÓN VOLVER
+   BOTÓN VOLVER AL CALENDARIO
    ========================================================= */
 .boton-volver-cultivo{
   margin-bottom:18px;
+  font-size: 20px;
 }
 
 /* =========================================================
@@ -1626,6 +1632,7 @@ select:hover{
   .boton-accion{
     
  border:none;
+    font-size: 22px;
     border-radius:8px;
     padding:12px 18px;
     color:white;
@@ -1643,3 +1650,41 @@ select:hover{
   min-width:220px;
   
 }
+
+/* ==========================================================
+   BOTON LISTA DE COMPRA VERDURAS, OCULTAR COSAS QUE SOBRAN AL IMPRIMIR
+   ========================================================== */
+   @media print {
+    #btnImprimirResumen,
+    .campo label,
+    
+    .no-print,
+    .boton-menu,
+    #gridCalendarioCultivo,
+    #detalleCultivo,
+    #selectorMesCalendario,
+    #selectorMesCalendario,
+    #selectorCultivo,
+    .card-cultivo {
+        display: none !important;
+    }
+
+}
+
+
+@media print {
+
+    
+    .lista,
+    #resumenChecklistCultivos,
+    #resumenChecklistCultivos * {
+        visibility: visible;
+    }
+
+    
+
+}
+
+
+
+

@@ -766,6 +766,47 @@ body{
 .tarjeta-mini-panel{
   font-size: 22px !important;
   text-align:center;
-  margin-top: 50px;
+  margin-top: 15px;
   margin-bottom: 20px !important;
 }
+
+
+
+
+
+/* =========================================================
+   PC 3 TARJETAS POR FILAS
+   ========================================================= */
+@media (min-width:1200px){
+
+    #listaTrabajos{
+
+        display:grid;
+
+        grid-template-columns:
+        repeat(4,1fr) !important;
+
+        
+
+    }
+
+}
+
+
+/* =========================================================
+   PC  TARJETAS tarjetas de igual altura
+   ========================================================= */
+#listaTrabajos{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(320px,1fr));
+    gap:15px;
+    align-items:stretch;
+}
+
+#listaTrabajos .tarjeta-mini{
+    height:100%;
+}
+
+
+

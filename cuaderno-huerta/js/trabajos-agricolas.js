@@ -329,6 +329,13 @@ function configurarEventos() {
   );  
 
   document
+  .getElementById("filtroCategoria")
+  ?.addEventListener(
+    "change",
+    cargarListaTrabajos
+  );
+
+  document
   .getElementById("filtroCampana")
   ?.addEventListener(
     "change",
@@ -587,6 +594,21 @@ function cargarListaTrabajos() {
       "filtroParcela"
     )?.value || "";
 
+    const filtroCategoria =
+  document.getElementById(
+    "filtroCategoria"
+  )?.value || "";
+
+if (filtroCategoria) {
+
+  trabajos = trabajos.filter(
+    item =>
+      item.categoria === filtroCategoria
+  );
+
+}
+
+
   if (filtroParcela) {
 
     trabajos = trabajos.filter(
@@ -624,6 +646,9 @@ function cargarListaTrabajos() {
       <p><strong>Cultivo:</strong> ${item.cultivo || "-"}</p>
 
       <p><strong>Operario:</strong> ${item.operario || "-"}</p>
+
+      
+      ${item.observaciones? `<p><strong>Nota:</strong> ${item.observaciones}</p>`: ""} 
 
       <p><strong>Categoría:</strong> ${item.categoria || "-"}</p>
 
@@ -689,6 +714,42 @@ function cargarFiltroParcelas() {
   });
 
 }
+
+// =====================================
+// RESET SOLO TRABAJOS AGRICOLAS
+// =====================================
+
+document
+  .getElementById("btnResetTrabajos")
+  ?.addEventListener(
+    "click",
+    function () {
+
+      const respuesta = prompt(
+        "⚠️ ATENCIÓN\n\nEscribe ELIMINAR para borrar todos los trabajos agrícolas."
+      );
+
+      if (respuesta !== "ELIMINAR") {
+        alert("Operación cancelada.");
+        return;
+      }
+
+      localStorage.removeItem(
+        STORAGE_TRABAJOS_HUERTA
+      );
+
+      cargarListaTrabajos();
+      actualizarContadorTrabajos();
+
+      alert(
+        "✅ Trabajos agrícolas eliminados."
+      );
+
+    }
+  );
+
+
+
 
 /* =====================================
   BOTON y EDITAR TRABAJO

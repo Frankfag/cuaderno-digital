@@ -66,7 +66,6 @@ Objetivos:
 
 ## Módulos en planificación
 
-🔲 Trabajos Agrícolas
 
 🔲 Cuaderno Fitosanitario
 
@@ -299,6 +298,20 @@ Estado:
 Versión:
 
 1.0
+
+### Actualización Julio 2026
+
+✅ Vista PC mejorada mediante tarjetas en rejilla.
+
+✅ Historial adaptado a escritorio.
+
+✅ Filtro por categoría implementado.
+
+✅ Notas / observaciones visibles en las tarjetas.
+
+✅ Botón Resetear trabajos implementado.
+
+✅ Visualización optimizada para móvil y PC.
 
 ### Tabla oficial
 
@@ -589,13 +602,39 @@ Observaciones
 ↓
 Guardar
 
-### Pendiente
+### Estado actual
 
-- Crear tabla Supabase
-- Implementar JS
-- Guardado Supabase
-- Historial dinámico
-- Integración Dashboard
+✅ Crear registros
+
+✅ Editar registros
+
+✅ Eliminar registros
+
+✅ Reset de registros con confirmación
+
+✅ Historial dinámico
+
+✅ Contador de registros
+
+✅ Filtro por campaña
+
+✅ Filtro por parcela
+
+✅ Filtro por categoría
+
+✅ Observaciones visibles en historial
+
+✅ Responsive móvil
+
+✅ Vista PC optimizada (rejilla de tarjetas)
+
+✅ Campaña integrada mediante getCampañaHuerta()
+
+🔲 Tabla Supabase
+
+🔲 Sincronización Supabase
+
+🔲 Resumen Dashboard
 
 ---
 
@@ -1073,18 +1112,16 @@ Pendiente implementación.
 
 # 🎯 SIGUIENTE OBJETIVO DEL PROYECTO
 
-Crear:
 
-🚜 Trabajos Agrícolas
+🧪 Cuaderno Fitosanitario
 
 Orden recomendado:
 
-1. Diseñar tabla Supabase
-2. Diseñar estructura HTML
-3. Diseñar CSS
-4. Implementar JS
-5. Historial
-6. Integración Dashboard
+1. Gestión de Productos
+2. Catálogo de productos
+3. Cuaderno Fitosanitario
+4. Integración Dashboard
+5. PDF e impresión
 
 ---
 
